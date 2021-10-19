@@ -15,5 +15,5 @@ Tuna Dalbeler 21802539
 
 ##### Deliverables
 
-Proposal:[[Github]](https://github.com/OguzKaanImamoglu/Online-Course-Platform/blob/main/Group%201%20Proposal.pdf) [[Google Drive]](https://docs.google.com/document/d/1LM5VS6MT3cDnsI_oO8nN7vY9bLUAT5O_I7LejMuM8go/edit?usp=sharing)
+Proposal:[[Github]](https://github.com/OguzKaanImamoglu/Online-Course-Platform/blob/main/Group%201%20Proposal.pdf) [[Google Drive]](https://docs.google.com/document/d/17n14EgSR7i4Im_jHueK-UOxeT5s4sd2QEcyfGfCwWnw/edit#)
 
