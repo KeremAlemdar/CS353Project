@@ -15,5 +15,5 @@ Tuna Dalbeler 21802539
 
 ##### Deliverables
 
-Proposal:[[Google Drive]](https://docs.google.com/document/d/17n14EgSR7i4Im_jHueK-UOxeT5s4sd2QEcyfGfCwWnw/edit?usp=sharing) [[Pdf]](./CS353_Proposal.pdf)
+Proposal:[[Pdf]](./CS353_Proposal.pdf)
 
