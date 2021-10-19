@@ -1,2 +1,4 @@
 show_downloads: true
+github:
+  zip_url: ./CS353_Proposal.pdf
 theme: jekyll-theme-cayman
