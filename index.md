@@ -15,5 +15,5 @@ Tuna Dalbeler 21802539
 
 ##### Deliverables
 
-Proposal:[[Pdf]](./CS353_Proposal.pdf)
+Proposal: [[Pdf]](./CS353_Proposal.pdf)
 
