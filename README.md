@@ -1,4 +1,4 @@
-# Online-Course-Platform
+# Travel Agency
 
 ### CS-353 Term Project Group 8
 
