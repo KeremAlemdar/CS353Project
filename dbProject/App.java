@@ -13,8 +13,8 @@ public class App {
 
         final String dbName = "dbproject";
         final String URL = "jdbc:mysql://localhost:33076" + dbName;
-        final String user = "kerem.alemdar";
-        final String pass = "2d18yHIu";        
+        final String user = "root";
+        final String pass = "";        
 
         Connection con = null;
         Statement stmt = null;

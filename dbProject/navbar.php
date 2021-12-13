@@ -1,3 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .topnav {
+            display: flex;
+            justify-content: center;
+            font-size: 35px;
+        }
+        .search {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
 <div>
     <div class="topnav">
         <a class="active" href="#home">Home</a>
@@ -6,7 +21,7 @@
         <a href="#about">About</a>
     </div>
 
-    <div>
+    <div class="search">
         <form action='vacation.php' method='post'>
             <tr>
             <td><input type='text' name='searchKey'></td>
@@ -16,5 +31,5 @@
             </tr>
         </form>
     </div>
-
 </div>
+</html>
