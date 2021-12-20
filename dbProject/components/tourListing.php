@@ -12,7 +12,7 @@ $vacations = array(["Tour Name", "Tour Details", "https://mediap.flypgs.com/awh/
         }
 
         .tours {
-            width: 65%;
+            width: 80%;
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
@@ -28,11 +28,12 @@ $vacations = array(["Tour Name", "Tour Details", "https://mediap.flypgs.com/awh/
             margin-right: 2.5%;
             border: 2px solid black;
             display: flex;
+            background-color: red;
         }
 
         img {
-            width: 400px;
-            height: 300px;
+            width: 80%;
+            height: 100%;
         }
     </style>
 </head>
@@ -52,6 +53,8 @@ $vacations = array(["Tour Name", "Tour Details", "https://mediap.flypgs.com/awh/
                     <div>
                         <h1>
                             <?php echo $vacations[$vacation][0] ?>
+                        </h1>
+                        <h1>
                             <?php echo $vacations[$vacation][1] ?>
                         </h1>
                     </div>
