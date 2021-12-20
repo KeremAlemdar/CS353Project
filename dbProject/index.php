@@ -6,28 +6,16 @@ $return = $_GET["msg"];
 <!DOCTYPE html>
 <html>
     <head>
-        <title>User Login</title>
+        <title>TEST</title>
     </head>
     <body>
-        <form action="login.php" method="post">
-            Username: <input type="text" name="name">
-            <br><br>
-            Password: <input type="password" name="password">
-            <br><br>
-            <?php if($return == "username") : ?>
-                <td>Username cannot be empty</td>
-                <br><br>
-            <?php elseif($return == "password") : ?>
-                <td>Password cannot be empty</td>
-                <br><br>
-            <?php elseif($return == "wrong") : ?>
-                <td>Incorrect username or password</td>
-                <br><br>
-            <?php elseif($return == "failed") : ?>
-                <td>Website is out of service</td>
-                <br><br>
-            <?php endif; ?>
-            <input type="submit" name="logIn" value="Sign in">
-        </form>
+        <div>deneme</div>
+        <a href='./login.php'>Login</a>
+        <a href='./mainPage.php'>MainPage</a>
+        <a href='./categories.php'>Categories</a>
+        <a href='./tour.php'>Tour</a>
+        <a href='./tourListing.php'>TourListing</a>
+        <a href='./vacation.php'>Vacation</a>
+        <a href='./vacationDetails.php'>VacationDetails</a>
     </body>
 </html>
