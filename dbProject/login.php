@@ -1,5 +1,5 @@
 <?php
-include('config.php');
+include('./connection/config.php');
 session_start();
 $error = 0;
 if (isset($_POST['logIn'])) {

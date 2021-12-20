@@ -1,7 +1,7 @@
 
 <?php
-include("navbar.php");
-include("categories.php");
+include("./components/navbar.php");
+include("./components/categories.php");
 ?>
 <!DOCTYPE html>
 <html>

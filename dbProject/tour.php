@@ -1,4 +1,4 @@
 <?php
-include("navbar.php");
-include("tourListing.php");
+include("./components/navbar.php");
+include("./components/tourListing.php");
 ?>
