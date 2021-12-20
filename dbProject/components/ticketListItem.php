@@ -2,11 +2,14 @@
 <html>
 <style>
     .ticketsContainer {
-        width: 1800px;
-        height: 400px;
+        width: 1300px;
+        height: 200px;
     }
 
     .ticketItem {
+        border-radius: 5px;
+        border-width: 2px;
+        border: solid;
         width: 100%;
         height: 100%;
         display: flex;
@@ -15,15 +18,15 @@
     }
 
     .informations {
-        background-color: black;
         display: flex;
         flex-direction: column;
         height: 100%;
         width: 80%;
+        border-right: solid;
+        border-width: 1px;
     }
 
     .departure {
-        background-color: gray;
         display: flex;
         justify-content: space-between;
         flex-direction: row;
@@ -34,7 +37,6 @@
     }
 
     .arrival {
-        background-color: blue;
         display: flex;
         justify-content: space-between;
         flex-direction: row;
@@ -45,7 +47,6 @@
     }
 
     .price {
-        background-color: violet;
         height: 100%;
         width: 20%;
         text-align: center;
