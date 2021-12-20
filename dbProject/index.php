@@ -1,5 +1,5 @@
 <?php
-include("checkSession.php");
+include("./connection/checkSession.php");
 $return = "start";
 if (isset($_GET["msg"]))
 $return = $_GET["msg"];
