@@ -28,7 +28,6 @@ $vacations = array(["Tour Name", "Tour Details", "https://mediap.flypgs.com/awh/
             margin-right: 2.5%;
             border: 2px solid black;
             display: flex;
-            background-color: red;
         }
 
         img {
