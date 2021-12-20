@@ -4,6 +4,6 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 if (!isset($_SESSION['cid'])) {
-    header("location: index.php");
+    header("location: login.php");
 }
 ?>

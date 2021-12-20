@@ -16,7 +16,6 @@ $vacations = array(["Tour Name", "Tour Details", "https://mediap.flypgs.com/awh/
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-
         }
 
         .tours>* {
