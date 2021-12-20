@@ -1,6 +1,6 @@
 <?php
-include("checkSession.php");
-include("navbar.php");
+include("./connection/checkSession.php");
+include("./components/navbar.php");
 # Tour(tour_id, start_date, end_date, tour_information)
 # Tour_Activity (activity_id, tour_id, date)
 # Activity (activity_id, content, name, location, price, categories)
