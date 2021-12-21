@@ -17,21 +17,24 @@
         .search input{
             border-radius: 3px;
             border-color: #cc9900;
+            height: 150%;
+            font-size: 20px;
+        }
+        .search button{
+            width: 8%;
+            font-size: 25px;
+            border-radius: 3px;
+            border-color: #cc9900;
+            height: 150%;
         }
         button {
             background-color: white;
         }
         .search_bar input[type=text]{
             width: 37%;
-            font-size: 20px;
         }
         .search_bar input[type=date]{
             width: 25%;
-            font-size: 20px;
-        }
-        .search_bar button {
-            width: 8%;
-            font-size: 25px;
         }
 
     </style>
@@ -43,9 +46,8 @@
         <a href="#contact">Contact</a>
         <a href="#about">About</a>
     </div>
-
     <div class="search">
-        <form class="search_bar" action='vacation.php' method='post'>
+        <form class="search_bar" action='tour.php' method='post'>
             <tr>
             <td><input type='text' placeholder="Search.." name='searchKey'></td>
             <td><input type='date' placeholder="Start Date" name='start_date'></td>

@@ -1,63 +1,20 @@
 <?php
+include("./components/navbar.php");
+include("./connection/checkSession.php");
+$user_id =  isset($_GET['user_id']) ? $_GET['user_id'] : "";
 
-$start_date = isset($_POST['start_date']) ? $_POST['start_date'] : "";
-$end_date =  isset($_POST['end_date']) ? $_POST['end_date'] : "";
-$searchKey =  isset($_POST['searchKey']) ? $_POST['searchKey'] : "";
-// if(empty($start_date) && empty($end_date) && empty($searchKey)) {
-//     echo 'values  null';
-// }
-// else {
-//     echo $start_date;
-//     echo $end_date;
-//     echo $searchKey;
-// }
-if(empty($start_date) && empty($end_date)) {
-    if(empty($searchKey)) {
-        $query = "select * from tour";
-    }
-    else {
-        $query = "select * from tour where tour_information LIKE '%" . $searchKey . "%'";
-    }
-}
-else if(empty($start_date)) {
-    if(empty($searchKey)) {
-        $query = "select * from tour where
-    tour.end_date = ". $end_date ."";
-    }
-    else {
-        $query = "select * from tour where tour_information LIKE '%" . $searchKey . "%'
-    and tour.end_date = ". $end_date ."";
-    }
-}
-else if(empty($end_date)) {
-    if(empty($searchKey)) {
-        $query = "select * from tour where
-    tour.start_date = ". $start_date . "";
-    }
-    else {
-        $query = "select * from tour where tour_information LIKE '%" . $searchKey . "%'
-    and tour.start_date = ". $start_date . "";
-    }
-}
-else {
-    if(empty($searchKey)) {
-        $query = "select * from tour where
-    tour.start_date = ". $start_date . " and tour.end_date = ". $end_date ."";
-    }
-    else {
-        $query = "select * from tour where tour_information LIKE '%" . $searchKey . "%'
-    and tour.start_date = ". $start_date . " and tour.end_date = ". $end_date ."";
-    }
-}
-// echo $query;
+
+$user_id = 1; // FOR TEST PURPOSES
+$query = "select * from tour natural join bucket where user_id =". $user_id ."";
+echo $query;
 $result = $mysqli->query($query);
-
 ?>
+
 <!DOCTYPE html>
 <html>
 
 <head>
-    <style>
+<style>
         .all {
             display: flex;
             justify-content: center;
@@ -103,11 +60,12 @@ $result = $mysqli->query($query);
     </style>
 </head>
 <body>
-    <div class="all">
+<div class="all">
         <div class="tours">
             <?php
             while ($tuple = $result->fetch_array(MYSQLI_NUM)) {
-            # Tour(tour_id, start_date, end_date, tour_information, image)
+            # TourBucket(tour_id, start_date, end_date, tour_information, 
+            # image, tour_name, user_id)
             ?>
                 <div class="tour">
                     <div class="img">

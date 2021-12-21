@@ -51,6 +51,10 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("tour_activity table is deleted!");
 
+            sql = "DROP TABLE IF EXISTS bucket";
+            stmt.executeUpdate(sql);
+            System.out.println("bucket table is deleted!");
+
             sql = "DROP TABLE IF EXISTS tour";
             stmt.executeUpdate(sql);
             System.out.println("tour table is deleted!");
@@ -98,6 +102,19 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("tour_activity table created!");
 
+            sql = "CREATE TABLE bucket " +
+            "(user_id INT(12), " +
+            " activity_id INT(12), " +
+            " tour_id INT(12), " +
+            " date DATE, " +
+            " PRIMARY KEY ( user_id, tour_id ), " +
+            " FOREIGN KEY (activity_id) REFERENCES activity(activity_id), " +
+            " FOREIGN KEY (tour_id) REFERENCES tour(tour_id))" +
+            " ENGINE=innodb;";
+            
+            stmt.executeUpdate(sql);
+            System.out.println("bucket table created!");
+
             //Tour(tour_id, start_date, end_date, tour_information)
             //Tour_Activity (activity_id, tour_id, date)
             //Activity (activity_id, content, name, location, price, categories)
@@ -136,6 +153,14 @@ public class App {
             stmt.executeUpdate(sql);
             sql = "INSERT INTO tour_activity " +
             "VALUES ('2', '2', '2021/11/20')";
+            stmt.executeUpdate(sql);
+
+            //insert tuples to bucket
+            sql = "INSERT INTO bucket " +
+            "VALUES ('1', null, '1', null)";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO bucket " +
+            "VALUES ('1', null, '2', null)";
             stmt.executeUpdate(sql);
 
 
