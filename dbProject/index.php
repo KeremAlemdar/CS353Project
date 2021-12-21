@@ -33,6 +33,7 @@ $return = $_GET["msg"];
         <div class="links">
         <div><a href='./tour.php'>TourListing</a></div>
         <div><a href='./tourDetails.php?id=1'>TourDetails</a></div>
+        <div><a href='./deneme.php'>FontAwesome</a></div>
         </div>
         </div>
         <div class="person">

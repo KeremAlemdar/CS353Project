@@ -1,8 +1,8 @@
 <?php
 include("./connection/checkSession.php");
 include("./components/navbar.php");
-# Tour(tour_id, start_date, end_date, tour_information)
-# Tour_Activity (activity_id, tour_id, date)
+# Tour(tour_id, start_date, end_date, tour_information, image)
+# Tour_Activity (activity_id, tour_id, date, image)
 # Activity (activity_id, content, name, location, price, categories)
 
 $tour_id = $_GET["id"];
@@ -38,7 +38,7 @@ $activities = $mysqli->query($query);
             flex-wrap: wrap;
         }
         .activity {
-            width: 10%;
+            width: 10%; /* increase activity size */
             justify-content: center;
             margin-left: 2.5%;
             margin-right: 2.5%;
@@ -72,7 +72,7 @@ $activities = $mysqli->query($query);
                 <div>-</div>
                 <div>" . $tuple[2] . "</div>
                 </div>
-                <div><img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiQc9dZn33Wnk-j0sXZ19f8NiMZpJys7nTlA&usqp=CAU'/></div>
+                <div><img src='./img/".$tuple[4]."'/></div>
 
                 <div><h2>Tour Details</h2></div>
                 <div class='tour_details'>" . $tuple[3] . "</div>
@@ -88,7 +88,7 @@ $activities = $mysqli->query($query);
 
                 echo "
                 <div class='activity'>
-                <div><img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiQc9dZn33Wnk-j0sXZ19f8NiMZpJys7nTlA&usqp=CAU'/></div>
+                <div><img src='./img/".$tuple[8]."'/></div>
                 <div class='information'>
                     <div>" . $tuple[4] . "</div>
                     <div>" . $tuple[6] . "</div>
@@ -97,7 +97,7 @@ $activities = $mysqli->query($query);
                 </div>
                 ";
             }
-            echo "</div></div>"
+            echo "</div></div>";
             ?>            
         </div>
     </body>

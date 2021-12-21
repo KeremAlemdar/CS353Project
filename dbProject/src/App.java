@@ -67,6 +67,7 @@ public class App {
             " location VARCHAR(255), " +
             " price FLOAT(12,2), " +
             " categories VARCHAR(255), " +
+            " image VARCHAR(255), " +
             " PRIMARY KEY ( activity_id ))" +
             " ENGINE=innodb;";
             stmt.executeUpdate(sql);
@@ -77,6 +78,8 @@ public class App {
             " start_date DATE, " +
             " end_date DATE, " +
             " tour_information VARCHAR(255), " +
+            " image VARCHAR(255), " +
+            " tour_name VARCHAR(255), " +
             " PRIMARY KEY ( tour_id ))" +
             " ENGINE=innodb;";
             
@@ -101,18 +104,24 @@ public class App {
 
             //insert tuples to tour
             sql = "INSERT INTO tour " +
-            "VALUES ('1', '1997/03/03', '2000/03/03', 'This tour is in besiktas and MUKEMMEL')";
+            "VALUES ('1', '1997/03/03', '2000/03/03', 'This tour is in besiktas and MUKEMMEL', 'tour1.jpg', 'France Tour')";
             stmt.executeUpdate(sql);
             sql = "INSERT INTO tour " +
-            "VALUES ('2', '2001/12/23', '2021/12/20', 'This tour is also MUKEMMEL but in diyarbakir')";
+            "VALUES ('2', '2001/12/23', '2021/12/20', 'This tour is also MUKEMMEL but in diyarbakir', 'tour2.jpg', 'Loire Valley Tour')";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO tour " +
+            "VALUES ('3', '1997/03/03', '2000/03/03', 'This tour is in besiktas and MUKEMMEL', 'tour1.jpg', 'France Tour')";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO tour " +
+            "VALUES ('4', '2001/12/23', '2021/12/20', 'This tour is also MUKEMMEL but in diyarbakir', 'tour2.jpg', 'Loire Valley Tour')";
             stmt.executeUpdate(sql);
 
             //insert tuples to activity
             sql = "INSERT INTO activity " +
-            "VALUES ('1', 'Doğa yürüyüşü yapılacak, öğlene doğru mangal yakılıp sucuk kızartılacak.', 'Doğa Yürüyüşü', 'Ankara Dağı', 100, 'Doğa, Yürüyüş, Sucuk, Dağ, Ankara')";
+            "VALUES ('1', 'Doğa yürüyüşü yapılacak, öğlene doğru mangal yakılıp sucuk kızartılacak.', 'Doğa Yürüyüşü', 'Ankara Dağı', 100, 'Doğa, Yürüyüş, Sucuk, Dağ, Ankara', 'activity1.jpg')";
             stmt.executeUpdate(sql);
             sql = "INSERT INTO activity " +
-            "VALUES ('2', 'Teleferik ile dağa çıkılıp 30 dakika etraf gezilecek. Kafeler ve yemek yerleri gösterilecek. Sonrasında dağdan aşağıya eğitimli kayak dersimiz olacak.', 'Kayak Turu', 'Erciyes Dağı', 150, 'Kar, Kayak, Dağ, Erciyes')";
+            "VALUES ('2', 'Teleferik ile dağa çıkılıp 30 dakika etraf gezilecek. Kafeler ve yemek yerleri gösterilecek. Sonrasında dağdan aşağıya eğitimli kayak dersimiz olacak.', 'Kayak Turu', 'Erciyes Dağı', 150, 'Kar, Kayak, Dağ, Erciyes', 'activity2.jpg')";
             stmt.executeUpdate(sql);
 
             //insert tuples to tour_activity

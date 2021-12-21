@@ -1,16 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <style>
         .topnav {
             display: flex;
             justify-content: center;
             font-size: 35px;
+            margin-bottom: 2.5%;
         }
         .search {
             display: flex;
             justify-content: center;
+            margin-bottom: 3.5%;
         }
+        .search input{
+            border-radius: 3px;
+            border-color: #cc9900;
+        }
+        button {
+            background-color: white;
+        }
+        .search_bar input[type=text]{
+            width: 37%;
+            font-size: 20px;
+        }
+        .search_bar input[type=date]{
+            width: 25%;
+            font-size: 20px;
+        }
+        .search_bar button {
+            width: 8%;
+            font-size: 25px;
+        }
+
     </style>
 </head>
 <div>
@@ -22,12 +45,12 @@
     </div>
 
     <div class="search">
-        <form action='vacation.php' method='post'>
+        <form class="search_bar" action='vacation.php' method='post'>
             <tr>
-            <td><input type='text' name='searchKey'></td>
-            <td><input type='date' name='start_date'></td>
-            <td><input type='date' name='end_date'></td>
-            <input type ='submit' name='Search' value='Search'>
+            <td><input type='text' placeholder="Search.." name='searchKey'></td>
+            <td><input type='date' placeholder="Start Date" name='start_date'></td>
+            <td><input type='date' placeholder="End Date" name='end_date'></td>
+            <button type ='submit' name='Search' value='Search' class="fa fa-search"></button>
             </tr>
         </form>
     </div>

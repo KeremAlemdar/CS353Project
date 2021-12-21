@@ -1,4 +1,7 @@
 <?php
+$query = "select * from tour";
+$result = $mysqli->query($query);
+
 $vacations = array(["Tour Name", "Tour Details", "https://mediap.flypgs.com/awh/1448/724//files/Ekstrem_Sporlar/snowboard-nasil-yapilir.jpg"], ["Tour Name", "Tour Details", "https://img-s3.onedio.com/id-57b3130021be6020752eb878/rev-0/w-620/f-jpg/s-9e53ab9b71056fa5e92f995123cfe53dee70e0a2.jpg"], ["Tour Name", "Tour Details", "https://mediap.flypgs.com/awh/1448/724//files/Ekstrem_Sporlar/snowboard-nasil-yapilir.jpg"], ["Tour Name", "Tour Details", "https://img-s3.onedio.com/id-57b3130021be6020752eb878/rev-0/w-620/f-jpg/s-9e53ab9b71056fa5e92f995123cfe53dee70e0a2.jpg"]);
 ?>
 <!DOCTYPE html>
@@ -19,42 +22,56 @@ $vacations = array(["Tour Name", "Tour Details", "https://mediap.flypgs.com/awh/
         }
 
         .tours>* {
-            flex: 40%;
+            flex: 40%; /* increase number of items in a row */
+            margin-left: 2.5%;
+            margin-right: 2.5%;
+            margin-top: 2.5%;
         }
 
         .tour {
-            margin-top: 2.5%;
-            margin-left: 2.5%;
-            margin-right: 2.5%;
             border: 2px solid black;
             display: flex;
+            width: 40%;
+            height: 40%;
+        }
+        .information {
+            margin-left: 2.5%;
+            margin-right: 2.5%;
+            width: 45%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
         img {
-            width: 80%;
+            width: 100%;
+            height: 100%;
+        }
+        .img {
+            width: 50%;
             height: 100%;
         }
     </style>
 </head>
-
 <body>
     <div class="all">
         <div class="tours">
             <?php
-            for ($vacation = 0; $vacation < 4; $vacation++) {
+            while ($tuple = $result->fetch_array(MYSQLI_NUM)) {
+            # Tour(tour_id, start_date, end_date, tour_information, image)
             ?>
                 <div class="tour">
-                    <div>
-                        <a href='./index.php?vacationName=asd'>
-                            <img src='<?php echo $vacations[$vacation][2] ?>' />
+                    <div class="img">
+                        <a href='./tourDetails.php?id=<?php echo $tuple[0] ?>'>
+                            <img src='./img/<?php echo $tuple[4] ?>' />
                         </a>
                     </div>
-                    <div>
+                    <div class="information">
                         <h1>
-                            <?php echo $vacations[$vacation][0] ?>
+                            <?php echo $tuple[5] ?>
                         </h1>
                         <h1>
-                            <?php echo $vacations[$vacation][1] ?>
+                            <?php echo $tuple[3] ?>
                         </h1>
                     </div>
                 </div>
