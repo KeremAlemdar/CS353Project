@@ -26,7 +26,7 @@
 
 <body>
     <div class="user_detail_row" style="background-color:red">
-        <img src="user_icon.png" style="width:50px;height:60px;">
+        <img src="./img/user_icon.png" style="width:50px;height:60px;">
         <h2>User Details</h2>
     </div>
     <div class="row">
