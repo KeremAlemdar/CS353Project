@@ -40,10 +40,12 @@ $return = $_GET["msg"];
         <div class="person">
         <div><h1>Eylül</h1></div>
         <div class="links">
+        <div><a href='./commentAndRatePage.php'>CommentAndRate</a></div>
+        <div><a href='./profilePage.php'>ProfilePage</a></div>
         </div>
         </div>
         <div class="person">
-        <div><h1>İsmet</h1></div>
+        <div><h1>Tuna</h1></div>
         <div class="links">
         </div>
         </div>
