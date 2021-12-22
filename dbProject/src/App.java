@@ -47,7 +47,15 @@ public class App {
 
             
             //drop tables
-            String sql = "DROP TABLE IF EXISTS tour_activity";
+            String sql = "DROP TABLE IF EXISTS account";
+            stmt.executeUpdate(sql);
+            System.out.println("account table is deleted!");
+
+            sql = "DROP TABLE IF EXISTS customer";
+            stmt.executeUpdate(sql);
+            System.out.println("customer table is deleted!");
+
+            sql = "DROP TABLE IF EXISTS tour_activity";
             stmt.executeUpdate(sql);
             System.out.println("tour_activity table is deleted!");
 
@@ -63,32 +71,34 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("activity table is deleted!");
 
-            //create tables
-            sql = "CREATE TABLE activity " +
-            "(activity_id INT(12), " +
-            " content VARCHAR(255), " +
-            " name VARCHAR(255), " +
-            " location VARCHAR(255), " +
-            " price FLOAT(12,2), " +
-            " categories VARCHAR(255), " +
-            " image VARCHAR(255), " +
-            " PRIMARY KEY ( activity_id ))" +
-            " ENGINE=innodb;";
+            sql = "DROP TABLE IF EXISTS evaluate_tour";
             stmt.executeUpdate(sql);
-            System.out.println("activity table created!");
+            System.out.println("evaluate_tour table is deleted!");
 
-            sql = "CREATE TABLE tour " +
-            "(tour_id INT(12), " +
-            " start_date DATE, " +
-            " end_date DATE, " +
-            " tour_information VARCHAR(255), " +
-            " image VARCHAR(255), " +
-            " tour_name VARCHAR(255), " +
-            " PRIMARY KEY ( tour_id ))" +
+            //create tables
+
+            //Missing Foreign Key, will be added
+            sql = "CREATE TABLE account " +
+            "(user_id INT(12), " +
+            " username VARCHAR(50), " +
+            " password VARCHAR(50), " +
+            " email VARCHAR(50), " +
+            " phone_num VARCHAR(50), " +
+            " name VARCHAR(50), " +
+            " surname VARCHAR(50), " +
+            " PRIMARY KEY ( user_id ))" +
             " ENGINE=innodb;";
             
             stmt.executeUpdate(sql);
-            System.out.println("tour table created!");
+            System.out.println("account table created!");
+
+            sql = "CREATE TABLE customer " +
+            "(customer_id INT(12), " +
+            " PRIMARY KEY ( customer_id ) " +
+            " ENGINE=innodb;";
+            
+            stmt.executeUpdate(sql);
+            System.out.println("customer table created!");
 
             sql = "CREATE TABLE tour_activity " +
             "(activity_id INT(12), " +
@@ -114,6 +124,45 @@ public class App {
             
             stmt.executeUpdate(sql);
             System.out.println("bucket table created!");
+
+            sql = "CREATE TABLE tour " +
+            "(tour_id INT(12), " +
+            " start_date DATE, " +
+            " end_date DATE, " +
+            " tour_information VARCHAR(255), " +
+            " image VARCHAR(255), " +
+            " tour_name VARCHAR(255), " +
+            " PRIMARY KEY ( tour_id ))" +
+            " ENGINE=innodb;";
+            
+            stmt.executeUpdate(sql);
+            System.out.println("tour table created!");
+
+            sql = "CREATE TABLE activity " +
+            "(activity_id INT(12), " +
+            " content VARCHAR(255), " +
+            " name VARCHAR(255), " +
+            " location VARCHAR(255), " +
+            " price FLOAT(12,2), " +
+            " categories VARCHAR(255), " +
+            " image VARCHAR(255), " +
+            " PRIMARY KEY ( activity_id ))" +
+            " ENGINE=innodb;";
+
+            stmt.executeUpdate(sql);
+            System.out.println("activity table created!");
+
+            sql = "CREATE TABLE evaluate_tour " +
+            "(tour_id INT(12), " +
+            " customer_id INT(12), " +
+            " rate INT(12), " +
+            " PRIMARY KEY ( tour_id, customer_id ), " +
+            " FOREIGN KEY (tour_id) REFERENCES tour(tour_id)), " +
+            " FOREIGN KEY (customer_id) REFERENCES customer(customer_id))" +
+            " ENGINE=innodb;";
+
+            stmt.executeUpdate(sql);
+            System.out.println("evaluate_tour table created!");
 
             //Tour(tour_id, start_date, end_date, tour_information)
             //Tour_Activity (activity_id, tour_id, date)
