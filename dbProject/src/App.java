@@ -94,11 +94,38 @@ public class App {
 
             sql = "CREATE TABLE customer " +
             "(customer_id INT(12), " +
-            " PRIMARY KEY ( customer_id ) " +
+            " PRIMARY KEY ( customer_id )) " +
             " ENGINE=innodb;";
             
             stmt.executeUpdate(sql);
             System.out.println("customer table created!");
+
+            sql = "CREATE TABLE activity " +
+            "(activity_id INT(12), " +
+            " content VARCHAR(255), " +
+            " name VARCHAR(255), " +
+            " location VARCHAR(255), " +
+            " price FLOAT(12,2), " +
+            " categories VARCHAR(255), " +
+            " image VARCHAR(255), " +
+            " PRIMARY KEY ( activity_id ))" +
+            " ENGINE=innodb;";
+
+            stmt.executeUpdate(sql);
+            System.out.println("activity table created!");
+
+            sql = "CREATE TABLE tour " +
+            "(tour_id INT(12), " +
+            " start_date DATE, " +
+            " end_date DATE, " +
+            " tour_information VARCHAR(255), " +
+            " image VARCHAR(255), " +
+            " tour_name VARCHAR(255), " +
+            " PRIMARY KEY ( tour_id ))" +
+            " ENGINE=innodb;";
+            
+            stmt.executeUpdate(sql);
+            System.out.println("tour table created!");
 
             sql = "CREATE TABLE tour_activity " +
             "(activity_id INT(12), " +
@@ -125,39 +152,12 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("bucket table created!");
 
-            sql = "CREATE TABLE tour " +
-            "(tour_id INT(12), " +
-            " start_date DATE, " +
-            " end_date DATE, " +
-            " tour_information VARCHAR(255), " +
-            " image VARCHAR(255), " +
-            " tour_name VARCHAR(255), " +
-            " PRIMARY KEY ( tour_id ))" +
-            " ENGINE=innodb;";
-            
-            stmt.executeUpdate(sql);
-            System.out.println("tour table created!");
-
-            sql = "CREATE TABLE activity " +
-            "(activity_id INT(12), " +
-            " content VARCHAR(255), " +
-            " name VARCHAR(255), " +
-            " location VARCHAR(255), " +
-            " price FLOAT(12,2), " +
-            " categories VARCHAR(255), " +
-            " image VARCHAR(255), " +
-            " PRIMARY KEY ( activity_id ))" +
-            " ENGINE=innodb;";
-
-            stmt.executeUpdate(sql);
-            System.out.println("activity table created!");
-
             sql = "CREATE TABLE evaluate_tour " +
             "(tour_id INT(12), " +
             " customer_id INT(12), " +
             " rate INT(12), " +
             " PRIMARY KEY ( tour_id, customer_id ), " +
-            " FOREIGN KEY (tour_id) REFERENCES tour(tour_id)), " +
+            " FOREIGN KEY (tour_id) REFERENCES tour(tour_id), " +
             " FOREIGN KEY (customer_id) REFERENCES customer(customer_id))" +
             " ENGINE=innodb;";
 
