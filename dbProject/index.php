@@ -47,8 +47,8 @@ $return = $_GET["msg"];
         <div class="person">
         <div><h1>Tuna</h1></div>
         <div class="links">
-        <div><a href='./employeeHome.php'>employeeHome</a></div>
-        <div><a href='./guideHome.php'>guideHome</a></div>
+        <div><a href='./employee/employeeHome.php'>employeeHome</a></div>
+        <div><a href='./employee/guideHome.php'>guideHome</a></div>
         </div>
         </div>
         <div class="person">
