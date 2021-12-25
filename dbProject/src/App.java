@@ -46,14 +46,10 @@ public class App {
 
 
             
-            //drop tables
-            String sql = "DROP TABLE IF EXISTS account";
+            // //drop tables
+            String sql = "DROP TABLE IF EXISTS account";       
             stmt.executeUpdate(sql);
-            System.out.println("account table is deleted!");
-
-            sql = "DROP TABLE IF EXISTS customer";
-            stmt.executeUpdate(sql);
-            System.out.println("customer table is deleted!");
+            System.out.println("tour table is deleted!");  
 
             sql = "DROP TABLE IF EXISTS tour_activity";
             stmt.executeUpdate(sql);
@@ -63,6 +59,17 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("bucket table is deleted!");
 
+            sql = "DROP TABLE IF EXISTS evaluate_tour";
+            stmt.executeUpdate(sql);
+            System.out.println("evaluate_tour table is deleted!");
+
+            stmt.executeUpdate(sql);
+            System.out.println("account table is deleted!");
+
+            sql = "DROP TABLE IF EXISTS customer";
+            stmt.executeUpdate(sql);
+            System.out.println("customer table is deleted!");
+
             sql = "DROP TABLE IF EXISTS tour";
             stmt.executeUpdate(sql);
             System.out.println("tour table is deleted!");
@@ -71,11 +78,19 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("activity table is deleted!");
 
-            sql = "DROP TABLE IF EXISTS evaluate_tour";
+            sql = "DROP TABLE IF EXISTS Flight";
             stmt.executeUpdate(sql);
-            System.out.println("evaluate_tour table is deleted!");
+            System.out.println("Flight table is deleted!");
 
-            //create tables
+            sql = "DROP TABLE IF EXISTS Airport";
+            stmt.executeUpdate(sql);
+            System.out.println("Airport table is deleted!");
+
+            sql = "DROP TABLE IF EXISTS Hotel";
+            stmt.executeUpdate(sql);
+            System.out.println("Hotel table is deleted!");
+
+            // create tables
 
             //Missing Foreign Key, will be added
             sql = "CREATE TABLE account " +
@@ -164,6 +179,40 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("evaluate_tour table created!");
 
+            sql = "CREATE TABLE Airport " +
+            "(airport_id INT(12) AUTO_INCREMENT, " +
+            " city varchar(255), " +
+            " PRIMARY KEY ( airport_id ))" +
+            " ENGINE=innodb;";
+
+            stmt.executeUpdate(sql);
+            System.out.println("Airport table created!");
+
+            sql = "CREATE TABLE Flight " +
+            "(flight_id INT(12) AUTO_INCREMENT, " +
+            " departure_time DATETIME, " +
+            " arrival_time DATETIME, " +
+            " departure_airport INT(12), " +
+            " arrival_airport INT(12), " +
+            " PRIMARY KEY ( flight_id ), " +
+            " FOREIGN KEY (departure_airport) REFERENCES Airport(airport_id), " +
+            " FOREIGN KEY (arrival_airport) REFERENCES Airport(airport_id))" +
+            " ENGINE=innodb;";
+
+            stmt.executeUpdate(sql);
+            System.out.println("Flight table created!");
+
+            sql = "CREATE TABLE Hotel " +
+            "(hotel_id INT(12) AUTO_INCREMENT, " +
+            " name varchar(50), " +
+            " city varchar(50), " +
+            " star INT(12), " +
+            " PRIMARY KEY ( hotel_id )) " +
+            " ENGINE=innodb;";
+
+            stmt.executeUpdate(sql);
+            System.out.println("Hotel table created!");
+
             //Tour(tour_id, start_date, end_date, tour_information)
             //Tour_Activity (activity_id, tour_id, date)
             //Activity (activity_id, content, name, location, price, categories)
@@ -212,7 +261,38 @@ public class App {
             "VALUES ('1', null, '2', null)";
             stmt.executeUpdate(sql);
 
+            //insert tuples to bucket
+            sql = "INSERT INTO Airport (city) " +
+            "VALUES ( 'Ankara' )";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO Airport (city)" +
+            "VALUES ( 'Istanbul' )";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO Airport (city)" +
+            "VALUES ( 'Bolu' )";
+            stmt.executeUpdate(sql);
 
+            //insert tuples to bucket
+            sql = "INSERT INTO Hotel (name, city ,star) " +
+            "VALUES ( 'Bilkent Hotel', 'Ankara', '400' )";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO Hotel (name, city ,star) " +
+            "VALUES ( 'Kerem Hotel', 'Ankara', '31' )";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO Hotel (name, city ,star) " +
+            "VALUES ( 'Ismet Hotel', 'Ankara', '100' )";
+            stmt.executeUpdate(sql);
+
+            //insert tuples to bucket
+            sql = "INSERT INTO Flight (departure_time, arrival_time, departure_airport, arrival_airport) " +
+            "VALUES ( '2021/12/25 13:30:00', '2021/12/25 15:30:00', '1', '2')";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO Flight (departure_time, arrival_time, departure_airport, arrival_airport) " +
+            "VALUES ( '2021/12/25 16:30:00', '2021/12/25 17:30:00', '1', '2')";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO Flight (departure_time, arrival_time, departure_airport, arrival_airport) " +
+            "VALUES ( '2021/12/25 13:30:00', '2021/12/25 15:30:00', '2', '1')";
+            stmt.executeUpdate(sql);
 
             // System.out.println("------------------1----------------");
             // sql = "SELECT bdate,address,city " +

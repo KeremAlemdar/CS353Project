@@ -30,18 +30,34 @@ if (isset($_POST['logIn'])) {
 }
 if (isset($_POST['register'])) {
 	$email = $_POST['email'];
-	$pass = $_POST['pass'];
+	$pss = $_POST['pass'];
 	$username = $_POST['username'];
 	$fname = $_POST['fname'];
-	$phonenum = $_POST['phonenum'];
-
+	$phonenum = $_POST['pn'];
 	$query = "insert into Account values('$username','$pss','$email','$phonenum', '$fname')";
 	if ($result = $mysqli->query($query)) {
-		header("Location: mainPage.php");
+		// header("Location: mainPage.php");
 	} else {
-		header("Location: login.php?msg=err");
+		// header("Location: login.php?msg=err");
 	}
 }
+
+if (isset($_POST['registerEmp'])) {
+	$email = $_POST['email'];
+	$pss = $_POST['pass'];
+	$username = $_POST['username'];
+	$fname = $_POST['fname'];
+	$phonenum = $_POST['pn'];
+	$query = "insert into Account values('$username','$pss','$email','$phonenum', '$fname')";
+	if ($result = $mysqli->query($query)) {
+		$query = "insert into Employee values('$username')";
+		// header("Location: mainPage.php");
+	} else {
+		// header("Location: login.php?msg=err");
+	}
+}
+
+
 
 ?>
 
@@ -61,11 +77,11 @@ if (isset($_POST['register'])) {
 				<form name="f1" class="sign-in-htm" action="login.php" onsubmit="return validation()" method="POST">
 					<div class="group">
 						<label for="user" class="label">E-mail</label>
-						<input id="user" name="email" type="text" class="input">
+						<input id="userl" name="email" type="text" class="input">
 					</div>
 					<div class="group">
 						<label for="pass" class="label">Password</label>
-						<input id="pass" name="pass" type="pass" class="input" data-type="password">
+						<input id="passl" name="pass" type="pass" class="input" data-type="password">
 					</div>
 					<div class="group">
 						<input type="submit" class="button" value="Sign In" name="logIn">
@@ -74,7 +90,7 @@ if (isset($_POST['register'])) {
 				<script>
 					function validation() {
 						var id = document.f1.email.value;
-						var ps = document.f1.pass.value;
+						var ps = document.f1.passl.value;
 						if (id.length == "" && ps.length == "") {
 							alert("User Name and Password fields are empty");
 							return false;
@@ -93,7 +109,7 @@ if (isset($_POST['register'])) {
 				<form name="f2" class="sign-up-htm" action="login.php" onsubmit="return validationS()" method="POST">
 					<div class="group">
 						<label for="user" class="label">Full Name</label>
-						<input id="user" name="fullname" type="text" class="input">
+						<input id="fname" name="fname" type="text" class="input">
 					</div>
 					<div class="group">
 						<label for="user" class="label">Username</label>
@@ -101,11 +117,11 @@ if (isset($_POST['register'])) {
 					</div>
 					<div class="group">
 						<label for="pass" class="label">Password</label>
-						<input id="pass" name="pass" type="password" class="input" data-type="password">
+						<input id="pass" name="pass" type="password" class="input">
 					</div>
 					<div class="group">
 						<label for="pass" class="label">Repeat Password</label>
-						<input id="pass" name="passv" type="password" class="input" data-type="password">
+						<input id="passv" name="passv" type="password" class="input">
 					</div>
 					<div class="group">
 						<label for="pass" class="label">Email Address</label>
@@ -117,6 +133,10 @@ if (isset($_POST['register'])) {
 					</div>
 					<div class="group">
 						<input type="submit" class="button" value="Sign Up" name="register">
+					</div>
+					<br>
+					<div class="group">
+						<input type="submit" class="button" value="Sign Up Employee" name="registerEmp">
 					</div>
 				</form>
 				<script>

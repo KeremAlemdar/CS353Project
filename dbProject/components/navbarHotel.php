@@ -48,7 +48,7 @@
         <a href="#about">About</a>
     </div>
     <div class="search">
-        <form class="search_bar" action='tour.php' method='post'>
+        <form class="search_bar" action='hotelListPage.php' method='post'>
             <tr>
             <td><input type='text' placeholder="Search.." name='searchKey'></td>
             <td><input type='date' placeholder="Start Date" name='start_date'></td>

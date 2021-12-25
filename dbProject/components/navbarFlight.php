@@ -29,9 +29,15 @@
         }
         button {
             background-color: white;
+            margin-left: 20px;
+        }
+        .search_bar{
+            display: flex;
+            flex-direction: row;
         }
         .search_bar input[type=text]{
             width: 37%;
+            margin-right: 20px;
         }
         .search_bar input[type=date]{
             width: 25%;
@@ -44,15 +50,14 @@
         <a class="active" href="#home">Home</a>
         <a href="profilePage.php">Profile</a>
         <a href="#contact">Contact</a>
-        <a href="ticketListPage.php">Ticket</a>
         <a href="#about">About</a>
     </div>
     <div class="search">
-        <form class="search_bar" action='tour.php' method='post'>
+        <form class="search_bar" action='ticketListPage.php' method='post'>
             <tr>
-            <td><input type='text' placeholder="Search.." name='searchKey'></td>
-            <td><input type='date' placeholder="Start Date" name='start_date'></td>
-            <td><input type='date' placeholder="End Date" name='end_date'></td>
+            <td><input type='text' placeholder="Departure City" name='departureCity'></td>
+            <td><input type='text' placeholder="Arrival City" name='arrivalCity'></td>
+            <td><input type='date' placeholder="Departure Date" name='departureDate'></td>
             <button type ='submit' name='Search' value='Search' class="fa fa-search"></button>
             </tr>
         </form>
