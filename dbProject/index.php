@@ -42,6 +42,7 @@ $return = $_GET["msg"];
         <div class="links">
         <div><a href='./commentAndRatePage.php'>CommentAndRate</a></div>
         <div><a href='./profilePage.php'>ProfilePage</a></div>
+        <div><a href='./hotelDisplay.php'>HotelDisplayPage</a></div>
         </div>
         </div>
         <div class="person">
