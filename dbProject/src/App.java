@@ -47,32 +47,46 @@ public class App {
 
             
             // //drop tables
-            String sql = "DROP TABLE IF EXISTS account";       
-            stmt.executeUpdate(sql);
-            System.out.println("tour table is deleted!");  
 
-            sql = "DROP TABLE IF EXISTS Employee";       
-            stmt.executeUpdate(sql);
-            System.out.println("Employee table is deleted!"); 
-
-            sql = "DROP TABLE IF EXISTS tour_activity";
+            String sql = "DROP TABLE IF EXISTS tour_activity";
             stmt.executeUpdate(sql);
             System.out.println("tour_activity table is deleted!");
-
-            sql = "DROP TABLE IF EXISTS bucket";
-            stmt.executeUpdate(sql);
-            System.out.println("bucket table is deleted!");
 
             sql = "DROP TABLE IF EXISTS evaluate_tour";
             stmt.executeUpdate(sql);
             System.out.println("evaluate_tour table is deleted!");
 
+            sql = "DROP TABLE IF EXISTS bucket";
             stmt.executeUpdate(sql);
-            System.out.println("account table is deleted!");
+            System.out.println("bucket table is deleted!");
+
+            sql = "DROP TABLE IF EXISTS reserve";
+            stmt.executeUpdate(sql);
+            System.out.println("reserve table is deleted!");
+
+            sql = "DROP TABLE IF EXISTS Hotel_Room";       
+            stmt.executeUpdate(sql);
+            System.out.println("Hotel_Room table is deleted!");
+
+            sql = "DROP TABLE IF EXISTS reservation_hotelR";
+            stmt.executeUpdate(sql);
+            System.out.println("reservation_hotelR table is deleted!");
+
+            sql = "DROP TABLE IF EXISTS Reservation";
+            stmt.executeUpdate(sql);
+            System.out.println("Reservation table is deleted!");
+
+            sql = "DROP TABLE IF EXISTS Employee";       
+            stmt.executeUpdate(sql);
+            System.out.println("Employee table is deleted!"); 
 
             sql = "DROP TABLE IF EXISTS customer";
             stmt.executeUpdate(sql);
             System.out.println("customer table is deleted!");
+
+            sql = "DROP TABLE IF EXISTS account";       
+            stmt.executeUpdate(sql);
+            System.out.println("account table is deleted!");  
 
             sql = "DROP TABLE IF EXISTS tour";
             stmt.executeUpdate(sql);
@@ -94,19 +108,14 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("Hotel table is deleted!");
 
-            sql = "DROP TABLE IF EXISTS Reservation";
-            stmt.executeUpdate(sql);
-            System.out.println("Reservation table is deleted!");
 
-            sql = "DROP TABLE IF EXISTS reserve";
-            stmt.executeUpdate(sql);
-            System.out.println("reserve table is deleted!");
+
 
             // create tables
 
             //Missing Foreign Key, will be added
             sql = "CREATE TABLE account " +
-            "(user_id INT(12), " +
+            "(user_id INT(12) AUTO_INCREMENT, " +
             " username VARCHAR(50), " +
             " password VARCHAR(50), " +
             " email VARCHAR(50), " +
@@ -121,7 +130,8 @@ public class App {
 
             sql = "CREATE TABLE customer " +
             "(customer_id INT(12), " +
-            " PRIMARY KEY ( customer_id )) " +
+            " PRIMARY KEY ( customer_id ), " +
+            " FOREIGN KEY (customer_id) REFERENCES account(user_id)) " +
             " ENGINE=innodb;";
             
             stmt.executeUpdate(sql);
@@ -129,7 +139,8 @@ public class App {
 
             sql = "CREATE TABLE Employee " +
             "(employee_id INT(12), " +
-            " PRIMARY KEY ( employee_id )) " +
+            " PRIMARY KEY ( employee_id ), " +
+            " FOREIGN KEY (employee_id) REFERENCES account(user_id)) " +
             " ENGINE=innodb;";
             
             stmt.executeUpdate(sql);
@@ -233,6 +244,19 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("Hotel table created!");
 
+            sql = "CREATE TABLE Hotel_Room " +
+            "(room_id INT(12) AUTO_INCREMENT, " +
+            " amount_of_people INT(12), " +
+            " type varchar(50), " +
+            " price FLOAT, " +
+            " hotel_id INT(12), " +
+            " FOREIGN KEY (hotel_id) REFERENCES Hotel(hotel_id), " +
+            " PRIMARY KEY ( room_id )) " +
+            " ENGINE=innodb;";
+
+            stmt.executeUpdate(sql);
+            System.out.println("Hotel_Room table created!");
+
             sql = "CREATE TABLE Reservation " +
             "(reservation_id INT(12) AUTO_INCREMENT, " +
             " reservation_type varchar(50), " +
@@ -244,6 +268,17 @@ public class App {
 
             stmt.executeUpdate(sql);
             System.out.println("Reservation table created!");
+
+            sql = "CREATE TABLE reservation_hotelR " +
+            "(room_id INT(12), " +
+            " reservation_id INT(12), " +
+            " PRIMARY KEY ( room_id, reservation_id ), " +
+            " FOREIGN KEY (reservation_id) REFERENCES Reservation(reservation_id), " +
+            " FOREIGN KEY (room_id) REFERENCES Hotel_Room(room_id))" +
+            " ENGINE=innodb;";
+
+            stmt.executeUpdate(sql);
+            System.out.println("reservation_hotelR table created!");
 
             sql = "CREATE TABLE reserve " +
             "(reservation_id INT(12), " +
@@ -257,6 +292,7 @@ public class App {
 
             stmt.executeUpdate(sql);
             System.out.println("reserve table created!");
+
 
             //Tour(tour_id, start_date, end_date, tour_information)
             //Tour_Activity (activity_id, tour_id, date)
@@ -346,6 +382,7 @@ public class App {
             // "FROM customer) A " + 
             // "WHERE customer.wallet=A.minwallet";
             // printSql(sql,stmt);
+
         }
         catch(SQLException e)
         {
