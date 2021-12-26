@@ -51,6 +51,10 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("tour table is deleted!");  
 
+            sql = "DROP TABLE IF EXISTS Employee";       
+            stmt.executeUpdate(sql);
+            System.out.println("Employee table is deleted!"); 
+
             sql = "DROP TABLE IF EXISTS tour_activity";
             stmt.executeUpdate(sql);
             System.out.println("tour_activity table is deleted!");
@@ -90,6 +94,14 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("Hotel table is deleted!");
 
+            sql = "DROP TABLE IF EXISTS Reservation";
+            stmt.executeUpdate(sql);
+            System.out.println("Reservation table is deleted!");
+
+            sql = "DROP TABLE IF EXISTS reserve";
+            stmt.executeUpdate(sql);
+            System.out.println("reserve table is deleted!");
+
             // create tables
 
             //Missing Foreign Key, will be added
@@ -114,6 +126,14 @@ public class App {
             
             stmt.executeUpdate(sql);
             System.out.println("customer table created!");
+
+            sql = "CREATE TABLE Employee " +
+            "(employee_id INT(12), " +
+            " PRIMARY KEY ( employee_id )) " +
+            " ENGINE=innodb;";
+            
+            stmt.executeUpdate(sql);
+            System.out.println("Employee table created!");
 
             sql = "CREATE TABLE activity " +
             "(activity_id INT(12), " +
@@ -212,6 +232,31 @@ public class App {
 
             stmt.executeUpdate(sql);
             System.out.println("Hotel table created!");
+
+            sql = "CREATE TABLE Reservation " +
+            "(reservation_id INT(12) AUTO_INCREMENT, " +
+            " reservation_type varchar(50), " +
+            " amount_of_people INT(12), " +
+            " start_date DATE, " +
+            " end_date DATE, " +
+            " PRIMARY KEY ( reservation_id )) " +
+            " ENGINE=innodb;";
+
+            stmt.executeUpdate(sql);
+            System.out.println("Reservation table created!");
+
+            sql = "CREATE TABLE reserve " +
+            "(reservation_id INT(12), " +
+            " employee_id INT(12), " +
+            " customer_id INT(12), " +
+            " PRIMARY KEY ( reservation_id, employee_id, customer_id ), " +
+            " FOREIGN KEY (reservation_id) REFERENCES Reservation(reservation_id), " +
+            " FOREIGN KEY (employee_id) REFERENCES Employee(employee_id)," +
+            " FOREIGN KEY (customer_id) REFERENCES customer(customer_id))" +
+            " ENGINE=innodb;";
+
+            stmt.executeUpdate(sql);
+            System.out.println("reserve table created!");
 
             //Tour(tour_id, start_date, end_date, tour_information)
             //Tour_Activity (activity_id, tour_id, date)
