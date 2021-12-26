@@ -16,33 +16,37 @@ $activities = $mysqli->query($query);
 
 <!DOCTYPE html>
 <html>
-    <head>
-    <style>
 
+<head>
+    <style>
         .tour {
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
-        .tour_dates{
+
+        .tour_dates {
             display: flex;
             justify-content: space-between;
             width: 6.5%;
         }
-        .tour_details {
 
-        }
+        .tour_details {}
+
         .activities {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
         }
+
         .activity {
-            width: 10%; /* increase activity size */
+            width: 10%;
+            /* increase activity size */
             justify-content: center;
             margin-left: 2.5%;
             margin-right: 2.5%;
         }
+
         .information {
             display: flex;
             justify-content: space-between;
@@ -53,42 +57,49 @@ $activities = $mysqli->query($query);
             width: 100%;
             height: 100%;
         }
+
         .tour img {
             width: 35%;
         }
     </style>
-        <title>Tour Name</title>
-    </head>
-    <body>
-        <div>
-            <?php 
-            while ($tuple = $result->fetch_array(MYSQLI_NUM)) {
-                echo "
+    <title>Tour Name</title>
+</head>
+
+<body>
+    <div>
+        <?php
+        while ($tuple = $result->fetch_array(MYSQLI_NUM)) {
+            echo "
                 <div class='all'>
                 <div class='tour'>
                 <div><h1>There will be tour name</h1></div>
+            <div></div>
                 <div class='tour_dates'>
                 <div>" . $tuple[1] . "</div>
-                <div>-</div>
+                <div></div>
                 <div>" . $tuple[2] . "</div>
                 </div>
-                <div><img src='./img/".$tuple[4]."'/></div>
-
+                <div><img src='./img/" . $tuple[4] . "'/></div>
                 <div><h2>Tour Details</h2></div>
                 <div class='tour_details'>" . $tuple[3] . "</div>
                 </div>
                 </div>
                 ";
-            }
-            echo "<div>
+        }
+        echo "<div>
             <div><h1>Activities</h1></div>
             <div class='activities'>";
-            while ($tuple = $activities->fetch_array(MYSQLI_NUM)) {
-                // <div><img src=" . $tuple[resim] . "/></div>
-
-                echo "
+            ?>
+            <form action='addBucket.php?tour_id=<?php echo $tour_id?>' method="post">
+            <?php
+        while ($tuple = $activities->fetch_array(MYSQLI_NUM)) {
+            // <div><img src=" . $tuple[resim] . "/></div>
+            ?>
+              <label><input type="checkbox" name="activities[]" value=<?php echo $tuple[0] ?> /> <?php echo $tuple[0]?></label><br />
+            <?php
+              echo "
                 <div class='activity'>
-                <div><img src='./img/".$tuple[8]."'/></div>
+                <div><img src='./img/" . $tuple[8] . "'/></div>
                 <div class='information'>
                     <div>" . $tuple[4] . "</div>
                     <div>" . $tuple[6] . "</div>
@@ -96,9 +107,12 @@ $activities = $mysqli->query($query);
                 <div>" . $tuple[2] . "</div>
                 </div>
                 ";
-            }
-            echo "</div></div>";
-            ?>            
-        </div>
-    </body>
+        }
+        echo "</div></div>";
+        ?>
+        <input type="submit" value="Tamam">
+        </form>
+    </div>
+</body>
+
 </html>
