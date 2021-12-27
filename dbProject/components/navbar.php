@@ -41,7 +41,7 @@
 </head>
 <div>
     <div class="topnav">
-        <a class="active" href="#home">Home</a>
+        <a class="active" href="./">Home</a>
         <a href="profilePage.php">Profile</a>
         <a href="#contact">Contact</a>
         <a href="ticketListPage.php">Ticket</a>
