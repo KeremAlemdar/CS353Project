@@ -3,9 +3,11 @@ include("./connection/checkSession.php");
 //$user_id = $_SESSION['user_id'];
 $query = "SELECT fname, email, phone_num FROM account WHERE user_id = " . 1 . "";
 $result = $mysqli->query($query);
-$query = "SELECT hotel_id FROM Reservation NATURAL JOIN reservation_hotelR NATURAL JOIN reserve WHERE user_id = " . 1 . "";
+
+$query = "SELECT hotel_id, start_date, end_date FROM Reservation NATURAL JOIN reservation_hotelR NATURAL JOIN reserve WHERE user_id = " . 1 . "";
 $hotel_id_result = $mysqli->query($query);
 $hotel_id = $hotel_id_result->fetch_array(MYSQLI_NUM);
+
 $query = "SELECT * from Hotel WHERE hotel_id = " . $hotel_id[0] . "";
 $hotel_info = $mysqli->query($query);
 ?>
@@ -22,6 +24,11 @@ $hotel_info = $mysqli->query($query);
         * {
             box-sizing: border-box;
         }
+
+        .user_info {
+            display: flex;
+        }
+
         .user_detail_row {
             display: table;
             width: 100%;
@@ -29,16 +36,18 @@ $hotel_info = $mysqli->query($query);
             border: solid;
             border-color: black;
         }
+
         .user_details {
             position: left;
         }
 
-        .reservations{
+        .reservations {
             display: flex;
             flex-direction: row;
             justify-content: center;
             border: 3px solid black;
         }
+
         .hotels {
             width: 50%;
         }
@@ -58,7 +67,8 @@ $hotel_info = $mysqli->query($query);
             border: 2px solid black;
             width: 100%;
             display: flex;
-            height: auto; /* 40% dı, 2 liyken kücülmeyi çözmek için auto yaptım*/
+            height: auto;
+            /* 40% dı, 2 liyken kücülmeyi çözmek için auto yaptım*/
         }
 
         .hotel .img {
@@ -73,18 +83,50 @@ $hotel_info = $mysqli->query($query);
             display: flex;
             flex-direction: column;
         }
+
         .hotel .button_part {
-            width: 10%;            
+            width: 10%;
             display: flex;
             align-items: center;
+            margin-right: 10%;
         }
+
         .hotel .submit_button {
             border-radius: 5px;
             box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             padding: 10px 25px;
             display: flex;
             align-items: center;
+            margin-right: 10%;
 
+        }
+
+        .user_details .button_part {
+            width: 10%;
+            display: flex;
+            align-items: center;
+            margin-right: 10%;
+        }
+
+        .user_details .submit_button {
+            border-radius: 5px;
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            padding: 10px 25px;
+            display: flex;
+            align-items: center;
+            margin-right: 5%;
+
+        }
+        .user_details .edit_button{
+            display: flex;
+            align-items: center;
+            margin-left: 10%;
+        }
+        .icon{
+            display: flex;
+            align-items: center;
+            width: 5%;
+            height: auto;
         }
     </style>
 </head>
@@ -97,58 +139,72 @@ $hotel_info = $mysqli->query($query);
             <?php
             $user_info = $result->fetch_array(MYSQLI_NUM);
             ?>
+
             <div class="user_info">
-                <h4>
-                    <?php echo "Name: ", $user_info[0] ?>
-                </h4>
-                <h4>
-                    <?php echo "e-mail: ", $user_info[1] ?>
-                </h4>
-                <h4>
-                    <?php echo "Phone: ", $user_info[2] ?>
-                </h4>
-                <button> Edit User Information </button>
-            </div>
+                <div class="icon">
+                <div >
+                     <img src='./img/user_icon.png' />        
+                </div>
+                </div>
+                <div>
+                    <h4>
+                        <?php echo "Name: ", $user_info[0] ?>
+                    </h4>
+                    <h4>
+                        <?php echo "e-mail: ", $user_info[1] ?>
+                    </h4>
+                    <h4>
+                        <?php echo "Phone: ", $user_info[2] ?>
+                    </h4>
+                </div>
 
-        </div>
-    </div>
-    <div class="reservations">
-        <div class="hotels" style="background-color:#aaa;">
-            <h2>Hotel Reservations</h2>
-            <?php
-            while ($tuple = $hotel_info->fetch_array(MYSQLI_NUM)) {
-                # Tour(tour_id, start_date, end_date, tour_information, image)
-            ?>
-                <div class="hotel">
-                    <div class="img">
-                        <a href='./hotelDisplay.php?id=<?php echo $tuple[0] ?>'>
-                            <img src='./img/<?php echo $tuple[5] ?>' />
-                        </a>
-                    </div>
-                    <div class="information">
-                        <h2>
-                            <?php echo $tuple[1], "  ",  $tuple[2] ?>
-                        </h2>
-                        <h3>
-                            <?php echo $tuple[3], " STAR HOTEL " ?>
-                        </h3>
-
-                    </div>
+                <div class="edit_button">
                     <div class="button_part">
-                        <input class="submit_button" type="submit" value="Cancel Reservation">
+                        <button class="submit_button" type="submit">Edit User Information</button>
                     </div>
                 </div>
-            <?php
-            }
-            ?>
 
-        </div>
-        <div class="tours" style="background-color:#bbb;">
+            </div>
+            <div class="reservations">
+                <div class="hotels" style="background-color:#aaa;">
+                    <h2>Hotel Reservations</h2>
+                    <?php
+                    while ($tuple = $hotel_info->fetch_array(MYSQLI_NUM)) {
+                        # Tour(tour_id, start_date, end_date, tour_information, image)
+                    ?>
+                        <div class="hotel">
+                            <div class="img">
+                                <a href='./hotelDisplay.php?id=<?php echo $tuple[0] ?>'>
+                                    <img src='./img/<?php echo $tuple[5] ?>' />
+                                </a>
+                            </div>
+                            <div class="information">
+                                <h2>
+                                    <?php echo $tuple[1], ",  ",  $tuple[2] ?>
+                                </h2>
+                                <h3>
+                                    <?php
+                                    echo " First day: ", $hotel_id[1];
+                                    echo "<br></br>";
+                                    echo " Last day: ", $hotel_id[2]; ?>
+                                </h3>
 
-            <h2>Tour Reservations</h2>
-            <p>Selectable rows</p>
-        </div>
-    </div>
+                            </div>
+                            <div class="button_part">
+                                <button class="submit_button" type="submit" value="Cancel Reservation">Cancel Reservation</button>
+                            </div>
+                        </div>
+                    <?php
+                    }
+                    ?>
+
+                </div>
+                <div class="tours" style="background-color:#bbb;">
+
+                    <h2>Tour Reservations</h2>
+                    <p>Selectable rows</p>
+                </div>
+            </div>
 </body>
 
 </html>
