@@ -1,14 +1,23 @@
 <?php
 include("./components/navbar.php");
 include("./connection/checkSession.php");
-$user_id =  isset($_GET['user_id']) ? $_GET['user_id'] : "";
+$user_id =  isset($_SESSION['user_id']) ? $_SESSION['user_id'] : "";
+$error =  isset($_GET['error']) ? $_GET['error'] : "";
+if($error == "cannotDelete") {
+    echo "<script type='text/javascript'>
+    alert('Problem occured in deletion');
+    window.location.href='./paymentPage.php';
+    </script>";
+}
 
 
 $user_id = 1; // FOR TEST PURPOSES
 $query = "select * from tour natural join tour_bucket where user_id =" . $user_id . "";
-echo $query;
 $tours = $mysqli->query($query);
-$tours2= $tours;
+$empty = false;
+if ($tours->num_rows == 0) {
+    $empty = true;
+}
 ?>
 
 <!DOCTYPE html>
@@ -60,55 +69,68 @@ $tours2= $tours;
             width: 50%;
             height: 100%;
         }
+
         .decline {
             width: 60%;
             display: flex;
             justify-content: space-between;
 
         }
+
         .delete {
             width: 20%;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
+        .empty {
+            font-size: 40px;
+            display: flex;
+            justify-content: center;
+            margin-top: 10%;
+        }
     </style>
 </head>
 
 <body>
-    <div class="decline">
-        <div class="all">
-            <div class="tours">
-                <?php
-                while ($tuple = $tours->fetch_array(MYSQLI_NUM)) {
-                    # TourBucket(tour_id, start_date, end_date, tour_information, 
-                    # image, tour_name, user_id)
-                ?>
-                    <div class="tour">
-                        <div class="img">
-                            <a href='./tourDetails.php?id=<?php echo $tuple[0] ?>'>
-                                <img src='./img/<?php echo $tuple[4] ?>' />
-                            </a>
-                        </div>
-                        <div class="information">
-                            <h1>
-                                <?php echo $tuple[5] ?>
-                            </h1>
-                            <h1>
-                                <?php echo $tuple[3] ?>
-                            </h1>
-                        </div>
+    <?php 
+    if ($empty) {
+        ?>
+        <div class="empty">Your bucket is empty</div>
+        <?php
+    }
+    ?>
+    <?php
+    while ($tuple = $tours->fetch_array(MYSQLI_NUM)) {
+    ?>
 
-                    </div>
-                <?php
-                }
-                ?>
+        <form class="form" action='deleteFromBucket.php' method="post">
+            <div><input class="input" type="submit" value="Remove"></div>
+            <div><input type="hidden" id="tour_id" name="tour_id" value=<?php echo $tuple[0]?>></div>
+            <div class="tour">
+                <div class="img">
+                    <a href='./tourDetails.php?id=<?php echo $tuple[0] ?>'>
+                        <img src='./img/<?php echo $tuple[4] ?>' />
+                    </a>
+                </div>
+                <div class="information">">
+                    <h1>
+                        <?php echo $tuple[5] ?>
+                    </h1>
+                    <h1>
+                        <?php echo $tuple[3] ?>
+                    </h1>
+                </div>
             </div>
-        </div>
-        <div class="delete">
-            <div><Button class="fa fa-times">&nbsp &nbspDELETE</Button></div>
-        </div>
-    </div>
+            <form class="form" action='deleteFromBucket.php' method="post">
+                <div><input class="input" type="submit" value="Remove"></div>
+            </form>
+        </form>
+
+    <?php
+    }
+    ?>
+
 </body>
 
 </html>

@@ -46,6 +46,7 @@
         <a href="#contact">Contact</a>
         <a href="ticketListPage.php">Ticket</a>
         <a href="#about">About</a>
+        <a href="paymentPage.php">Bucket</a>
     </div>
     <div class="search">
         <form class="search_bar" action='tour.php' method='post'>
