@@ -309,7 +309,7 @@ public class App {
             "(user_id INT(12), " +
             " tour_id INT(12), " +
             " activity_id INT(12), " +
-            " PRIMARY KEY ( user_id, tour_id ), " +
+            " PRIMARY KEY ( user_id, tour_id, activity_id ), " +
             " FOREIGN KEY (user_id) REFERENCES account(user_id), " +
             " FOREIGN KEY (tour_id) REFERENCES tour(tour_id), " +
             " FOREIGN KEY (activity_id) REFERENCES activity(activity_id))" +

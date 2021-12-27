@@ -17,8 +17,14 @@ $user_id = 1;
 $tour_id = $_GET['tour_id'];
 $date = date("Y/m/d");
 echo $date;
+// $query = "INSERT INTO `tour_bucket` (`user_id`, `tour_id`, `activity_id`) VALUES ('1', '1', '1')";
+// if ($result = $mysqli->query($query)) {
+//             echo "added";
+//         } else {
+//             echo "failed";
+//         }
 foreach($activities as $activity) {
-    $query = "insert into bucket values('$user_id','$tour_id','$activity')";
+    $query = "INSERT INTO `tour_bucket` (`user_id`, `tour_id`, `activity_id`) VALUES (".$user_id.",".$tour_id.",".$activity.")";
     echo $query;
     if ($result = $mysqli->query($query)) {
         echo "added";
