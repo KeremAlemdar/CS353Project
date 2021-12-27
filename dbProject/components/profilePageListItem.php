@@ -3,10 +3,10 @@ include("./connection/checkSession.php");
 //$user_id = $_SESSION['user_id'];
 $query = "SELECT fname, email, phone_num FROM account WHERE user_id = " . 1 . "";
 $result = $mysqli->query($query);
-$query = "SELECT hotel_id FROM Reservation NATURAL JOIN reservation_hotelR NATURAL JOIN reserve WHERE user_id = " . 1 ."";
+$query = "SELECT hotel_id FROM Reservation NATURAL JOIN reservation_hotelR NATURAL JOIN reserve WHERE user_id = " . 1 . "";
 $hotel_id_result = $mysqli->query($query);
 $hotel_id = $hotel_id_result->fetch_array(MYSQLI_NUM);
-$query = "SELECT * from Hotel WHERE hotel_id = " . $hotel_id[0] ."";
+$query = "SELECT * from Hotel WHERE hotel_id = " . $hotel_id[0] . "";
 $hotel_info = $mysqli->query($query);
 ?>
 
@@ -22,7 +22,6 @@ $hotel_info = $mysqli->query($query);
         * {
             box-sizing: border-box;
         }
-
         .user_detail_row {
             display: table;
             width: 100%;
@@ -30,55 +29,63 @@ $hotel_info = $mysqli->query($query);
             border: solid;
             border-color: black;
         }
-
-        .col {
-            float: left;
-            width: 50%;
-        }
-
         .user_details {
             position: left;
         }
 
-        .row:after {
-            display: table;
-        }
-
-        .hotel {
-            border: 2px solid black;
+        .reservations{
             display: flex;
-            width: 100%;
-            height: auto; /* 40% dı, 2 liyken kücülmeyi çözmek için auto yaptım*/
+            flex-direction: row;
+            justify-content: center;
+            border: 3px solid black;
         }
-        .information {
-            margin-left: 2.5%;
-            margin-right: 2.5%;
-            width: 45%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .img {
+        .hotels {
             width: 50%;
-            height: 100%;
         }
+
+        .tours {
+            width: 50%;
+        }
+
+
         img {
             width: 100%;
             height: 100%;
         }
-        
-        .submit_button {
+
+
+        .hotel {
+            border: 2px solid black;
+            width: 100%;
+            display: flex;
+            height: auto; /* 40% dı, 2 liyken kücülmeyi çözmek için auto yaptım*/
+        }
+
+        .hotel .img {
+            width: 40%;
+        }
+
+        .hotel .information {
+            margin-left: 2.5%;
+            margin-right: 2.5%;
+            width: 40%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .hotel .button_part {
+            width: 10%;            
+            display: flex;
+            align-items: center;
+        }
+        .hotel .submit_button {
             border-radius: 5px;
             box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             padding: 10px 25px;
-            width: 50%;
-            height: 50%;
             display: flex;
             align-items: center;
 
         }
-
     </style>
 </head>
 
@@ -105,14 +112,12 @@ $hotel_info = $mysqli->query($query);
 
         </div>
     </div>
-    <div>       </div>
-    <div class="row">
-        <div class="col" style="background-color:#aaa;">
+    <div class="reservations">
+        <div class="hotels" style="background-color:#aaa;">
             <h2>Hotel Reservations</h2>
-
             <?php
             while ($tuple = $hotel_info->fetch_array(MYSQLI_NUM)) {
-            # Tour(tour_id, start_date, end_date, tour_information, image)
+                # Tour(tour_id, start_date, end_date, tour_information, image)
             ?>
                 <div class="hotel">
                     <div class="img">
@@ -122,23 +127,24 @@ $hotel_info = $mysqli->query($query);
                     </div>
                     <div class="information">
                         <h2>
-                            <?php echo $tuple[1], "  ",  $tuple[2]?>
+                            <?php echo $tuple[1], "  ",  $tuple[2] ?>
                         </h2>
                         <h3>
-                            <?php echo $tuple[3], " STAR HOTEL "?>
+                            <?php echo $tuple[3], " STAR HOTEL " ?>
                         </h3>
 
                     </div>
-
-                    <input class="submit_button" type="submit" value="Cancel Reservation">
+                    <div class="button_part">
+                        <input class="submit_button" type="submit" value="Cancel Reservation">
+                    </div>
                 </div>
             <?php
             }
             ?>
-            
+
         </div>
-        <div class="col" style="background-color:#bbb;">
-        
+        <div class="tours" style="background-color:#bbb;">
+
             <h2>Tour Reservations</h2>
             <p>Selectable rows</p>
         </div>
@@ -148,11 +154,11 @@ $hotel_info = $mysqli->query($query);
 </html>
 
 
- <!-- <div class="all">
+<!-- <div class="all">
         <div class="tours">
             <?php
             while ($tuple = $result->fetch_array(MYSQLI_NUM)) {
-            # Tour(tour_id, start_date, end_date, tour_information, image)
+                # Tour(tour_id, start_date, end_date, tour_information, image)
             ?>
                 <div class="tour">
                     <div class="img">

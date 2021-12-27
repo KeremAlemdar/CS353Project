@@ -73,6 +73,13 @@ if ($tours->num_rows == 0) {
         .activity_link_button {
             display: flex;
         }
+        .activity_link_button .activity_button {
+            border: 3px solid black;
+        }
+        .activity_link_button .information{
+            border: 3px solid red;
+
+        }
     </style>
 </head>
 
