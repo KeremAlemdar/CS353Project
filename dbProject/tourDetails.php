@@ -38,22 +38,52 @@ $activities = $mysqli->query($query);
             justify-content: center;
         }
 
-        .tour_dates {
+        .tour .tour_dates {
             display: flex;
-            justify-content: space-between;
-            width: 6.5%;
+            justify-content: right;
         }
 
-        .tour_details {}
+        .tour_details {
+            border: 2px solid black;
+        }
+
+        .tour img {
+            width: 100%;
+        }
+
+        .tour .tour_name_bar {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .tour .tour_img {
+            display: flex;
+            justify-content: right;
+        }
+
+        .tour_name {
+            display: flex;
+        }
+
+        .tour_upper {
+            display: flex;
+            flex-direction: column;
+            justify-content: right;
+        }
+
+        .tour_lower {
+            text-align: center;
+        }
 
         .activities {
             display: flex;
             justify-content: center;
+            border: 2px solid black;
             flex-wrap: wrap;
         }
 
         .activity {
-            width: 10%;
+            width: 20%;
             /* increase activity size */
             justify-content: center;
             margin-left: 2.5%;
@@ -71,70 +101,112 @@ $activities = $mysqli->query($query);
             height: 100%;
         }
 
-        .tour img {
-            width: 35%;
-        }
-
-        .button {
-            display: flex;
-            justify-content: right;
-        }
+        .button {}
 
         .input {
-            font-size: 30px;
+            height: 50%;
+            font-size: 18px;
+            background-color: blue;
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+
+        .page {
+            display: flex;
+            justify-content: center;
+        }
+
+        .inner_page {
+            width: 70%;
         }
     </style>
     <title>Tour Name</title>
 </head>
 
 <body>
-    <div>
-        <form class="form" action='addTourBucket.php?tour_id=<?php echo $tour_id ?>' method="post">
-            <div class="button"><input class="input" type="submit" value="Add To Bucket"></div>
-            <div class="inside_form">
-
-                <?php
-                while ($tuple = $result->fetch_array(MYSQLI_NUM)) {
-                    echo "
-                <div class='all'>
-                <div class='tour'>
-                <div><h1>" . $tuple[5] . "</h1></div>
-            <div></div>
-                <div class='tour_dates'>
-                <div>" . $tuple[1] . "</div>
-                <div></div>
-                <div>" . $tuple[2] . "</div>
-                </div>
-                <div><img src='./img/" . $tuple[4] . "'/></div>
-                <div><h2>Tour Details</h2></div>
-                <div class='tour_details'>" . $tuple[3] . "</div>
-                </div>
-                </div>
-                ";
-                }
-                echo "<div>
-        <div><h1>Activities</h1></div>
-        <div><h2>Check activities you want to add</h2></div>
-        <div class='activities'>";
-                ?>
-                <?php
-                while ($tuple = $activities->fetch_array(MYSQLI_NUM)) {
-                    // <div><img src=" . $tuple[resim] . "/></div>
-                ?>
-                    <label><input type="checkbox" name="activities[]" value=<?php echo $tuple[0] ?> /> <?php echo $tuple[0] ?></label><br />
-                    <div class='activity'>
-                        <div><img src='./img/<?php echo $tuple[8] ?>' /></div>
-                        <div class='information'>
-                            <div><?php echo $tuple[4] ?></div>
-                            <div><?php echo $tuple[6] ?></div>
+    <div class="outer_page">
+        <div class="page">
+            <div class="inner_page">
+                <form class="form" action='addTourBucket.php?tour_id=<?php echo $tour_id ?>' method="post">
+                    <div class="inside_form">
+                        <?php
+                        while ($tuple = $result->fetch_array(MYSQLI_NUM)) {
+                        ?>
+                            <div class='all'>
+                                <div class='tour'>
+                                    <div class="tour_upper">
+                                        <div class="tour_name_bar">
+                                            <div class="tour_name">
+                                                <h1><?php echo $tuple[5] ?></h1>
+                                            </div>
+                                            <div class="button">
+                                                <input class="input" type="submit" value="Reserve">
+                                            </div>
+                                        </div>
+                                        <div class='tour_dates'>
+                                            <div>
+                                                <?php echo $tuple[1] ?>
+                                            </div>
+                                            <div>
+                                                <?php echo "-" ?>
+                                            </div>
+                                            <div>
+                                                <?php echo $tuple[2] ?>
+                                            </div>
+                                        </div>
+                                        <div class="tour_img">
+                                            <img src='./img/<?php echo $tuple[4] ?>' />
+                                        </div>
+                                    </div>
+                                    <div class="tour_lower">
+                                        <div class='tour_details'>
+                                            <div>
+                                                <h2>Tour Details</h2>
+                                            </div>
+                                            <div><?php echo $tuple[3] ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php
+                        }
+                        ?>
+                        <div>
+                            <h1>Activities</h1>
                         </div>
-                        <div><?php echo $tuple[2] ?></div>
-                    </div>
-        <?php
-                }
-        ?>
-    </div>
-    </form>
+                        <div>
+                            <h2>Check activities you want to add</h2>
+                        </div>
+                        <div class='activities'>
+                            <?php
+                            while ($tuple = $activities->fetch_array(MYSQLI_NUM)) {
+                                // <div><img src=" . $tuple[resim] . "/></div>
+                            ?>
+                                <div class='activity'>
+                                    <div>
+                                        <img src='./img/<?php echo $tuple[8] ?>' />
+                                    </div>
+                                    <div class='information'>
+                                        <div>
+                                            <?php echo $tuple[4] ?>
+                                        </div>
+                                        <div>
+                                            <?php echo $tuple[6] ?>
+                                        </div>
+                                    </div>
+                                    <div><?php echo $tuple[2] ?>
+                                    </div>
+                                </div>
+                                <label><input type="checkbox" name="activities[]" value=<?php echo $tuple[0] ?> /> <?php echo $tuple[0] ?></label><br />
+                            <?php
+                            }
+                            ?>
+                        </div>
+                </form>
+            </div>
+        </div>
     </div>
 </body>
 
