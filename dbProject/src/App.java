@@ -100,14 +100,6 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("account table is deleted!");  
 
-            sql = "DROP TABLE IF EXISTS tour";
-            stmt.executeUpdate(sql);
-            System.out.println("tour table is deleted!");
-
-            sql = "DROP TABLE IF EXISTS activity";
-            stmt.executeUpdate(sql);
-            System.out.println("activity table is deleted!");
-
             sql = "DROP TABLE IF EXISTS Flight";
             stmt.executeUpdate(sql);
             System.out.println("Flight table is deleted!");
@@ -119,6 +111,14 @@ public class App {
             sql = "DROP TABLE IF EXISTS Hotel";
             stmt.executeUpdate(sql);
             System.out.println("Hotel table is deleted!");
+
+            sql = "DROP TABLE IF EXISTS tour";
+            stmt.executeUpdate(sql);
+            System.out.println("tour table is deleted!");
+
+            sql = "DROP TABLE IF EXISTS activity";
+            stmt.executeUpdate(sql);
+            System.out.println("activity table is deleted!");
 
 
 
@@ -196,42 +196,6 @@ public class App {
             
             stmt.executeUpdate(sql);
             System.out.println("tour_activity table created!");
-
-            sql = "CREATE TABLE tour_bucket " +
-            "(user_id INT(12), " +
-            " tour_id INT(12), " +
-            " activity_id INT(12), " +
-            " date DATE, " +
-            " PRIMARY KEY ( user_id, tour_id ), " +
-            " FOREIGN KEY (user_id) REFERENCES account(user_id), " +
-            " FOREIGN KEY (tour_id) REFERENCES tour(tour_id), " +
-            " FOREIGN KEY (activity_id) REFERENCES activity(activity_id))" +
-            " ENGINE=innodb;";
-            
-            stmt.executeUpdate(sql);
-            System.out.println("tour_bucket table created!");
-
-            sql = "CREATE TABLE hotel_bucket " +
-            "(user_id INT(12), " +
-            " hotel_id INT(12), " +
-            " PRIMARY KEY ( user_id, hotel_id ), " +
-            " FOREIGN KEY (user_id) REFERENCES account(user_id), " +
-            " FOREIGN KEY (hotel_id) REFERENCES hotel(hotel_id))" +
-            " ENGINE=innodb;";
-            
-            stmt.executeUpdate(sql);
-            System.out.println("hotel_bucket table created!");
-
-            sql = "CREATE TABLE plane_bucket " +
-            "(user_id INT(12), " +
-            " plane_id INT(12), " +
-            " PRIMARY KEY ( user_id, plane_id ), " +
-            " FOREIGN KEY (user_id) REFERENCES account(user_id), " +
-            " FOREIGN KEY (plane_id) REFERENCES hotel(plane_id))" +
-            " ENGINE=innodb;";
-            
-            stmt.executeUpdate(sql);
-            System.out.println("plane_bucket table created!");
 
             sql = "CREATE TABLE evaluate_tour " +
             "(tour_id INT(12), " +
@@ -342,7 +306,42 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("hotel_evaluation table created!");
 
+            sql = "CREATE TABLE tour_bucket " +
+            "(user_id INT(12), " +
+            " tour_id INT(12), " +
+            " activity_id INT(12), " +
+            " date DATE, " +
+            " PRIMARY KEY ( user_id, tour_id ), " +
+            " FOREIGN KEY (user_id) REFERENCES account(user_id), " +
+            " FOREIGN KEY (tour_id) REFERENCES tour(tour_id), " +
+            " FOREIGN KEY (activity_id) REFERENCES activity(activity_id))" +
+            " ENGINE=innodb;";
+            
+            stmt.executeUpdate(sql);
+            System.out.println("tour_bucket table created!");
 
+            sql = "CREATE TABLE hotel_bucket " +
+            "(user_id INT(12), " +
+            " hotel_id INT(12), " +
+            " PRIMARY KEY ( user_id, hotel_id ), " +
+            " FOREIGN KEY (user_id) REFERENCES account(user_id), " +
+            " FOREIGN KEY (hotel_id) REFERENCES Hotel(hotel_id))" +
+            " ENGINE=innodb;";
+            
+            stmt.executeUpdate(sql);
+            System.out.println("hotel_bucket table created!");
+
+            // sql = "CREATE TABLE plane_bucket " +
+            // "(user_id INT(12), " +
+            // " plane_id INT(12), " +
+            // " PRIMARY KEY ( user_id, plane_id ), " +
+            // " FOREIGN KEY (user_id) REFERENCES account(user_id), " +
+            // " FOREIGN KEY (plane_id) REFERENCES plane(plane_id))" +
+            // " ENGINE=innodb;";
+            
+            // stmt.executeUpdate(sql);
+            // System.out.println("plane_bucket table created!");
+            
             //Tour(tour_id, start_date, end_date, tour_information)
             //Tour_Activity (activity_id, tour_id, date)
             //Activity (activity_id, content, name, location, price, categories)
@@ -383,15 +382,7 @@ public class App {
             "VALUES ('2', '2', '2021/11/20')";
             stmt.executeUpdate(sql);
 
-            //insert tuples to bucket
-            sql = "INSERT INTO bucket " +
-            "VALUES ('1', null, '1', null)";
-            stmt.executeUpdate(sql);
-            sql = "INSERT INTO bucket " +
-            "VALUES ('1', null, '2', null)";
-            stmt.executeUpdate(sql);
-
-            //insert tuples to bucket
+            //insert tuples to Airport
             sql = "INSERT INTO Airport (city) " +
             "VALUES ( 'Ankara' )";
             stmt.executeUpdate(sql);
@@ -402,7 +393,7 @@ public class App {
             "VALUES ( 'Bolu' )";
             stmt.executeUpdate(sql);
 
-            //insert tuples to bucket
+            //insert tuples to Hotel
             sql = "INSERT INTO Hotel (name, city ,star) " +
             "VALUES ( 'Bilkent Hotel', 'Ankara', '400' )";
             stmt.executeUpdate(sql);
