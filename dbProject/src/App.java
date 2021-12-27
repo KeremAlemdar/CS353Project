@@ -280,6 +280,8 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("reservation_hotelR table created!");
 
+            
+            //NORMALDE BURADA USER ID YOK --> EMPLOYEE ID VE CUSTOMER ID VAR
             sql = "CREATE TABLE reserve " +
             "(reservation_id INT(12), " +
             " user_id INT(12), " +

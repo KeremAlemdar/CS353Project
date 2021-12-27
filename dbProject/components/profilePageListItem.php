@@ -43,6 +43,42 @@ $hotel_info = $mysqli->query($query);
         .row:after {
             display: table;
         }
+
+        .hotel {
+            border: 2px solid black;
+            display: flex;
+            width: 100%;
+            height: auto; /* 40% dı, 2 liyken kücülmeyi çözmek için auto yaptım*/
+        }
+        .information {
+            margin-left: 2.5%;
+            margin-right: 2.5%;
+            width: 45%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .img {
+            width: 50%;
+            height: 100%;
+        }
+        img {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .submit_button {
+            border-radius: 5px;
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            padding: 10px 25px;
+            width: 50%;
+            height: 50%;
+            display: flex;
+            align-items: center;
+
+        }
+
     </style>
 </head>
 
@@ -64,13 +100,12 @@ $hotel_info = $mysqli->query($query);
                 <h4>
                     <?php echo "Phone: ", $user_info[2] ?>
                 </h4>
+                <button> Edit User Information </button>
             </div>
 
-            <?php
-            
-            ?>
         </div>
     </div>
+    <div>       </div>
     <div class="row">
         <div class="col" style="background-color:#aaa;">
             <h2>Hotel Reservations</h2>
@@ -94,6 +129,8 @@ $hotel_info = $mysqli->query($query);
                         </h3>
 
                     </div>
+
+                    <input class="submit_button" type="submit" value="Cancel Reservation">
                 </div>
             <?php
             }
