@@ -64,13 +64,17 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("reserve table is deleted!");
 
-            sql = "DROP TABLE IF EXISTS Hotel_Room";       
+            sql = "DROP TABLE IF EXISTS hotel_evaluation";
             stmt.executeUpdate(sql);
-            System.out.println("Hotel_Room table is deleted!");
+            System.out.println("hotel_evaluation table is deleted!");
 
             sql = "DROP TABLE IF EXISTS reservation_hotelR";
             stmt.executeUpdate(sql);
             System.out.println("reservation_hotelR table is deleted!");
+
+            sql = "DROP TABLE IF EXISTS Hotel_Room";       
+            stmt.executeUpdate(sql);
+            System.out.println("Hotel_Room table is deleted!");
 
             sql = "DROP TABLE IF EXISTS Reservation";
             stmt.executeUpdate(sql);
@@ -272,7 +276,7 @@ public class App {
             sql = "CREATE TABLE reservation_hotelR " +
             "(room_id INT(12), " +
             " reservation_id INT(12), " +
-            " PRIMARY KEY ( room_id, reservation_id ), " +
+            " PRIMARY KEY ( reservation_id ), " +
             " FOREIGN KEY (reservation_id) REFERENCES Reservation(reservation_id), " +
             " FOREIGN KEY (room_id) REFERENCES Hotel_Room(room_id))" +
             " ENGINE=innodb;";
@@ -292,6 +296,20 @@ public class App {
 
             stmt.executeUpdate(sql);
             System.out.println("reserve table created!");
+
+            sql = "CREATE TABLE hotel_evaluation " +
+            "(evalutaion_id INT(12) AUTO_INCREMENT, " +
+            " customer_id INT(12), " +
+            " hotel_id INT(12), " +
+            " rate INT(12), " +
+            " evaluation VARCHAR(255), " +
+            " PRIMARY KEY ( evalutaion_id ), " +
+            " FOREIGN KEY (customer_id) REFERENCES customer(customer_id), " +
+            " FOREIGN KEY (hotel_id) REFERENCES Hotel(hotel_id)) " +
+            " ENGINE=innodb;";
+
+            stmt.executeUpdate(sql);
+            System.out.println("hotel_evaluation table created!");
 
 
             //Tour(tour_id, start_date, end_date, tour_information)
