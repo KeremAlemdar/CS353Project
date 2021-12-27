@@ -309,7 +309,6 @@ public class App {
             "(user_id INT(12), " +
             " tour_id INT(12), " +
             " activity_id INT(12), " +
-            " date DATE, " +
             " PRIMARY KEY ( user_id, tour_id ), " +
             " FOREIGN KEY (user_id) REFERENCES account(user_id), " +
             " FOREIGN KEY (tour_id) REFERENCES tour(tour_id), " +
@@ -348,16 +347,6 @@ public class App {
 
             sql = "INSERT INTO account " +
             "VALUES (null, 'kerem', '123', 'kerema', '05409981232', 'Kerem Alemdar')";
-            stmt.executeUpdate(sql);
-
-            sql = "INSERT INTO tour " +
-            "VALUES (null, '1997/03/03', '2000/03/03', 'This tour is in besiktas and MUKEMMEL', 'tour1.jpg', 'France Tour')";
-            stmt.executeUpdate(sql);
-            sql = "INSERT INTO tour " +
-            "VALUES (null, '1997/03/03', '2000/03/03', 'This tour is in besiktas and MUKEMMEL', 'tour1.jpg', 'France Tour')";
-            stmt.executeUpdate(sql);
-            sql = "INSERT INTO tour " +
-            "VALUES (null, '1997/03/03', '2000/03/03', 'This tour is in besiktas and MUKEMMEL', 'tour1.jpg', 'France Tour')";
             stmt.executeUpdate(sql);
 
             //insert tuples to tour
@@ -429,6 +418,8 @@ public class App {
             "VALUES ( '2021/12/25 13:30:00', '2021/12/25 15:30:00', '2', '1')";
             stmt.executeUpdate(sql);
 
+
+            
             // System.out.println("------------------1----------------");
             // sql = "SELECT bdate,address,city " +
             // "FROM customer," +

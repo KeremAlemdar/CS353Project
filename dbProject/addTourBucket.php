@@ -19,6 +19,7 @@ $date = date("Y/m/d");
 echo $date;
 foreach($activities as $activity) {
     $query = "insert into bucket values('$user_id','$tour_id','$activity')";
+    echo $query;
     if ($result = $mysqli->query($query)) {
         echo "added";
     } else {
