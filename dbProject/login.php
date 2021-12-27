@@ -48,7 +48,8 @@ if (isset($_POST['registerEmp'])) {
 	$username = $_POST['username'];
 	$fname = $_POST['fname'];
 	$phonenum = $_POST['pn'];
-	$query = "insert into Account values('$username','$pss','$email','$phonenum', '$fname')";
+
+	$query = "insert into account values('$username','$pss','$email','$phonenum', '$fname')";
 	if ($result = $mysqli->query($query)) {
 		$query = "insert into Employee values('$username')";
 		// header("Location: mainPage.php");

@@ -132,8 +132,7 @@ public class App {
             " password VARCHAR(50), " +
             " email VARCHAR(50), " +
             " phone_num VARCHAR(50), " +
-            " name VARCHAR(50), " +
-            " surname VARCHAR(50), " +
+            " fname VARCHAR(50), " +
             " PRIMARY KEY ( user_id ))" +
             " ENGINE=innodb;";
             
@@ -345,6 +344,21 @@ public class App {
             //Tour(tour_id, start_date, end_date, tour_information)
             //Tour_Activity (activity_id, tour_id, date)
             //Activity (activity_id, content, name, location, price, categories)
+
+
+            sql = "INSERT INTO account " +
+            "VALUES (null, 'kerem', '123', 'kerema', '05409981232', 'Kerem Alemdar')";
+            stmt.executeUpdate(sql);
+
+            sql = "INSERT INTO tour " +
+            "VALUES (null, '1997/03/03', '2000/03/03', 'This tour is in besiktas and MUKEMMEL', 'tour1.jpg', 'France Tour')";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO tour " +
+            "VALUES (null, '1997/03/03', '2000/03/03', 'This tour is in besiktas and MUKEMMEL', 'tour1.jpg', 'France Tour')";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO tour " +
+            "VALUES (null, '1997/03/03', '2000/03/03', 'This tour is in besiktas and MUKEMMEL', 'tour1.jpg', 'France Tour')";
+            stmt.executeUpdate(sql);
 
             //insert tuples to tour
             sql = "INSERT INTO tour " +
