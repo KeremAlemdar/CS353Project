@@ -1,17 +1,29 @@
 <?php
 
-$departureDate = isset($_POST['departureDate']) ? $_POST['departureDate'] : "";
-$departureCity =  isset($_POST['departureCity']) ? $_POST['departureCity'] : "";
-$arrivalCity =  isset($_POST['arrivalCity']) ? $_POST['arrivalCity'] : "";
-
-if (empty($departureCity)) {
-    echo "alert('Chose Departure City ')";
-} else if (empty($departureDate)) {
-    echo "alert('Chose Departure Time ')";
-} else if (empty($arrivalCity)) {
-    echo "alert('Chose Ariival City ')";
+if (isset($_GET['flightId'])) {
+    $flightID = $_GET['flightId'];
+    $query = "insert into flight_bucket values(1, '$flightID')";
+    $asd = $mysqli->query($query);
+    header("Location: ticketListPage.php");
+}
+if (empty($_POST['departureCity']) && empty($_POST['departureDate']) && empty($_POST['arrivalCity'])) {
+} else if (empty($_POST['departureCity'])) {
+    echo '<script language="javascript">';
+    echo 'alert("Chose Departure City")';
+    echo '</script>';
+} else if (empty($_POST['departureDate'])) {
+    echo '<script language="javascript">';
+    echo 'alert("Chose Departure Time ")';
+    echo '</script>';
+} else if (empty($_POST['arrivalCity'])) {
+    echo '<script language="javascript">';
+    echo 'alert("Chose Ariival City")';
+    echo '</script>';
 } else {
-    $query = "select airport_id from Airport where city='Ankara'";
+    $arrivalCity = $_POST['arrivalCity'];
+    $departureDate = $_POST['departureDate'];
+    $departureCity = $_POST['departureCity'];
+    $query = "select airport_id from Airport where city='$departureCity'";
     $result = $mysqli->query($query);
     $departureId = $result->fetch_array();
 
@@ -25,10 +37,7 @@ if (empty($departureCity)) {
 
     $result = $mysqli->query($query);
 }
-echo 'asbd';
-$departureDate = "";
-$departureCity =  "";
-$arrivalCity = "";
+
 ?>
 
 <!DOCTYPE html>
@@ -103,17 +112,18 @@ $arrivalCity = "";
                     <div class="departure">
                         <img src="https://content.r9cdn.net/rimg/provider-logos/airlines/v/PC.png?crop=false&width=108&height=92&fallback=default1.png&_v=e574f35253dcd377492e2002db829c55" alt="asd">
                         <div style="display: flex; flex-direction:row;">
-                            <h3>13:30 <br /> ESB</h3>
+                            <h3><?php echo date_format(date_create($tuple[1]), 'H:i') ?> <br /> <?php echo $_POST['departureCity'] ?></h3>
                             <span style="margin:auto">------------------------</span>
-                            <h3>13:30 <br /> ESB</h3>
+                            <h3><?php echo date_format(date_create($tuple[2]), 'H:i') ?> <br /> <?php echo $_POST['arrivalCity'] ?></h3>
                         </div>
-                        <h2>1:30 Hour</h2>
+                        <h2><?php $interval = date_create($tuple[2])->diff(date_create($tuple[1]));
+                            echo  "" . $interval->h . "H"; ?></h2>
                     </div>
                 </div>
                 <div class="price">
                     <div style="margin-left: auto; margin-right: auto; margin-bottom:30px">
                         <h1>120 dolar işareti</h1>
-                        <button> BUY </button>
+                        <a class="confirm" href="ticketListPage.php?flightId=<?php echo $tuple[0] ?>">Add to Bucket</a>
                     </div>
 
                 </div>

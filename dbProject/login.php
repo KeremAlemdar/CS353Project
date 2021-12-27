@@ -5,28 +5,29 @@ $error = 0;
 if (isset($_POST['logIn'])) {
 	$email = $_POST['email'];
 	$pass = $_POST['pass'];
-
-	$query = "select user_id from Account where email='$email' or username='$email' and password='$pass'";
+	echo $email;
+	echo $pass;
+	$query = "select user_id from account where email='$email' or username='$email' and password='$pass'";
 	if ($result = $mysqli->query($query)) {
 		if ($result->num_rows == 1) {
+			echo 'asd';
 			$_SESSION['login_user'] = $email;
 			$_SESSION['user_id'] = $result;
 			$query = "select * from Employee where employee_id='$email'";
 			if ($result = $mysqli->query($query)) {
 				if ($result->num_rows == 1) { // if enployee
-					//header("Location: welcome.php");
+					header("Location: welcome.php");
 				} else {
-					//header("Location: login.php?msg=err");
+					header("Location: login.php?msg=logindone");
 				}
-			} else { // if not employee
-				//header("Location: login.php?msg=err");
+			} else {
+				header("Location: login.php?msg=err3");
 			}
-			//header("Location: welcome.php");
 		} else {
-			//header("Location: login.php?msg=err");
+			header("Location: login.php?msg=err1");
 		}
 	} else {
-		header("Location: login.php?msg=err");
+		header("Location: login.php?msg=err2");
 	}
 }
 if (isset($_POST['register'])) {
@@ -35,9 +36,9 @@ if (isset($_POST['register'])) {
 	$username = $_POST['username'];
 	$fname = $_POST['fname'];
 	$phonenum = $_POST['pn'];
-	$query = "insert into account values('$username','$pss','$email','$phonenum', '$fname')";
+	$query = "insert into account values(null, '$username','$pss','$email','$phonenum', '$fname')";
 	if ($result = $mysqli->query($query)) {
-		// header("Location: mainPage.php");
+		header("Location: login.php?msg=regdone");
 	} else {
 		// header("Location: login.php?msg=err");
 	}
@@ -50,10 +51,15 @@ if (isset($_POST['registerEmp'])) {
 	$fname = $_POST['fname'];
 	$phonenum = $_POST['pn'];
 
-	$query = "insert into account values('$username','$pss','$email','$phonenum', '$fname')";
+	$query = "insert into account values(null, '$username','$pss','$email','$phonenum', '$fname')";
 	if ($result = $mysqli->query($query)) {
-		$query = "insert into Employee values('$username')";
-		// header("Location: mainPage.php");
+		echo $mysqli->insert_id;
+		$query = "insert into employee values('$mysqli->insert_id')";
+		if ($result = $mysqli->query($query)) {
+			// header("Location: mainPage.php");
+		} else {
+			// header("Location: login.php?msg=err");
+		}
 	} else {
 		// header("Location: login.php?msg=err");
 	}

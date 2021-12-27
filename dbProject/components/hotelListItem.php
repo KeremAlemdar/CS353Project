@@ -3,12 +3,11 @@
 $start_date = isset($_POST['start_date']) ? $_POST['start_date'] : "";
 $end_date =  isset($_POST['end_date']) ? $_POST['end_date'] : "";
 $searchKey =  isset($_POST['searchKey']) ? $_POST['searchKey'] : "";
-
-if(empty($start_date) && empty($end_date)) {
-    if(empty($searchKey)) {
+$query = "";
+if (empty($start_date) && empty($end_date)) {
+    if (empty($searchKey)) {
         $query = "select * from Hotel";
-    }
-    else {
+    } else {
         $query = "select * from Hotel where name LIKE '%" . $searchKey . "%'";
     }
 }
@@ -43,8 +42,10 @@ $result = $mysqli->query($query);
             border: 2px solid black;
             display: flex;
             width: 80%;
-            height: auto; /* 40% dı, 2 liyken kücülmeyi çözmek için auto yaptım*/
+            height: auto;
+            /* 40% dı, 2 liyken kücülmeyi çözmek için auto yaptım*/
         }
+
         .information {
             margin-left: 2.5%;
             margin-right: 2.5%;
@@ -58,22 +59,24 @@ $result = $mysqli->query($query);
             width: 100%;
             height: 100%;
         }
+
         .img {
             width: 50%;
             height: 100%;
         }
     </style>
 </head>
+
 <body>
     <div class="all">
         <div class="tours">
             <?php
             while ($tuple = $result->fetch_array(MYSQLI_NUM)) {
-            # Tour(tour_id, start_date, end_date, tour_information, image)
+                # Tour(tour_id, start_date, end_date, tour_information, image)
             ?>
                 <div class="tour">
                     <div class="img">
-                        <a href='./tourDetails.php?id=<?php echo $tuple[0] ?>'>
+                        <a href='./hotelDisplay.php?id=<?php echo $tuple[0] ?>'>
                             <img src='./img/tour1.jpg' />
                         </a>
                     </div>
