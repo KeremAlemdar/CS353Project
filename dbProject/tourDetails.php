@@ -74,7 +74,7 @@ $activities = $mysqli->query($query);
 
 <body>
     <div>
-    <form class="form" action='addBucket.php?tour_id=<?php echo $tour_id?>' method="post">
+    <form class="form" action='addTourBucket.php?tour_id=<?php echo $tour_id?>' method="post">
         <div class="button"><input class="input" type="submit" value="Add To Bucket"></div>
         <div class="inside_form">
         
