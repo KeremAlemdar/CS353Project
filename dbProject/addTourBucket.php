@@ -1,12 +1,14 @@
 <?php
 include("./connection/checkSession.php");
+
+$previous = $_SESSION['previous'];
 $activities = "";
-if(isset($_POST['activities'])) {
+if (isset($_POST['activities'])) {
     $activities = $_POST['activities'];
- 
+
     echo 'Seçtiğiniz activitiler: <br/>';
- 
-    foreach($activities as $activity) {
+
+    foreach ($activities as $activity) {
         echo ' * ' . $activity . ' <br/>';
     }
 } else {
@@ -23,13 +25,14 @@ echo $date;
 //         } else {
 //             echo "failed";
 //         }
-foreach($activities as $activity) {
-    $query = "INSERT INTO `tour_bucket` (`user_id`, `tour_id`, `activity_id`) VALUES (".$user_id.",".$tour_id.",".$activity.")";
+foreach ($activities as $activity) {
+    $query = "INSERT INTO `tour_bucket` (`user_id`, `tour_id`, `activity_id`) VALUES (" . $user_id . "," . $tour_id . "," . $activity . ")";
     echo $query;
     if ($result = $mysqli->query($query)) {
+        header("Location: paymentPage.php");
         echo "added";
     } else {
+        header("Location:".$previous."&error=cannotAdd");
         echo "failed";
     }
 }
-?>

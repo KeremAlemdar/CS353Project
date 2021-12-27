@@ -4,7 +4,20 @@ include("./components/navbar.php");
 # Tour(tour_id, start_date, end_date, tour_information, image)
 # Tour_Activity (activity_id, tour_id, date, image)
 # Activity (activity_id, content, name, location, price, categories)
+$page_url   = 'http';
+if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+    $page_url .= 's';
+}
+$current = $page_url . '://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+$_SESSION['previous'] = $current;
 
+$error = isset($_GET['error']) ? $_GET['error'] : "";
+if($error == "cannotAdd") {
+    echo "<script type='text/javascript'>
+    alert('It is already in your bucket');
+    window.location.href='./paymentPage.php';
+    </script>";
+}
 $tour_id = $_GET["id"];
 $query = "select * from tour where tour_id=$tour_id";
 $result = $mysqli->query($query);
