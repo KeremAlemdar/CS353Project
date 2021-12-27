@@ -61,18 +61,29 @@ $activities = $mysqli->query($query);
         .tour img {
             width: 35%;
         }
+        .button {
+            display: flex;
+            justify-content: right;
+        }
+        .input {
+            font-size: 30px;
+        }
     </style>
     <title>Tour Name</title>
 </head>
 
 <body>
     <div>
+    <form class="form" action='addBucket.php?tour_id=<?php echo $tour_id?>' method="post">
+        <div class="button"><input class="input" type="submit" value="Add To Bucket"></div>
+        <div class="inside_form">
+        
         <?php
         while ($tuple = $result->fetch_array(MYSQLI_NUM)) {
             echo "
                 <div class='all'>
                 <div class='tour'>
-                <div><h1>There will be tour name</h1></div>
+                <div><h1>".$tuple[5]."</h1></div>
             <div></div>
                 <div class='tour_dates'>
                 <div>" . $tuple[1] . "</div>
@@ -87,10 +98,10 @@ $activities = $mysqli->query($query);
                 ";
         }
         echo "<div>
-            <div><h1>Activities</h1></div>
-            <div class='activities'>";
+        <div><h1>Activities</h1></div>
+        <div><h2>Check activities you want to add</h2></div>
+        <div class='activities'>";
             ?>
-            <form action='addBucket.php?tour_id=<?php echo $tour_id?>' method="post">
             <?php
         while ($tuple = $activities->fetch_array(MYSQLI_NUM)) {
             // <div><img src=" . $tuple[resim] . "/></div>
@@ -110,7 +121,7 @@ $activities = $mysqli->query($query);
         }
         echo "</div></div>";
         ?>
-        <input type="submit" value="Tamam">
+</div>
         </form>
     </div>
 </body>
