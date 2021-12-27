@@ -10,6 +10,7 @@ if (isset($_POST['logIn'])) {
 	if ($result = $mysqli->query($query)) {
 		if ($result->num_rows == 1) {
 			$_SESSION['login_user'] = $email;
+			$_SESSION['user_id'] = $result;
 			$query = "select * from Employee where employee_id='$email'";
 			if ($result = $mysqli->query($query)) {
 				if ($result->num_rows == 1) { // if enployee

@@ -236,6 +236,8 @@ public class App {
             " name varchar(50), " +
             " city varchar(50), " +
             " star INT(12), " +
+            " details VARCHAR(255), " +
+            " image VARCHAR(255), " +
             " PRIMARY KEY ( hotel_id )) " +
             " ENGINE=innodb;";
 
@@ -345,12 +347,12 @@ public class App {
             //Activity (activity_id, content, name, location, price, categories)
 
 
-            sql = "INSERT INTO account " +
+             sql = "INSERT INTO account " +
             "VALUES (null, 'kerem', '123', 'kerema', '05409981232', 'Kerem Alemdar')";
-            stmt.executeUpdate(sql);
+            stmt.executeUpdate(sql); 
 
             //insert tuples to tour
-            sql = "INSERT INTO tour " +
+             sql = "INSERT INTO tour " +
             "VALUES (null, '1997/03/03', '2000/03/03', 'This tour is in besiktas and MUKEMMEL', 'tour1.jpg', 'France Tour')";
             stmt.executeUpdate(sql);
             sql = "INSERT INTO tour " +
@@ -361,7 +363,7 @@ public class App {
             stmt.executeUpdate(sql);
             sql = "INSERT INTO tour " +
             "VALUES (null, '2001/12/23', '2021/12/20', 'This tour is also MUKEMMEL but in diyarbakir', 'tour2.jpg', 'Loire Valley Tour')";
-            stmt.executeUpdate(sql);
+            stmt.executeUpdate(sql); 
 
             //insert tuples to activity
             sql = "INSERT INTO activity " +
@@ -397,15 +399,15 @@ public class App {
             stmt.executeUpdate(sql);
 
             //insert tuples to Hotel
-            sql = "INSERT INTO Hotel (name, city ,star) " +
-            "VALUES ( 'Bilkent Hotel', 'Ankara', '400' )";
+             sql = "INSERT INTO Hotel (hotel_id, name, city, star, details, image) " +
+            "VALUES ( null, 'Bilkent Hotel', 'Ankara', '5', 'Located in Ankara, good view.', 'bilkent_hotel.jpg' )";
             stmt.executeUpdate(sql);
-            sql = "INSERT INTO Hotel (name, city ,star) " +
-            "VALUES ( 'Kerem Hotel', 'Ankara', '31' )";
+            sql = "INSERT INTO Hotel (hotel_id, name, city, star, details, image) " +
+            "VALUES ( null, 'Kerem Hotel', 'Sakarya', '5', 'Located in Sakarya, good location.', 'kerem_hotel.jpg' )";
             stmt.executeUpdate(sql);
-            sql = "INSERT INTO Hotel (name, city ,star) " +
-            "VALUES ( 'Ismet Hotel', 'Ankara', '100' )";
-            stmt.executeUpdate(sql);
+            sql = "INSERT INTO Hotel (hotel_id, name, city, star, details, image) " +
+            "VALUES ( null, 'Ismet Hotel', 'Denizli', '5', 'Located in Denizli, good rooms.', 'ismet_hotel.jpg' )";
+            stmt.executeUpdate(sql); 
 
             //insert tuples to bucket
             sql = "INSERT INTO Flight (departure_time, arrival_time, departure_airport, arrival_airport) " +
@@ -418,7 +420,7 @@ public class App {
             "VALUES ( '2021/12/25 13:30:00', '2021/12/25 15:30:00', '2', '1')";
             stmt.executeUpdate(sql);
 
-
+ 
             
             // System.out.println("------------------1----------------");
             // sql = "SELECT bdate,address,city " +
