@@ -12,7 +12,7 @@ $current = $page_url . '://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']
 $_SESSION['previous'] = $current;
 
 $error = isset($_GET['error']) ? $_GET['error'] : "";
-if($error == "cannotAdd") {
+if ($error == "cannotAdd") {
     echo "<script type='text/javascript'>
     alert('It is already in your bucket');
     window.location.href='./paymentPage.php';
@@ -74,10 +74,12 @@ $activities = $mysqli->query($query);
         .tour img {
             width: 35%;
         }
+
         .button {
             display: flex;
             justify-content: right;
         }
+
         .input {
             font-size: 30px;
         }
@@ -87,16 +89,16 @@ $activities = $mysqli->query($query);
 
 <body>
     <div>
-    <form class="form" action='addTourBucket.php?tour_id=<?php echo $tour_id?>' method="post">
-        <div class="button"><input class="input" type="submit" value="Add To Bucket"></div>
-        <div class="inside_form">
-        
-        <?php
-        while ($tuple = $result->fetch_array(MYSQLI_NUM)) {
-            echo "
+        <form class="form" action='addTourBucket.php?tour_id=<?php echo $tour_id ?>' method="post">
+            <div class="button"><input class="input" type="submit" value="Add To Bucket"></div>
+            <div class="inside_form">
+
+                <?php
+                while ($tuple = $result->fetch_array(MYSQLI_NUM)) {
+                    echo "
                 <div class='all'>
                 <div class='tour'>
-                <div><h1>".$tuple[5]."</h1></div>
+                <div><h1>" . $tuple[5] . "</h1></div>
             <div></div>
                 <div class='tour_dates'>
                 <div>" . $tuple[1] . "</div>
@@ -109,33 +111,30 @@ $activities = $mysqli->query($query);
                 </div>
                 </div>
                 ";
-        }
-        echo "<div>
+                }
+                echo "<div>
         <div><h1>Activities</h1></div>
         <div><h2>Check activities you want to add</h2></div>
         <div class='activities'>";
-            ?>
-            <?php
-        while ($tuple = $activities->fetch_array(MYSQLI_NUM)) {
-            // <div><img src=" . $tuple[resim] . "/></div>
-            ?>
-              <label><input type="checkbox" name="activities[]" value=<?php echo $tuple[0] ?> /> <?php echo $tuple[0]?></label><br />
-            <?php
-              echo "
-                <div class='activity'>
-                <div><img src='./img/" . $tuple[8] . "'/></div>
-                <div class='information'>
-                    <div>" . $tuple[4] . "</div>
-                    <div>" . $tuple[6] . "</div>
-                </div>
-                <div>" . $tuple[2] . "</div>
-                </div>
-                ";
-        }
-        echo "</div></div>";
+                ?>
+                <?php
+                while ($tuple = $activities->fetch_array(MYSQLI_NUM)) {
+                    // <div><img src=" . $tuple[resim] . "/></div>
+                ?>
+                    <label><input type="checkbox" name="activities[]" value=<?php echo $tuple[0] ?> /> <?php echo $tuple[0] ?></label><br />
+                    <div class='activity'>
+                        <div><img src='./img/<?php echo $tuple[8] ?>' /></div>
+                        <div class='information'>
+                            <div><?php echo $tuple[4] ?></div>
+                            <div><?php echo $tuple[6] ?></div>
+                        </div>
+                        <div><?php echo $tuple[2] ?></div>
+                    </div>
+        <?php
+                }
         ?>
-</div>
-        </form>
+    </div>
+    </form>
     </div>
 </body>
 
