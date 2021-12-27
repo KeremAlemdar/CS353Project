@@ -1,7 +1,6 @@
 <?php
 
 $vacations = array(["Yöresel Tatil", "https://cdn.neredekal.com/image/1_icecek.jpg"], ["Kar Tatili", "https://cdn.neredekal.com/image/1_icecek.jpg"]);
-
 ?>
 <!DOCTYPE html>
 <html>
