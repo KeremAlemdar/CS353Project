@@ -4,7 +4,7 @@ include("./connection/checkSession.php");
 $query = "SELECT fname, email, phone_num FROM account WHERE user_id = " . 1 . "";
 $result = $mysqli->query($query);
 
-$query = "SELECT hotel_id, start_date, end_date FROM Reservation NATURAL JOIN reservation_hotelR NATURAL JOIN reserve WHERE user_id = " . 1 . "";
+$query = "SELECT hotel_id, start_date, end_date, amount_of_people, reservation_id FROM Reservation NATURAL JOIN reservation_hotelR NATURAL JOIN reserve WHERE user_id = " . 1 . "";
 $hotel_id_result = $mysqli->query($query);
 $hotel_id = $hotel_id_result->fetch_array(MYSQLI_NUM);
 
@@ -117,12 +117,14 @@ $hotel_info = $mysqli->query($query);
             margin-right: 5%;
 
         }
-        .user_details .edit_button{
+
+        .user_details .edit_button {
             display: flex;
             align-items: center;
             margin-left: 10%;
         }
-        .icon{
+
+        .icon {
             display: flex;
             align-items: center;
             width: 5%;
@@ -142,9 +144,9 @@ $hotel_info = $mysqli->query($query);
 
             <div class="user_info">
                 <div class="icon">
-                <div >
-                     <img src='./img/user_icon.png' />        
-                </div>
+                    <div>
+                        <img src='./img/user_icon.png' />
+                    </div>
                 </div>
                 <div>
                     <h4>
@@ -171,6 +173,11 @@ $hotel_info = $mysqli->query($query);
                     <?php
                     while ($tuple = $hotel_info->fetch_array(MYSQLI_NUM)) {
                         # Tour(tour_id, start_date, end_date, tour_information, image)
+                        /*if ($tuple->num_rows == 0) {
+                            ?>
+                            <h2>No Reservations</h2>
+<?php
+                        }else{*/
                     ?>
                         <div class="hotel">
                             <div class="img">
@@ -186,16 +193,20 @@ $hotel_info = $mysqli->query($query);
                                     <?php
                                     echo " First day: ", $hotel_id[1];
                                     echo "<br></br>";
-                                    echo " Last day: ", $hotel_id[2]; ?>
+                                    echo " Last day: ", $hotel_id[2];
+                                    echo "<br></br>";
+                                    echo $hotel_id[3], " customers"; ?>
                                 </h3>
 
                             </div>
                             <div class="button_part">
-                                <button class="submit_button" type="submit" value="Cancel Reservation">Cancel Reservation</button>
+                                <button class="submit_button" type="submit" >Cancel Reservation</button>
                             </div>
+                            
                         </div>
                     <?php
-                    }
+                    //}
+                }
                     ?>
 
                 </div>
@@ -205,6 +216,28 @@ $hotel_info = $mysqli->query($query);
                     <p>Selectable rows</p>
                 </div>
             </div>
+            <script>
+                /*
+                function myFunction() {
+                    var selection;
+                    if (confirm("Are you sure that you want to cancel!")) {
+                        // <?php
+                        
+                        //     $query1 = "DELETE FROM `reserve` WHERE `reserve`.`reservation_id` = $hotel_id[4]";
+                        //     $query2 = "DELETE FROM `Reservation` WHERE `Reservation`.`reservation_id` = $hotel_id[4]";
+                        //     $query3 = "DELETE FROM `reservation_hotelR` WHERE `reservation_hotelR`.`reservation_id` = $hotel_id[4]";
+                        //     if (($result1 = $mysqli->query($query1)) && ($result2 = $mysqli->query($query2)) && ( $result3 = $mysqli->query($query3))) {
+                        //         header("Location: profilePage.php");
+                        //     }else {
+                        //         header("Location: profilePage.php?error=cannotDelete");
+                        //     }
+                        // ?>
+                    } else {
+                        selection = "Not cancel";
+                    }
+                    return selection;
+                }*/
+            </script>
 </body>
 
 </html>

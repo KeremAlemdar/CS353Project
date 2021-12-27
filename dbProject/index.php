@@ -26,6 +26,8 @@ $return = $_GET["msg"];
         <div><h1>İsmet</h1></div>
         <div class="links">
         <div><a href='./login.php'>Login</a></div>
+        <div><a href='./hotelListPage.php'>HotelListPage</a></div>
+        <div><a href='./ticketListPage.php'>TicketListPage</a></div>
         </div>
         </div>
         <div class="person">

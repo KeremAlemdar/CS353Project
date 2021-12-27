@@ -381,7 +381,7 @@ public class App {
 
             //insert tuples to activity
             sql = "INSERT INTO activity " +
-            "VALUES (null, 'Doğa yürüyüşü yapılacak, öğlene doğru mangal yakılıp sucuk kızartılacak.', 'Doğa Yürüyüşü', 'Ankara Dağı', 100, 'Doğa, Yürüyüş, Sucuk, Dağ, Ankara', 'activity1.jpg')";
+            "VALUES (null, 'Doga yuruyusu yapılacak, oglene doğru mangal yakılıp sucuk kızartılacak.', 'Doga Yuruyusu', 'Ankara Dagi', 100, 'Doga, Yuruyus, Sucuk, Dag, Ankara', 'activity1.jpg')";
             stmt.executeUpdate(sql);
             sql = "INSERT INTO activity " +
             "VALUES (null, 'Teleferik ile dağa çıkılıp 30 dakika etraf gezilecek. Kafeler ve yemek yerleri gösterilecek. Sonrasında dağdan aşağıya eğitimli kayak dersimiz olacak.', 'Kayak Turu', 'Erciyes Dağı', 150, 'Kar, Kayak, Dağ, Erciyes', 'activity2.jpg')";
