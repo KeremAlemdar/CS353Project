@@ -1,3 +1,3 @@
 <?php
-include("./connection/navbarHotel.php");
+include("./components/navbarHotel.php");
 ?>
