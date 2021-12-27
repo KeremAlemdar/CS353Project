@@ -270,11 +270,11 @@ public class App {
             System.out.println("Reservation table created!");
 
             sql = "CREATE TABLE reservation_hotelR " +
-            "(room_id INT(12), " +
+            "(hotel_id INT(12), " +
             " reservation_id INT(12), " +
             " PRIMARY KEY ( reservation_id ), " +
             " FOREIGN KEY (reservation_id) REFERENCES Reservation(reservation_id), " +
-            " FOREIGN KEY (room_id) REFERENCES Hotel_Room(room_id))" +
+            " FOREIGN KEY (hotel_id) REFERENCES Hotel(hotel_id))" +
             " ENGINE=innodb;";
 
             stmt.executeUpdate(sql);
@@ -282,12 +282,10 @@ public class App {
 
             sql = "CREATE TABLE reserve " +
             "(reservation_id INT(12), " +
-            " employee_id INT(12), " +
-            " customer_id INT(12), " +
-            " PRIMARY KEY ( reservation_id, employee_id, customer_id ), " +
+            " user_id INT(12), " +
+            " PRIMARY KEY ( reservation_id, user_id ), " +
             " FOREIGN KEY (reservation_id) REFERENCES Reservation(reservation_id), " +
-            " FOREIGN KEY (employee_id) REFERENCES Employee(employee_id)," +
-            " FOREIGN KEY (customer_id) REFERENCES customer(customer_id))" +
+            " FOREIGN KEY (user_id) REFERENCES account(user_id))" +
             " ENGINE=innodb;";
 
             stmt.executeUpdate(sql);
@@ -347,7 +345,7 @@ public class App {
             //Activity (activity_id, content, name, location, price, categories)
 
 
-             sql = "INSERT INTO account " +
+            sql = "INSERT INTO account " +
             "VALUES (null, 'kerem', '123', 'kerema', '05409981232', 'Kerem Alemdar')";
             stmt.executeUpdate(sql); 
 
@@ -418,6 +416,21 @@ public class App {
             stmt.executeUpdate(sql);
             sql = "INSERT INTO Flight (departure_time, arrival_time, departure_airport, arrival_airport) " +
             "VALUES ( '2021/12/25 13:30:00', '2021/12/25 15:30:00', '2', '1')";
+            stmt.executeUpdate(sql);
+
+
+            sql = "INSERT INTO account " +
+            "VALUES (null, 'eylul', '1234', 'eylula', '05555555555', 'Eylul Caglar')";
+            stmt.executeUpdate(sql);
+
+            sql = "INSERT INTO Reservation (reservation_id, reservation_type, amount_of_people, start_date, end_date) " +
+            "VALUES ( null, 'hotel', '1', '2021/12/25 16:30:00', '2021/12/25 17:30:00')";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO reservation_hotelR (hotel_id, reservation_id) " +
+            "VALUES ( '1', '1')";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO reserve (reservation_id, user_id) " +
+            "VALUES ( '1', '1')";
             stmt.executeUpdate(sql);
 
  
