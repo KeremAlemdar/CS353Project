@@ -5,7 +5,7 @@ $query = "SELECT fname, email, phone_num FROM account WHERE user_id = " . 1 . ""
 $result = $mysqli->query($query);
 $user_info = $result->fetch_array(MYSQLI_NUM);
 
-$query = "SELECT hotel_id, start_date, end_date, amount_of_people, reservation_id FROM Reservation NATURAL JOIN reservation_hotelR NATURAL JOIN reserve WHERE customer_id = " . 1 . "";
+$query = "SELECT hotel_id, start_date, end_date, amount_of_people, reservation_id FROM reservation NATURAL JOIN reservation_hotel NATURAL JOIN customer_reserve WHERE customer_id = " . 1 . "";
 $hotel_id_result = $mysqli->query($query);
 $hotel_exists = false;
 if ($hotel_id_result->num_rows > 0) {

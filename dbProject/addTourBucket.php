@@ -25,6 +25,8 @@ echo $date;
 //         } else {
 //             echo "failed";
 //         }
+$query = "INSERT INTO `tour_bucket` (`user_id`, `tour_id`, `activity_id`) VALUES (" . $user_id . "," . $tour_id . ",null)";
+$result = $mysqli->query($query);
 foreach ($activities as $activity) {
     $query = "INSERT INTO `tour_bucket` (`user_id`, `tour_id`, `activity_id`) VALUES (" . $user_id . "," . $tour_id . "," . $activity . ")";
     echo $query;

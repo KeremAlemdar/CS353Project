@@ -68,25 +68,29 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("flight_bucket table is deleted!");
 
-            sql = "DROP TABLE IF EXISTS reserve";
+            sql = "DROP TABLE IF EXISTS employee_reserve";
             stmt.executeUpdate(sql);
-            System.out.println("reserve table is deleted!");
+            System.out.println("employee_reserve table is deleted!");
+
+            sql = "DROP TABLE IF EXISTS customer_reserve";
+            stmt.executeUpdate(sql);
+            System.out.println("customer_reserve table is deleted!");
 
             sql = "DROP TABLE IF EXISTS hotel_evaluation";
             stmt.executeUpdate(sql);
             System.out.println("hotel_evaluation table is deleted!");
 
-            sql = "DROP TABLE IF EXISTS reservation_hotelR";
+            sql = "DROP TABLE IF EXISTS reservation_hotel";
             stmt.executeUpdate(sql);
-            System.out.println("reservation_hotelR table is deleted!");
+            System.out.println("reservation_hotel table is deleted!");
 
             sql = "DROP TABLE IF EXISTS Hotel_Room";       
             stmt.executeUpdate(sql);
             System.out.println("Hotel_Room table is deleted!");
 
-            sql = "DROP TABLE IF EXISTS Reservation";
+            sql = "DROP TABLE IF EXISTS reservation";
             stmt.executeUpdate(sql);
-            System.out.println("Reservation table is deleted!");
+            System.out.println("reservation table is deleted!");
 
             sql = "DROP TABLE IF EXISTS Employee";       
             stmt.executeUpdate(sql);
@@ -271,43 +275,56 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("Hotel_Room table created!");
 
-            sql = "CREATE TABLE Reservation " +
+        
+            
+            sql = "CREATE TABLE reservation " +
             "(reservation_id INT(12) AUTO_INCREMENT, " +
-            " reservation_type varchar(50), " +
-            " amount_of_people INT(12), " +
-            " start_date DATE, " +
-            " end_date DATE, " +
             " PRIMARY KEY ( reservation_id )) " +
             " ENGINE=innodb;";
 
             stmt.executeUpdate(sql);
-            System.out.println("Reservation table created!");
+            System.out.println("reservation table created!");
 
-            sql = "CREATE TABLE reservation_hotelR " +
-            "(hotel_id INT(12), " +
-            " reservation_id INT(12), " +
+            sql = "CREATE TABLE reservation_hotel " +
+            "(reservation_id INT(12), " +
+            " hotel_id INT(12), " +
+            " reservation_type varchar(50), " +
+            " amount_of_people INT(12), " +
+            " start_date DATE, " +
+            " end_date DATE, " +
             " PRIMARY KEY ( reservation_id ), " +
-            " FOREIGN KEY (reservation_id) REFERENCES Reservation(reservation_id), " +
+            " FOREIGN KEY (reservation_id) REFERENCES reservation(reservation_id), " +
             " FOREIGN KEY (hotel_id) REFERENCES Hotel(hotel_id))" +
             " ENGINE=innodb;";
 
             stmt.executeUpdate(sql);
-            System.out.println("reservation_hotelR table created!");
+            System.out.println("reservation_hotel table created!");
 
             
             //NORMALDE BURADA USER ID YOK --> EMPLOYEE ID VE CUSTOMER ID VAR
-            sql = "CREATE TABLE reserve " +
+            sql = "CREATE TABLE employee_reserve " +
             "(reservation_id INT(12), " +
             " employee_id INT(12), " +
             " customer_id INT(12), " +
             " PRIMARY KEY ( reservation_id, employee_id, customer_id), " +
-            " FOREIGN KEY (reservation_id) REFERENCES Reservation(reservation_id), " +
+            " FOREIGN KEY (reservation_id) REFERENCES reservation(reservation_id), " +
             " FOREIGN KEY (employee_id) REFERENCES account(user_id), " +
             " FOREIGN KEY (customer_id) REFERENCES account(user_id))" +
             " ENGINE=innodb;";
 
             stmt.executeUpdate(sql);
-            System.out.println("reserve table created!");
+            System.out.println("employee_reserve table created!");
+
+            sql = "CREATE TABLE customer_reserve " +
+            "(reservation_id INT(12), " +
+            " customer_id INT(12), " +
+            " PRIMARY KEY ( reservation_id, customer_id), " +
+            " FOREIGN KEY (reservation_id) REFERENCES reservation(reservation_id), " +
+            " FOREIGN KEY (customer_id) REFERENCES account(user_id))" +
+            " ENGINE=innodb;";
+
+            stmt.executeUpdate(sql);
+            System.out.println("customer_reserve table created!");
 
             sql = "CREATE TABLE hotel_evaluation " +
             "(evalutaion_id INT(12) AUTO_INCREMENT, " +
@@ -329,8 +346,7 @@ public class App {
             " activity_id INT(12), " +
             " PRIMARY KEY ( user_id, tour_id, activity_id ), " +
             " FOREIGN KEY (user_id) REFERENCES account(user_id), " +
-            " FOREIGN KEY (tour_id) REFERENCES tour(tour_id), " +
-            " FOREIGN KEY (activity_id) REFERENCES activity(activity_id))" +
+            " FOREIGN KEY (tour_id) REFERENCES tour(tour_id))" +
             " ENGINE=innodb;";
             
             stmt.executeUpdate(sql);
@@ -441,17 +457,20 @@ public class App {
             "VALUES (null, 'eylul', '1234', 'eylula', '05555555555', 'Eylul Caglar')";
             stmt.executeUpdate(sql);
 
-            sql = "INSERT INTO Reservation (reservation_id, reservation_type, amount_of_people, start_date, end_date) " +
-            "VALUES ( null, 'luxuary', '1', '2021/12/25 16:30:00', '2021/12/25 17:30:00')";
+            sql = "INSERT INTO reservation (reservation_id) " +
+            "VALUES (null)";
             stmt.executeUpdate(sql);
-            sql = "INSERT INTO reservation_hotelR (hotel_id, reservation_id) " +
+            sql = "INSERT INTO reservation_hotel (hotel_id, reservation_id) " +
             "VALUES ( '1', '1')";
             stmt.executeUpdate(sql);
-            sql = "INSERT INTO reserve (reservation_id, employee_id, customer_id) " +
-            "VALUES ( '1', '1', '1')";
+            sql = "INSERT INTO customer_reserve (reservation_id, customer_id) " +
+            "VALUES ( '1', '1')";
             stmt.executeUpdate(sql);
 
- 
+            // sql = "INSERT INTO tour_bucket (user_id, tour_id, activity_id) " +
+            // "VALUES ( '1', '1', null)";
+            // stmt.executeUpdate(sql);
+
             
             // System.out.println("------------------1----------------");
             // sql = "SELECT bdate,address,city " +
