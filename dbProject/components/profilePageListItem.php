@@ -137,30 +137,6 @@ $hotel_info = $mysqli->query($query);
 
 
 <body>
-<script>
-        prompt("patates");
-                
-                function myFunction() {
-                    var selection;
-                    document.write('<div>Print this after the script tag</div>');
-
-                    if (confirm("Are you sure that you want to cancel!")) {
-                        <?php
-
-                        $query1 = "DELETE FROM `reserve` WHERE `reserve`.`reservation_id` = $hotel_id[4] and `user_id` = " . 1 . "";
-                        $query2 = "DELETE FROM `Reservation` WHERE `Reservation`.`reservation_id` = $hotel_id[4] and `user_id` = " . 1 . "";
-                        $query3 = "DELETE FROM `reservation_hotelR` WHERE `reservation_hotelR`.`reservation_id` = $hotel_id[4] and `user_id` = " . 1 . "";
-                        if (($result1 = $mysqli->query($query1)) && ($result2 = $mysqli->query($query2)) && ($result3 = $mysqli->query($query3))) {
-                            header("Location: profilePage.php");
-                        } else {
-                            header("Location: profilePage.php?error=cannotDelete");
-                        }
-                        ?>
-                    } else {
-                        selection = "Not cancel";
-                    }
-                } 
-            </script>
     <div class="user_detail_row">
         <div class="user_details">
             <?php

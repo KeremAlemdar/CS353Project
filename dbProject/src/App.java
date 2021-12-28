@@ -298,10 +298,12 @@ public class App {
             //NORMALDE BURADA USER ID YOK --> EMPLOYEE ID VE CUSTOMER ID VAR
             sql = "CREATE TABLE reserve " +
             "(reservation_id INT(12), " +
-            " user_id INT(12), " +
-            " PRIMARY KEY ( reservation_id, user_id ), " +
+            " employee_id INT(12), " +
+            " customer_id INT(12), " +
+            " PRIMARY KEY ( reservation_id, employee_id, customer_id), " +
             " FOREIGN KEY (reservation_id) REFERENCES Reservation(reservation_id), " +
-            " FOREIGN KEY (user_id) REFERENCES account(user_id))" +
+            " FOREIGN KEY (employee_id) REFERENCES account(user_id), " +
+            " FOREIGN KEY (customer_id) REFERENCES account(user_id))" +
             " ENGINE=innodb;";
 
             stmt.executeUpdate(sql);
@@ -445,8 +447,8 @@ public class App {
             sql = "INSERT INTO reservation_hotelR (hotel_id, reservation_id) " +
             "VALUES ( '1', '1')";
             stmt.executeUpdate(sql);
-            sql = "INSERT INTO reserve (reservation_id, user_id) " +
-            "VALUES ( '1', '1')";
+            sql = "INSERT INTO reserve (reservation_id, employee_id, customer_id) " +
+            "VALUES ( '1', '1', '1')";
             stmt.executeUpdate(sql);
 
  
