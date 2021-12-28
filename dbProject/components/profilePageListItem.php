@@ -19,7 +19,7 @@ $hotel_info = $mysqli->query($query);
 <html>
 
 <head>
-
+    
     <style>
         * {
             box-sizing: border-box;
@@ -131,11 +131,36 @@ $hotel_info = $mysqli->query($query);
             height: auto;
         }
     </style>
+
 </head>
 
 
 
 <body>
+<script>
+        prompt("patates");
+                
+                function myFunction() {
+                    var selection;
+                    document.write('<div>Print this after the script tag</div>');
+
+                    if (confirm("Are you sure that you want to cancel!")) {
+                        <?php
+
+                        $query1 = "DELETE FROM `reserve` WHERE `reserve`.`reservation_id` = $hotel_id[4] and `user_id` = " . 1 . "";
+                        $query2 = "DELETE FROM `Reservation` WHERE `Reservation`.`reservation_id` = $hotel_id[4] and `user_id` = " . 1 . "";
+                        $query3 = "DELETE FROM `reservation_hotelR` WHERE `reservation_hotelR`.`reservation_id` = $hotel_id[4] and `user_id` = " . 1 . "";
+                        if (($result1 = $mysqli->query($query1)) && ($result2 = $mysqli->query($query2)) && ($result3 = $mysqli->query($query3))) {
+                            header("Location: profilePage.php");
+                        } else {
+                            header("Location: profilePage.php?error=cannotDelete");
+                        }
+                        ?>
+                    } else {
+                        selection = "Not cancel";
+                    }
+                } 
+            </script>
     <div class="user_detail_row">
         <div class="user_details">
             <?php
@@ -173,12 +198,8 @@ $hotel_info = $mysqli->query($query);
                     <?php
                     while ($tuple = $hotel_info->fetch_array(MYSQLI_NUM)) {
                         # Tour(tour_id, start_date, end_date, tour_information, image)
-                        /*if ($tuple->num_rows == 0) {
-                            ?>
-                            <h2>No Reservations</h2>
-<?php
-                        }else{*/
                     ?>
+
                         <div class="hotel">
                             <div class="img">
                                 <a href='./hotelDisplay.php?id=<?php echo $tuple[0] ?>'>
@@ -200,13 +221,13 @@ $hotel_info = $mysqli->query($query);
 
                             </div>
                             <div class="button_part">
-                                <button class="submit_button" type="submit" >Cancel Reservation</button>
+                                <button class="submit_button" type="submit" onclick="myFunction()">Cancel Reservation</button>
                             </div>
-                            
+
                         </div>
                     <?php
-                    //}
-                }
+                    }
+
                     ?>
 
                 </div>
@@ -216,56 +237,7 @@ $hotel_info = $mysqli->query($query);
                     <p>Selectable rows</p>
                 </div>
             </div>
-            <script>
-                /*
-                function myFunction() {
-                    var selection;
-                    if (confirm("Are you sure that you want to cancel!")) {
-                        // <?php
-                        
-                        //     $query1 = "DELETE FROM `reserve` WHERE `reserve`.`reservation_id` = $hotel_id[4]";
-                        //     $query2 = "DELETE FROM `Reservation` WHERE `Reservation`.`reservation_id` = $hotel_id[4]";
-                        //     $query3 = "DELETE FROM `reservation_hotelR` WHERE `reservation_hotelR`.`reservation_id` = $hotel_id[4]";
-                        //     if (($result1 = $mysqli->query($query1)) && ($result2 = $mysqli->query($query2)) && ( $result3 = $mysqli->query($query3))) {
-                        //         header("Location: profilePage.php");
-                        //     }else {
-                        //         header("Location: profilePage.php?error=cannotDelete");
-                        //     }
-                        // ?>
-                    } else {
-                        selection = "Not cancel";
-                    }
-                    return selection;
-                }*/
-            </script>
+
 </body>
 
 </html>
-
-
-<!-- <div class="all">
-        <div class="tours">
-            <?php
-            while ($tuple = $result->fetch_array(MYSQLI_NUM)) {
-                # Tour(tour_id, start_date, end_date, tour_information, image)
-            ?>
-                <div class="tour">
-                    <div class="img">
-                        <a href='./tourDetails.php?id=<?php echo $tuple[0] ?>'>
-                            <img src='./img/<?php echo $tuple[4] ?>' />
-                        </a>
-                    </div>
-                    <div class="information">
-                        <h1>
-                            <?php echo $tuple[5] ?>
-                        </h1>
-                        <h1>
-                            <?php echo $tuple[3] ?>
-                        </h1>
-                    </div>
-                </div>
-            <?php
-            }
-            ?>
-        </div>
-    </div>  -->

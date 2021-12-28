@@ -440,7 +440,7 @@ public class App {
             stmt.executeUpdate(sql);
 
             sql = "INSERT INTO Reservation (reservation_id, reservation_type, amount_of_people, start_date, end_date) " +
-            "VALUES ( null, 'hotel', '1', '2021/12/25 16:30:00', '2021/12/25 17:30:00')";
+            "VALUES ( null, 'luxuary', '1', '2021/12/25 16:30:00', '2021/12/25 17:30:00')";
             stmt.executeUpdate(sql);
             sql = "INSERT INTO reservation_hotelR (hotel_id, reservation_id) " +
             "VALUES ( '1', '1')";
