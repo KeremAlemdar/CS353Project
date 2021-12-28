@@ -3,13 +3,19 @@ include("./connection/checkSession.php");
 //$user_id = $_SESSION['user_id'];
 $query = "SELECT fname, email, phone_num FROM account WHERE user_id = " . 1 . "";
 $result = $mysqli->query($query);
+$user_info = $result->fetch_array(MYSQLI_NUM);
 
-$query = "SELECT hotel_id, start_date, end_date, amount_of_people, reservation_id FROM Reservation NATURAL JOIN reservation_hotelR NATURAL JOIN reserve WHERE user_id = " . 1 . "";
+$query = "SELECT hotel_id, start_date, end_date, amount_of_people, reservation_id FROM Reservation NATURAL JOIN reservation_hotelR NATURAL JOIN reserve WHERE customer_id = " . 1 . "";
 $hotel_id_result = $mysqli->query($query);
-$hotel_id = $hotel_id_result->fetch_array(MYSQLI_NUM);
+$hotel_exists = false;
+if ($hotel_id_result->num_rows > 0) {
+    $hotel_exists = true;
+    $hotel_id = $hotel_id_result->fetch_array(MYSQLI_NUM);
 
 $query = "SELECT * from Hotel WHERE hotel_id = " . $hotel_id[0] . "";
 $hotel_info = $mysqli->query($query);
+}
+
 ?>
 
 
@@ -19,26 +25,34 @@ $hotel_info = $mysqli->query($query);
 <html>
 
 <head>
-    
+
     <style>
-        * {
-            box-sizing: border-box;
-        }
+        .page {}
 
-        .user_info {
+        .profile {
             display: flex;
+            flex-direction: row;
+            border: solid black;
+            align-items: center;
         }
 
-        .user_detail_row {
-            display: table;
+        .profile .profile_icon {
+            width: 5%;
+            height: 5%;
+        }
+
+        img {
             width: 100%;
-            /* height: 200px;*/
-            border: solid;
-            border-color: black;
+            height: 100%;
         }
 
-        .user_details {
-            position: left;
+        .profile .profile_information {
+           
+        }
+
+        .profile .profile_button {
+            display: flex;
+            align-items: center;
         }
 
         .reservations {
@@ -48,88 +62,52 @@ $hotel_info = $mysqli->query($query);
             border: 3px solid black;
         }
 
-        .hotels {
+        .reservations .hotels {
+            border: 2px solid black;
             width: 50%;
         }
 
-        .tours {
+        .reservations .tours {
+            border: 2px solid black;
+            width: 50%;
+        }
+        .reservations .flights {
+            border: 2px solid black;
             width: 50%;
         }
 
-
-        img {
-            width: 100%;
-            height: 100%;
-        }
-
+        
 
         .hotel {
-            border: 2px solid black;
             width: 100%;
             display: flex;
-            height: auto;
-            /* 40% dı, 2 liyken kücülmeyi çözmek için auto yaptım*/
-        }
-
-        .hotel .img {
-            width: 40%;
-        }
-
-        .hotel .information {
-            margin-left: 2.5%;
-            margin-right: 2.5%;
-            width: 40%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .hotel .button_part {
-            width: 10%;
-            display: flex;
+            flex-direction: row;
+            border: 3px solid black;
             align-items: center;
-            margin-right: 10%;
         }
 
-        .hotel .submit_button {
-            border-radius: 5px;
-            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            padding: 10px 25px;
-            display: flex;
+        .hotel .hotel_img {
             align-items: center;
-            margin-right: 10%;
-
+            width: 30%;
+            height: 30%;
         }
 
-        .user_details .button_part {
-            width: 10%;
-            display: flex;
-            align-items: center;
-            margin-right: 10%;
-        }
-
-        .user_details .submit_button {
-            border-radius: 5px;
-            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            padding: 10px 25px;
-            display: flex;
-            align-items: center;
-            margin-right: 5%;
-
-        }
-
-        .user_details .edit_button {
-            display: flex;
-            align-items: center;
-            margin-left: 10%;
-        }
-
-        .icon {
-            display: flex;
-            align-items: center;
+        .hotel_button {
             width: 5%;
-            height: auto;
+            display: flex;
+            align-items: center;
+            margin-right: 10%;
         }
+
+        .input {
+            border-radius: 5px;
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            padding: 10px 25px;
+            display: flex;
+            align-items: center;
+            margin-right: 10%;
+        }
+
     </style>
 
 </head>
@@ -137,82 +115,96 @@ $hotel_info = $mysqli->query($query);
 
 
 <body>
-    <div class="user_detail_row">
-        <div class="user_details">
-            <?php
-            $user_info = $result->fetch_array(MYSQLI_NUM);
-            ?>
-
-            <div class="user_info">
-                <div class="icon">
-                    <div>
-                        <img src='./img/user_icon.png' />
-                    </div>
-                </div>
-                <div>
+    <div class="page">
+        <div class="profile">
+            <div class="profile_icon">
+                <img src='./img/user_icon.png' />
+            </div>
+            <div class="profile_information">
+                
                     <h4>
                         <?php echo "Name: ", $user_info[0] ?>
                     </h4>
+              
+                
                     <h4>
-                        <?php echo "e-mail: ", $user_info[1] ?>
+                        <?php echo "E-mail: ", $user_info[1] ?>
                     </h4>
+                
+               
                     <h4>
                         <?php echo "Phone: ", $user_info[2] ?>
                     </h4>
-                </div>
-
-                <div class="edit_button">
-                    <div class="button_part">
-                        <button class="submit_button" type="submit">Edit User Information</button>
-                    </div>
-                </div>
-
+                
             </div>
-            <div class="reservations">
-                <div class="hotels" style="background-color:#aaa;">
-                    <h2>Hotel Reservations</h2>
-                    <?php
-                    while ($tuple = $hotel_info->fetch_array(MYSQLI_NUM)) {
-                        # Tour(tour_id, start_date, end_date, tour_information, image)
-                    ?>
-
+            <div class="profile_button">
+                <div class="profile_button_inner">
+                    <button class="submit_button" type="submit">Edit User Information</button>
+                </div>
+            </div>
+        </div>
+        <div class="reservations">
+            <div class="hotels" style="background-color:#aaa;">
+                <h2>Hotel Reservations</h2>
+                <?php
+                if (!$hotel_exists) {
+                ?>
+                    <div class="hotel">
+                        <h3>You have no hotel reservations</h3>
+                    </div>
+                <?php
+                }
+                while ($hotel_exists && $tuple = $hotel_info->fetch_array(MYSQLI_NUM)) {
+                ?>
+                    <form class="form" action='deleteHotelReservation.php' method="post">
+                        <div>
+                            <input type="hidden" id="hotel_id" name="hotel_id" value=<?php echo $tuple[0] ?>>
+                        </div>
                         <div class="hotel">
-                            <div class="img">
+                            <div class="hotel_img">
                                 <a href='./hotelDisplay.php?id=<?php echo $tuple[0] ?>'>
                                     <img src='./img/<?php echo $tuple[5] ?>' />
                                 </a>
                             </div>
-                            <div class="information">
-                                <h2>
-                                    <?php echo $tuple[1], ",  ",  $tuple[2] ?>
-                                </h2>
-                                <h3>
-                                    <?php
-                                    echo " First day: ", $hotel_id[1];
-                                    echo "<br></br>";
-                                    echo " Last day: ", $hotel_id[2];
-                                    echo "<br></br>";
-                                    echo $hotel_id[3], " customers"; ?>
-                                </h3>
-
+                            <div class="hotels">
+                                <div>
+                                    <h2>
+                                        <?php echo $tuple[1], ",  ",  $tuple[2] ?>
+                                    </h2>
+                                </div>
+                                <div>
+                                    <h3>
+                                        <?php
+                                        echo " First day: ", $hotel_id[1];
+                                        echo "<br></br>";
+                                        echo " Last day: ", $hotel_id[2];
+                                        echo "<br></br>";
+                                        echo $hotel_id[3], " customers"; ?>
+                                    </h3>
+                                </div>
+                                </div>
+                                <div>
+                                <div class="hotel_button">
+                                <input class="input" type="submit" value="Cancel Reservation">
                             </div>
-                            <div class="button_part">
-                                <button class="submit_button" type="submit" onclick="myFunction()">Cancel Reservation</button>
-                            </div>
-
+                                </div>
+                        
                         </div>
-                    <?php
-                    }
-
-                    ?>
-
-                </div>
-                <div class="tours" style="background-color:#bbb;">
-
-                    <h2>Tour Reservations</h2>
-                    <p>Selectable rows</p>
-                </div>
+                    </form>
+                <?php
+                }
+                ?>
             </div>
+            <div class="tours" style="background-color:#aaa;">
+                <h2>Tour Reservations</h2>
+                <p>Selectable rows</p>
+            </div>
+            <div class="flights" style="background-color:#aaa;">
+                <h2>Flight Reservations</h2>
+                <p>Selectable rows</p>
+            </div>
+        </div>
+    </div>
 
 </body>
 
