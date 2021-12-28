@@ -25,10 +25,10 @@ echo $date;
 //         } else {
 //             echo "failed";
 //         }
-$query = "INSERT INTO `tour_bucket` (`user_id`, `tour_id`, `activity_id`) VALUES (" . $user_id . "," . $tour_id . ",null)";
+$query = "INSERT INTO `tour_bucket` (`user_id`, `tour_id`) VALUES (" . $user_id . "," . $tour_id . ")";
 $result = $mysqli->query($query);
 foreach ($activities as $activity) {
-    $query = "INSERT INTO `tour_bucket` (`user_id`, `tour_id`, `activity_id`) VALUES (" . $user_id . "," . $tour_id . "," . $activity . ")";
+    $query = "INSERT INTO `tour_activity_bucket` (`user_id`, `tour_id`, `activity_id`) VALUES (" . $user_id . "," . $tour_id . "," . $activity . ")";
     echo $query;
     if ($result = $mysqli->query($query)) {
         header("Location: paymentPage.php");

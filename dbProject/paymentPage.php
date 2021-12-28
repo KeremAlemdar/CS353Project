@@ -51,10 +51,15 @@ if ($tours->num_rows == 0) {
             width: 33%;
         }
 
+        .tour_all_bucket {
+            width: 33%;
+            display: flex;
+            flex-direction: column;
+        }
+
         /* TOUR CSS */
         .tour_bucket {
             border: 1px solid black;
-            width: 33%;
         }
 
         .tour {
@@ -135,76 +140,100 @@ if ($tours->num_rows == 0) {
             </div>
             <div class="buckets">
                 <div class="hotel_bucket">
-
+                    <div class="hotel_bucket_header">
+                        <h1>Hotels in your bucket</h1>
+                    </div>
                 </div>
-                <div class="tour_bucket">
-                    <div class="tours">
-                        <?php
-                        while ($tuple = $tours->fetch_array(MYSQLI_NUM)) {
-                        ?>
-                            <form class="form" action='deleteTourFromBucket.php.php' method="post">
-                                <input type="hidden" id="tour_id" name="tour_id" value=<?php echo $tuple[0] ?>>
-                                <div class="tour">
-                                    <div class="tour_all">
-                                        <div class="tour_information">
-                                            <h1>
-                                                <?php echo $tuple[5] ?>
-                                            </h1>
-                                        </div>
-                                        <div class="tour_img">
-                                            <a href='./tourDetails.php?id=<?php echo $tuple[0] ?>'>
-                                                <img src='./img/<?php echo $tuple[4] ?>' />
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="tour_button">
-                                        <input class="input" type="submit" value="Remove">
-                                    </div>
-                                </div>
-                            </form>
-                            <div class="activities">
-                                <div>
-                                    <h1>Activities in <?php echo $tuple[5] ?>
-                                    </h1>
-                                </div>
+                <div class="tour_all_bucket">
+                    <?php
+                    if ($empty) {
+                    ?>
+                        <div class="tour_bucket_header">
+                            <h1>Your tour bucket is empty</h1>
+                        </div>
+                    <?php
+                    } else {
+                    ?>
+                        <div class="tour_bucket_header">
+                            <h1>Tours in your bucket</h1>
+                        </div>
+                        <div class="tour_bucket">
+                            <div class="tours">
                                 <?php
-                                $query = "SELECT `A`.* FROM `activity` AS `A` , `tour` AS `T` ,`tour_bucket` AS `TB` 
-                    WHERE `TB`.`tour_id` = `T`.`tour_id` AND `TB`.`activity_id` = `A`.`activity_id` AND user_id = 1";
-                                $activities = $mysqli->query($query);
-                                while ($activity_tuple = $activities->fetch_array(MYSQLI_NUM)) {
+                                while ($tuple = $tours->fetch_array(MYSQLI_NUM)) {
                                 ?>
-                                    <form class="form" action='deleteActivityFromBucket.php' method="post">
-                                        <input type="hidden" id="activity_id" name="activity_id" value=<?php echo $activity_tuple[0] ?>>
+                                    <form class="form" action='deleteTourFromBucket.php' method="post">
                                         <input type="hidden" id="tour_id" name="tour_id" value=<?php echo $tuple[0] ?>>
-                                        <div class="activity">
-                                            <div class="activity_all">
-                                                <div class="activity_img">
-                                                    <img src='./img/<?php echo $activity_tuple[6] ?>' />
+                                        <div class="tour">
+                                            <div class="tour_all">
+                                                <div class="tour_information">
+                                                    <h1>
+                                                        <?php echo $tuple[5] ?>
+                                                    </h1>
                                                 </div>
-                                                <div class="activity_information">
-                                                    <div>
-                                                        <?php echo $activity_tuple[2] ?>
-
-                                                    </div>
-                                                    <div>
-                                                        <?php echo $tuple[4] ?>
-                                                    </div>
+                                                <div class="tour_img">
+                                                    <a href='./tourDetails.php?id=<?php echo $tuple[0] ?>'>
+                                                        <img src='./img/<?php echo $tuple[4] ?>' />
+                                                    </a>
                                                 </div>
                                             </div>
-                                            <div class="activity_button">
+                                            <div class="tour_button">
                                                 <input class="input" type="submit" value="Remove">
                                             </div>
                                         </div>
                                     </form>
+                                    <div class="activities">
+
+                                        <?php
+                                        $query = "SELECT `A`.* FROM `activity` AS `A` , `tour` AS `T` ,`tour_activity_bucket` AS `TB` 
+                    WHERE `TB`.`tour_id` = `T`.`tour_id` AND `TB`.`activity_id` = `A`.`activity_id` AND user_id = 1";
+                                        $activities = $mysqli->query($query);
+                                        if ($activities->num_rows > 0) {
+                                        ?>
+                                            <div>
+                                                <h1>Activities in <?php echo $tuple[5] ?>
+                                                </h1>
+                                            </div>
+                                        <?php
+                                        }
+                                        while ($activity_tuple = $activities->fetch_array(MYSQLI_NUM)) {
+                                        ?>
+                                            <form class="form" action='deleteActivityFromBucket.php' method="post">
+                                                <input type="hidden" id="activity_id" name="activity_id" value=<?php echo $activity_tuple[0] ?>>
+                                                <input type="hidden" id="tour_id" name="tour_id" value=<?php echo $tuple[0] ?>>
+                                                <div class="activity">
+                                                    <div class="activity_all">
+                                                        <div class="activity_img">
+                                                            <img src='./img/<?php echo $activity_tuple[6] ?>' />
+                                                        </div>
+                                                        <div class="activity_information">
+                                                            <div>
+                                                                <?php echo $activity_tuple[2] ?>
+
+                                                            </div>
+                                                            <div>
+                                                                <?php echo $tuple[4] ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="activity_button">
+                                                        <input class="input" type="submit" value="Remove">
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        <?php
+                                        }
+                                        ?>
+                                    </div>
+
                                 <?php
                                 }
                                 ?>
                             </div>
-
-                        <?php
-                        }
-                        ?>
-                    </div>
+                        </div>
+                    <?php
+                    }
+                    ?>
                 </div>
                 <div class="plane_bucket">
 

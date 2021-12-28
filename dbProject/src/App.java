@@ -60,6 +60,10 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("tour_bucket table is deleted!");
 
+            sql = "DROP TABLE IF EXISTS tour_activity_bucket";
+            stmt.executeUpdate(sql);
+            System.out.println("tour_activity_bucket table is deleted!");
+
             sql = "DROP TABLE IF EXISTS hotel_bucket";
             stmt.executeUpdate(sql);
             System.out.println("hotel_bucket table is deleted!");
@@ -343,14 +347,26 @@ public class App {
             sql = "CREATE TABLE tour_bucket " +
             "(user_id INT(12), " +
             " tour_id INT(12), " +
-            " activity_id INT(12), " +
-            " PRIMARY KEY ( user_id, tour_id, activity_id ), " +
+            " PRIMARY KEY ( user_id, tour_id ), " +
             " FOREIGN KEY (user_id) REFERENCES account(user_id), " +
             " FOREIGN KEY (tour_id) REFERENCES tour(tour_id))" +
             " ENGINE=innodb;";
             
             stmt.executeUpdate(sql);
             System.out.println("tour_bucket table created!");
+
+            sql = "CREATE TABLE tour_activity_bucket " +
+            "(user_id INT(12), " +
+            " tour_id INT(12), " +
+            " activity_id INT(12), " +
+            " PRIMARY KEY ( user_id, tour_id, activity_id ), " +
+            " FOREIGN KEY (user_id) REFERENCES account(user_id), " +
+            " FOREIGN KEY (activity_id) REFERENCES activity(activity_id), " +
+            " FOREIGN KEY (tour_id) REFERENCES tour(tour_id))" +
+            " ENGINE=innodb;";
+            
+            stmt.executeUpdate(sql);
+            System.out.println("activity_bucket table created!");
 
             sql = "CREATE TABLE hotel_bucket " +
             "(user_id INT(12), " +
@@ -466,10 +482,6 @@ public class App {
             sql = "INSERT INTO customer_reserve (reservation_id, customer_id) " +
             "VALUES ( '1', '1')";
             stmt.executeUpdate(sql);
-
-            // sql = "INSERT INTO tour_bucket (user_id, tour_id, activity_id) " +
-            // "VALUES ( '1', '1', null)";
-            // stmt.executeUpdate(sql);
 
             
             // System.out.println("------------------1----------------");
