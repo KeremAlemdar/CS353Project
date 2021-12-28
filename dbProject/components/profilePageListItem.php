@@ -158,7 +158,7 @@ $hotel_info = $mysqli->query($query);
                 ?>
                     <form class="form" action='deleteHotelReservation.php' method="post">
                         <div>
-                            <input type="hidden" id="hotel_id" name="hotel_id" value=<?php echo $tuple[0] ?>>
+                            <input type="hidden" id="reservation_id" name="reservation_id" value=<?php echo $hotel_id[4] ?>>
                         </div>
                         <div class="hotel">
                             <div class="hotel_img">
