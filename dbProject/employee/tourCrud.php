@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Activities</title>
+<title>Tours</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -23,12 +23,12 @@ $(document).ready(function(){
 	// Activate tooltip
 	$('[data-toggle="tooltip"]').tooltip();
 	
-	$('#deleteEmployeeModal').on('show.bs.modal', function(e) {
+	$('#deleteTourModal').on('show.bs.modal', function(e) {
 		var activiyID = $(e.relatedTarget).data('delete-id');
 		$(e.currentTarget).find('input[name="hidden_delete"]').val(activiyID);
 	});
 
-	$('#editEmployeeModal').on('show.bs.modal', function(e) {
+	$('#editTourModal').on('show.bs.modal', function(e) {
 		var activiyID = $(e.relatedTarget).data('edit-id');
 		$(e.currentTarget).find('input[name="hidden_edit"]').val(activiyID);
 	});
@@ -37,6 +37,7 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
+
 <div class="container-xl">
 	<div class="table-responsive">
 		<div class="table-wrapper">
@@ -64,7 +65,6 @@ $(document).ready(function(){
 				<tbody>
 					
                         <?php 
-						
 						$sql = "SELECT * FROM `tour` ORDER BY `tour`.`tour_id` ASC;";
 						$result = $mysqli->query($sql);
 					
@@ -92,9 +92,7 @@ $(document).ready(function(){
 							</a>\n</td></tr>");
 						
 						}
-						
 						?>
-					
 				</tbody>
 			</table>
 		</div>
@@ -120,12 +118,12 @@ $(document).ready(function(){
 					</div>
 					<div class="form-group">
 						<label>Start Date</label>
-						<textarea id="tour_sta" name="tour_sta" class="form-control" required></textarea>
+						<input id="tour_sta" type="date" name="tour_sta" class="form-control" required></input>
 					</div>
 					<div class="form-group">
 						<label>End Date</label>
-						<textarea id="tour_end" name="tour_end" class="form-control" required></textarea>
-					</div>				
+						<input id="tour_end" type ="date" name="tour_end" class="form-control" required></input>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -155,14 +153,13 @@ $(document).ready(function(){
 					</div>
 					<div class="form-group">
 						<label>Start Date</label>
-						<textarea id="tour_sta" name="tour_sta" class="form-control" required></textarea>
+						<input id="tour_sta" type="date" name="tour_sta" class="form-control" required></input>
 					</div>
 					<div class="form-group">
 						<label>End Date</label>
-						<textarea id="tour_end" name="tour_end" class="form-control" required></textarea>
+						<input id="tour_end" type ="date" name="tour_end" class="form-control" required></input>
 					</div>				
 				</div>					
-				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
 					<input type="hidden" name="hidden_edit" value="0">

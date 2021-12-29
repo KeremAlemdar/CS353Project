@@ -2,8 +2,6 @@
 session_start();
 include("../connection/config.php");
 
-var_dump($_POST);
-
 $aname = $_POST["activity_name"];
 $aloc = $_POST["activity_loc"];
 $acat = $_POST["activity_cat"];
@@ -14,8 +12,7 @@ $query = "INSERT INTO `activity` (`activity_id`, `content`, `name`, `location`, 
 
 $result = $mysqli->query($query);
 
-var_dump($result);
 
-header("location: employeeHome.php");
-//GIVE SUCESSFUL MESSAGE
+header("location: activityCrud.php");
+
 ?>
