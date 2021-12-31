@@ -84,6 +84,10 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("hotel_evaluation table is deleted!");
 
+            sql = "DROP TABLE IF EXISTS reservation_tour";
+            stmt.executeUpdate(sql);
+            System.out.println("reservation_tour table is deleted!");
+
             sql = "DROP TABLE IF EXISTS reservation_hotel";
             stmt.executeUpdate(sql);
             System.out.println("reservation_hotel table is deleted!");
@@ -91,10 +95,6 @@ public class App {
             sql = "DROP TABLE IF EXISTS Hotel_Room";       
             stmt.executeUpdate(sql);
             System.out.println("Hotel_Room table is deleted!");
-
-            sql = "DROP TABLE IF EXISTS reservation";
-            stmt.executeUpdate(sql);
-            System.out.println("reservation table is deleted!");
 
             sql = "DROP TABLE IF EXISTS Employee";       
             stmt.executeUpdate(sql);
@@ -104,10 +104,6 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("customer table is deleted!");
 
-            sql = "DROP TABLE IF EXISTS account";       
-            stmt.executeUpdate(sql);
-            System.out.println("account table is deleted!");  
-
             sql = "DROP TABLE IF EXISTS Flight_Ticket";
             stmt.executeUpdate(sql);
             System.out.println("Flight_Ticket table is deleted!");
@@ -115,6 +111,10 @@ public class App {
             sql = "DROP TABLE IF EXISTS Flight";
             stmt.executeUpdate(sql);
             System.out.println("Flight table is deleted!");
+
+            sql = "DROP TABLE IF EXISTS reservation";
+            stmt.executeUpdate(sql);
+            System.out.println("reservation table is deleted!");
 
             sql = "DROP TABLE IF EXISTS Airport";
             stmt.executeUpdate(sql);
@@ -131,6 +131,10 @@ public class App {
             sql = "DROP TABLE IF EXISTS activity";
             stmt.executeUpdate(sql);
             System.out.println("activity table is deleted!");
+
+            sql = "DROP TABLE IF EXISTS account";       
+            stmt.executeUpdate(sql);
+            System.out.println("account table is deleted!");  
 
 
 
@@ -279,7 +283,6 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("Hotel_Room table created!");
 
-        
             
             sql = "CREATE TABLE reservation " +
             "(reservation_id INT(12) AUTO_INCREMENT, " +
@@ -288,6 +291,7 @@ public class App {
 
             stmt.executeUpdate(sql);
             System.out.println("reservation table created!");
+
 
             sql = "CREATE TABLE reservation_hotel " +
             "(reservation_id INT(12), " +
@@ -303,6 +307,20 @@ public class App {
 
             stmt.executeUpdate(sql);
             System.out.println("reservation_hotel table created!");
+
+            sql = "CREATE TABLE reservation_tour " +
+            "(reservation_id INT(12), " +
+            " tour_id INT(12), " +
+            " amount_of_people INT(12), " +
+            " start_date DATE, " +
+            " end_date DATE, " +
+            " PRIMARY KEY ( reservation_id ), " +
+            " FOREIGN KEY (reservation_id) REFERENCES reservation(reservation_id), " +
+            " FOREIGN KEY (tour_id) REFERENCES tour(tour_id))" +
+            " ENGINE=innodb;";
+
+            stmt.executeUpdate(sql);
+            System.out.println("reservation_tour table created!");
 
             
             //NORMALDE BURADA USER ID YOK --> EMPLOYEE ID VE CUSTOMER ID VAR
@@ -476,8 +494,8 @@ public class App {
             sql = "INSERT INTO reservation (reservation_id) " +
             "VALUES (null)";
             stmt.executeUpdate(sql);
-            sql = "INSERT INTO reservation_hotel (hotel_id, reservation_id) " +
-            "VALUES ( '1', '1')";
+            sql = "INSERT INTO reservation_hotel (reservation_id, hotel_id, reservation_type, amount_of_people, start_date, end_date)" +
+            "VALUES ( '1', '1', 'luxury', '3', '2021/12/25 15:30:00', '2021/12/30 15:30:00' )";
             stmt.executeUpdate(sql);
             sql = "INSERT INTO customer_reserve (reservation_id, customer_id) " +
             "VALUES ( '1', '1')";

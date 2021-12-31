@@ -1,20 +1,45 @@
 <?php
 include("./connection/checkSession.php");
 //$user_id = $_SESSION['user_id'];
+
+//USER
 $query = "SELECT fname, email, phone_num FROM account WHERE user_id = " . 1 . "";
 $result = $mysqli->query($query);
 $user_info = $result->fetch_array(MYSQLI_NUM);
 
+//HOTEL
 $query = "SELECT hotel_id, start_date, end_date, amount_of_people, reservation_id FROM reservation NATURAL JOIN reservation_hotel NATURAL JOIN customer_reserve WHERE customer_id = " . 1 . "";
 $hotel_id_result = $mysqli->query($query);
+
+if ($hotel_id_result->num_rows == 0) {
+    $query = "SELECT hotel_id, start_date, end_date, amount_of_people, reservation_id FROM reservation NATURAL JOIN reservation_hotel NATURAL JOIN employee_reserve WHERE customer_id = " . 1 . "";
+    $hotel_id_result = $mysqli->query($query);
+}
 $hotel_exists = false;
 if ($hotel_id_result->num_rows > 0) {
     $hotel_exists = true;
     $hotel_id = $hotel_id_result->fetch_array(MYSQLI_NUM);
-
-$query = "SELECT * from Hotel WHERE hotel_id = " . $hotel_id[0] . "";
-$hotel_info = $mysqli->query($query);
+    $query = "SELECT * from Hotel WHERE hotel_id = " . $hotel_id[0] . "";
+    $hotel_info = $mysqli->query($query);
 }
+
+//TOUR
+
+$query = "SELECT tour_id, start_date, end_date, tour_information, image, tour_name, reservation_id FROM reservation NATURAL JOIN reservation_tour NATURAL JOIN customer_reserve WHERE customer_id = " . 1 . "";
+$tour_id_result = $mysqli->query($query);
+
+if ($tour_id_result->num_rows == 0) {
+    $query = "SELECT tour_id, start_date, end_date, tour_information, image, tour_name, reservation_id FROM reservation NATURAL JOIN reservation_tour NATURAL JOIN employee_reserve WHERE customer_id = " . 1 . "";
+    $tour_id_result = $mysqli->query($query);
+}
+$tour_exists = false;
+if ($tour_id_result->num_rows > 0) {
+    $tour_exists = true;
+    $tour_id = $tour_id_result->fetch_array(MYSQLI_NUM);
+    $query = "SELECT * from tour WHERE tour_id = " . $tour_id[0] . "";
+    $tour_info = $mysqli->query($query);
+}
+//FLIGHT
 
 ?>
 
@@ -46,9 +71,7 @@ $hotel_info = $mysqli->query($query);
             height: 100%;
         }
 
-        .profile .profile_information {
-           
-        }
+        .profile .profile_information {}
 
         .profile .profile_button {
             display: flex;
@@ -71,12 +94,13 @@ $hotel_info = $mysqli->query($query);
             border: 2px solid black;
             width: 50%;
         }
+
         .reservations .flights {
             border: 2px solid black;
             width: 50%;
         }
 
-        
+
 
         .hotel {
             width: 100%;
@@ -107,7 +131,6 @@ $hotel_info = $mysqli->query($query);
             align-items: center;
             margin-right: 10%;
         }
-
     </style>
 
 </head>
@@ -121,21 +144,21 @@ $hotel_info = $mysqli->query($query);
                 <img src='./img/user_icon.png' />
             </div>
             <div class="profile_information">
-                
-                    <h4>
-                        <?php echo "Name: ", $user_info[0] ?>
-                    </h4>
-              
-                
-                    <h4>
-                        <?php echo "E-mail: ", $user_info[1] ?>
-                    </h4>
-                
-               
-                    <h4>
-                        <?php echo "Phone: ", $user_info[2] ?>
-                    </h4>
-                
+
+                <h4>
+                    <?php echo "Name: ", $user_info[0] ?>
+                </h4>
+
+
+                <h4>
+                    <?php echo "E-mail: ", $user_info[1] ?>
+                </h4>
+
+
+                <h4>
+                    <?php echo "Phone: ", $user_info[2] ?>
+                </h4>
+
             </div>
             <div class="profile_button">
                 <div class="profile_button_inner">
@@ -182,13 +205,13 @@ $hotel_info = $mysqli->query($query);
                                         echo $hotel_id[3], " customers"; ?>
                                     </h3>
                                 </div>
-                                </div>
-                                <div>
-                                <div class="hotel_button">
-                                <input class="input" type="submit" value="Cancel Reservation">
                             </div>
+                            <div>
+                                <div class="hotel_button">
+                                    <input class="input" type="submit" value="Cancel Reservation">
                                 </div>
-                        
+                            </div>
+
                         </div>
                     </form>
                 <?php
@@ -197,7 +220,7 @@ $hotel_info = $mysqli->query($query);
             </div>
             <div class="tours" style="background-color:#aaa;">
                 <h2>Tour Reservations</h2>
-                <p>Selectable rows</p>
+                
             </div>
             <div class="flights" style="background-color:#aaa;">
                 <h2>Flight Reservations</h2>
