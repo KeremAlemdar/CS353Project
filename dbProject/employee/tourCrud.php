@@ -16,7 +16,7 @@
 <?php
 
 include("../connection/checkSession.php");
-
+include("./employeeNavbar.php");
 ?>
 <script>
 $(document).ready(function(){
