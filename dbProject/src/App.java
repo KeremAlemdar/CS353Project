@@ -466,7 +466,7 @@ public class App {
 
             //insert tuples to Hotel
              sql = "INSERT INTO Hotel (hotel_id, name, city, star, details, image) " +
-            "VALUES ( null, 'Bilkent Hotel', 'Ankara', '5', 'Located in Ankara, good view.', 'bilkent_hotel.jpg' )";
+            "VALUES ( null, 'Bilkent Hotel', 'Ankara', '5', 'Located 2 km from Bilkent University, this modern and cozy hotel is 14 km from the Anıtkabir, and the iconic Kocatepe Mosque.', 'bilkent_hotel.jpg' )";
             stmt.executeUpdate(sql);
             sql = "INSERT INTO Hotel (hotel_id, name, city, star, details, image) " +
             "VALUES ( null, 'Kerem Hotel', 'Sakarya', '5', 'Located in Sakarya, good location.', 'kerem_hotel.jpg' )";
@@ -499,6 +499,13 @@ public class App {
             stmt.executeUpdate(sql);
             sql = "INSERT INTO customer_reserve (reservation_id, customer_id) " +
             "VALUES ( '1', '1')";
+            stmt.executeUpdate(sql);
+
+            sql = "INSERT INTO hotel_evaluation (evalutaion_id, hotel_id, rate, evaluation)" +
+            "VALUES ( null, '1', '5', 'Employees, rooms were really good.' )";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO hotel_evaluation (evalutaion_id, hotel_id, rate, evaluation)" +
+            "VALUES ( null, '1', '4', 'Good hotel but location is not so good.' )";
             stmt.executeUpdate(sql);
 
             
