@@ -199,7 +199,7 @@ $activities = $mysqli->query($query);
                                     <div><?php echo $tuple[2] ?>
                                     </div>
                                 </div>
-                                <label><input type="checkbox" name="activities[]" value=<?php echo $tuple[0] ?> /> <?php echo $tuple[0] ?></label><br />
+                                <label><input type="number" name="activities[]" /> <input type="hidden" name="activityNames[]" value="<?php echo $tuple[0] ?>" /><?php echo $tuple[0] ?></label><br />
                             <?php
                             }
                             ?>

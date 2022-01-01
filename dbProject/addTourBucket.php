@@ -6,7 +6,12 @@ $activities = "";
 $activity_selected = false;
 if (isset($_POST['activities'])) {
     $activities = $_POST['activities'];
+    $activityNames = $_POST['activityNames'];
     $activity_selected = true;
+    foreach ($activityNames as $activityName) {
+        echo $activities[$activityName - 1];
+    }
+    
     // echo 'Seçtiğiniz activitiler: <br/>';
 
     // foreach ($activities as $activity) {
@@ -23,13 +28,13 @@ if($activity_selected) {
     $result = $mysqli->query($query);
     foreach ($activities as $activity) {
         $query = "INSERT INTO `tour_activity_bucket` (`user_id`, `tour_id`, `activity_id`) VALUES (" . $user_id . "," . $tour_id . "," . $activity . ")";
-        echo $query;
+        // echo $query;
         if ($result = $mysqli->query($query)) {
-            header("Location: paymentPage.php");
-            echo "added";
+            // header("Location: paymentPage.php");
+            // echo "added";
         } else {
-            header("Location:".$previous."&error=cannotAdd");
-            echo "failed";
+            // header("Location:".$previous."&error=cannotAdd");
+            // echo "failed";
         }
     }
 }
@@ -37,10 +42,10 @@ else {
     $query = "INSERT INTO `tour_bucket` (`user_id`, `tour_id`) VALUES (" . $user_id . "," . $tour_id . ")";
     if ($result = $mysqli->query($query)) {
         header("Location: paymentPage.php");
-        echo "added";
+        // echo "added";
     } else {
-        header("Location:".$previous."&error=cannotAdd");
-        echo "failed";
+        // header("Location:".$previous."&error=cannotAdd");
+        // echo "failed";
     }
 }
 
