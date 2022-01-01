@@ -236,7 +236,15 @@ if ($tours->num_rows == 0) {
                     ?>
                 </div>
                 <div class="plane_bucket">
+                    <div class="tour_bucket_header">
+                        <h1>Your tour bucket is empty</h1>
+                    </div>
+                    <div class="plane">
+                        <div class="plane_information">
 
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>

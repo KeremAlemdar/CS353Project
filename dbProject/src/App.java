@@ -124,6 +124,14 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("Hotel table is deleted!");
 
+            sql = "DROP TABLE IF EXISTS tour_city";
+            stmt.executeUpdate(sql);
+            System.out.println("tour_city table is deleted!");
+
+            sql = "DROP TABLE IF EXISTS city";
+            stmt.executeUpdate(sql);
+            System.out.println("city table is deleted!");
+
             sql = "DROP TABLE IF EXISTS tour";
             stmt.executeUpdate(sql);
             System.out.println("tour table is deleted!");
@@ -199,6 +207,26 @@ public class App {
             
             stmt.executeUpdate(sql);
             System.out.println("tour table created!");
+
+            sql = "CREATE TABLE city " +
+            "(city_id INT(12) AUTO_INCREMENT, " +
+            " city_name VARCHAR(255), " +
+            " PRIMARY KEY ( city_id ))" +
+            " ENGINE=innodb;";
+            
+            stmt.executeUpdate(sql);
+            System.out.println("city table created!");
+
+            sql = "CREATE TABLE tour_city " +
+            "(city_id INT(12), " +
+            "tour_id INT(12), " +
+            " FOREIGN KEY (city_id) REFERENCES city(city_id), " +
+            " FOREIGN KEY (tour_id) REFERENCES tour(tour_id), " +
+            " PRIMARY KEY ( city_id, tour_id ))" +
+            " ENGINE=innodb;";
+            
+            stmt.executeUpdate(sql);
+            System.out.println("tour_city table created!");
 
             sql = "CREATE TABLE tour_activity " +
             "(activity_id INT(12), " +
@@ -418,17 +446,20 @@ public class App {
             stmt.executeUpdate(sql); 
 
             //insert tuples to tour
-             sql = "INSERT INTO tour " +
-            "VALUES (null, '1997/03/03', '2000/03/03', 'This tour is in besiktas and MUKEMMEL', 'tour1.jpg', 'France Tour')";
+            sql = "INSERT INTO tour " +
+            "VALUES (null, '2022/01/01', '2022/01/02', 'This tour is in besiktas and MUKEMMEL', 'tour1.jpg', 'France Tour')";
             stmt.executeUpdate(sql);
             sql = "INSERT INTO tour " +
-            "VALUES (null, '2001/12/23', '2021/12/20', 'This tour is also MUKEMMEL but in diyarbakir', 'tour2.jpg', 'Loire Valley Tour')";
+            "VALUES (null, '2022/01/03', '2022/01/05', 'This tour is in besiktas and MUKEMMEL', 'tour1.jpg', 'France Tour')";
             stmt.executeUpdate(sql);
             sql = "INSERT INTO tour " +
-            "VALUES (null, '1997/03/03', '2000/03/03', 'This tour is in besiktas and MUKEMMEL', 'tour1.jpg', 'France Tour')";
+            "VALUES (null, '2022/01/02', '2022/01/03', 'This tour is also MUKEMMEL but in diyarbakir', 'tour2.jpg', 'Loire Valley Tour')";
             stmt.executeUpdate(sql);
             sql = "INSERT INTO tour " +
-            "VALUES (null, '2001/12/23', '2021/12/20', 'This tour is also MUKEMMEL but in diyarbakir', 'tour2.jpg', 'Loire Valley Tour')";
+            "VALUES (null, '2022/01/01', '2022/01/03', 'This tour is in istanbul', 'tour1.jpg', 'Eylül Turu')";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO tour " +
+            "VALUES (null, '2022/01/05', '2022/01/08', 'This tour is ekmek yeme turu', 'tour2.jpg', 'İsmet Turu')";
             stmt.executeUpdate(sql); 
 
             //insert tuples to activity
@@ -507,6 +538,49 @@ public class App {
             sql = "INSERT INTO hotel_evaluation (evalutaion_id, hotel_id, rate, evaluation)" +
             "VALUES ( null, '1', '4', 'Good hotel but location is not so good.' )";
             stmt.executeUpdate(sql);
+
+            sql = "INSERT INTO city (city_id, city_name)" +
+            "VALUES ( null, 'Ankara' )";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO city (city_id, city_name)" +
+            "VALUES ( null, 'İstanbul' )";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO city (city_id, city_name)" +
+            "VALUES ( null, 'Paris' )";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO city (city_id, city_name)" +
+            "VALUES ( null, 'Roma' )";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO city (city_id, city_name)" +
+            "VALUES ( null, 'Denizli' )";
+            stmt.executeUpdate(sql);
+
+            sql = "INSERT INTO tour_city (city_id, tour_id)" +
+            "VALUES ( 1, 1 )";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO tour_city (city_id, tour_id)" +
+            "VALUES ( 2, 1 )";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO tour_city (city_id, tour_id)" +
+            "VALUES ( 3, 1 )";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO tour_city (city_id, tour_id)" +
+            "VALUES ( 1, 2 )";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO tour_city (city_id, tour_id)" +
+            "VALUES ( 4, 2 )";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO tour_city (city_id, tour_id)" +
+            "VALUES ( 1, 3 )";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO tour_city (city_id, tour_id)" +
+            "VALUES ( 1, 5 )";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO tour_city (city_id, tour_id)" +
+            "VALUES ( 1, 4 )";
+            stmt.executeUpdate(sql);
+
+
 
             
             // System.out.println("------------------1----------------");

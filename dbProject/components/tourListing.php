@@ -11,45 +11,63 @@ $searchKey =  isset($_POST['searchKey']) ? $_POST['searchKey'] : "";
 //     echo $end_date;
 //     echo $searchKey;
 // }
-if(empty($start_date) && empty($end_date)) {
-    if(empty($searchKey)) {
-        $query = "select * from tour";
+if (empty($start_date) && empty($end_date)) {
+    if (empty($searchKey)) {
+        $query = "select DISTINCT(tour_id),start_date,end_date,tour_information,image,tour_name from tour natural join tour_city natural join city";
+
+        // $query = "select * from tour natural join tour_city natural join city";
+    } else {
+        $query = "select DISTINCT(tour_id),start_date,end_date,tour_information,image,tour_name from tour natural join tour_city natural join city 
+        where
+        (tour_information LIKE '%" .$searchKey."%' or tour_name LIKE '%" .$searchKey."%' or city_name LIKE '%" .$searchKey."%')";
+
+        // $query = "select * from tour where tour_information LIKE '%" . $searchKey . "%' or tour_name LIKE '%" .$searchKey . "%' or city_name LIKE '%" .$searchKey . "%'";
     }
-    else {
-        $query = "select * from tour where tour_information LIKE '%" . $searchKey . "%'";
+} else if (empty($start_date)) {
+    if (empty($searchKey)) {
+        $query = "select DISTINCT(tour_id),start_date,end_date,tour_information,image,tour_name from tour natural join tour_city natural join city 
+        where tour.end_date <= '".$end_date."'";
+
+    //     $query = "select * from tour natural join tour_city natural join city where
+    // tour.end_date <= '" . $end_date . "'";
+    } else {
+        $query = "select DISTINCT(tour_id),start_date,end_date,tour_information,image,tour_name from tour natural join tour_city natural join city 
+        where tour.end_date <= '".$end_date."' and
+        (tour_information LIKE '%" .$searchKey."%' or tour_name LIKE '%" .$searchKey."%' or city_name LIKE '%" .$searchKey."%')";
+
+    //     $query = "select * from tour natural join tour_city natural join city where tour_information LIKE '%" . $searchKey . "%' or tour_name LIKE '%" .$searchKey . "%' or city_name LIKE '%" .$searchKey . "%'
+    // and tour.end_date <= '" . $end_date . "'";
+    }
+} else if (empty($end_date)) {
+    if (empty($searchKey)) {
+        $query = "select DISTINCT(tour_id),start_date,end_date,tour_information,image,tour_name from tour natural join tour_city natural join city 
+        where tour.start_date >= '".$start_date."'";
+
+    //     $query = "select * from tour natural join tour_city natural join city where
+    // tour.start_date >= '" . $start_date . "'";
+    } else {
+        $query = "select DISTINCT(tour_id),start_date,end_date,tour_information,image,tour_name from tour natural join tour_city natural join city 
+        where tour.start_date >= '".$start_date."' and
+        (tour_information LIKE '%" .$searchKey."%' or tour_name LIKE '%" .$searchKey."%' or city_name LIKE '%" .$searchKey."%')";
+
+    //     $query = "select * from tour natural join tour_city natural join city where tour_information LIKE '%" . $searchKey . "%' or tour_name LIKE '%" .$searchKey . "%' or city_name LIKE '%" .$searchKey . "%'
+    // and tour.start_date >= '" . $start_date . "'";
+    }
+} else {
+    if (empty($searchKey)) {
+    //     $query = "select * from tour natural join tour_city natural join city where
+    // tour.start_date >= '" . $start_date . "' and tour.end_date <= '" . $end_date . "'";
+    $query = "select DISTINCT(tour_id),start_date,end_date,tour_information,image,tour_name from tour natural join tour_city natural join city 
+        where tour.start_date >= '".$start_date."' and tour.end_date <= '".$end_date."'";
+    } else {
+        $query = "select DISTINCT(tour_id),start_date,end_date,tour_information,image,tour_name from tour natural join tour_city natural join city 
+        where tour.start_date >= '".$start_date."' and tour.end_date <= '".$end_date."' and
+        (tour_information LIKE '%" .$searchKey."%' or tour_name LIKE '%" .$searchKey."%' or city_name LIKE '%" .$searchKey."%')";
+
+    //     $query = "select * from tour natural join tour_city natural join city where tour_information LIKE '%" . $searchKey . "%' or tour_name LIKE '%" .$searchKey . "%' or city_name LIKE '%" .$searchKey . "%'
+    // and tour.start_date >= '" . $start_date . "' and tour.end_date <= '" . $end_date . "'";
     }
 }
-else if(empty($start_date)) {
-    if(empty($searchKey)) {
-        $query = "select * from tour where
-    tour.end_date = ". $end_date ."";
-    }
-    else {
-        $query = "select * from tour where tour_information LIKE '%" . $searchKey . "%'
-    and tour.end_date = ". $end_date ."";
-    }
-}
-else if(empty($end_date)) {
-    if(empty($searchKey)) {
-        $query = "select * from tour where
-    tour.start_date = ". $start_date . "";
-    }
-    else {
-        $query = "select * from tour where tour_information LIKE '%" . $searchKey . "%'
-    and tour.start_date = ". $start_date . "";
-    }
-}
-else {
-    if(empty($searchKey)) {
-        $query = "select * from tour where
-    tour.start_date = ". $start_date . " and tour.end_date = ". $end_date ."";
-    }
-    else {
-        $query = "select * from tour where tour_information LIKE '%" . $searchKey . "%'
-    and tour.start_date = ". $start_date . " and tour.end_date = ". $end_date ."";
-    }
-}
-// echo $query;
 $result = $mysqli->query($query);
 
 ?>
@@ -71,7 +89,8 @@ $result = $mysqli->query($query);
         }
 
         .tours>* {
-            flex: 40%; /* increase number of items in a row */
+            flex: 40%;
+            /* increase number of items in a row */
             margin-left: 2.5%;
             margin-right: 2.5%;
             margin-top: 2.5%;
@@ -81,8 +100,10 @@ $result = $mysqli->query($query);
             border: 2px solid black;
             display: flex;
             width: 40%;
-            height: auto; /* 40% dı, 2 liyken kücülmeyi çözmek için auto yaptım*/
+            height: auto;
+            /* 40% dı, 2 liyken kücülmeyi çözmek için auto yaptım*/
         }
+
         .information {
             margin-left: 2.5%;
             margin-right: 2.5%;
@@ -96,18 +117,24 @@ $result = $mysqli->query($query);
             width: 100%;
             height: 100%;
         }
+
         .img {
             width: 50%;
             height: 100%;
         }
+
+        .dates {
+            display: flex;
+        }
     </style>
 </head>
+
 <body>
     <div class="all">
         <div class="tours">
             <?php
             while ($tuple = $result->fetch_array(MYSQLI_NUM)) {
-            # Tour(tour_id, start_date, end_date, tour_information, image)
+                # Tour(tour_id, start_date, end_date, tour_information, image)
             ?>
                 <div class="tour">
                     <div class="img">
@@ -122,6 +149,24 @@ $result = $mysqli->query($query);
                         <h1>
                             <?php echo $tuple[3] ?>
                         </h1>
+                        <div clasS="dates">
+                            <div>
+                                <h1>
+                                    <?php echo $tuple[1] ?>
+                                </h1>
+                            </div>
+                            <div>
+                                <h1>
+                                    <?php echo "&nbsp - &nbsp" ?>
+                                </h1>
+                            </div>
+                            <div>
+                                <h1>
+                                    <?php echo $tuple[2] ?>
+                                </h1>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             <?php

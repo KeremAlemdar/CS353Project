@@ -77,7 +77,7 @@ $result = $mysqli->query($query);
                 <div class="tour">
                     <div class="img">
                         <a href='./hotelDisplay.php?id=<?php echo $tuple[0] ?>'>
-                            <img src='./img/tour1.jpg' />
+                            <img src='./img/<?php echo $tuple[5] ?>'  />
                         </a>
                     </div>
                     <div class="information">
@@ -86,6 +86,9 @@ $result = $mysqli->query($query);
                         </h1>
                         <h1>
                             <?php echo $tuple[2] ?>
+                        </h1>
+                        <h1>
+                            <?php echo $tuple[4] ?>
                         </h1>
                     </div>
                 </div>
