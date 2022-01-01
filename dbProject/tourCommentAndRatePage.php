@@ -54,7 +54,7 @@ $tour = $result->fetch_array(MYSQLI_NUM);
         <br>
         <div class="evaluation">
             <form action="./profilePage.php">
-                <textarea name="review" rows="5" cols="80">
+                <textarea name="review" rows="5" cols="120">
 
   </textarea>
                 <br>

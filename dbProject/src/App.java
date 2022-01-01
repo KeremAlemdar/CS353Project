@@ -96,9 +96,17 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("Hotel_Room table is deleted!");
 
+            sql = "DROP TABLE IF EXISTS past_reservations";
+            stmt.executeUpdate(sql);
+            System.out.println("past_reservations table is deleted!");
+
             sql = "DROP TABLE IF EXISTS Employee";       
             stmt.executeUpdate(sql);
             System.out.println("Employee table is deleted!"); 
+
+            sql = "DROP TABLE IF EXISTS guide";
+            stmt.executeUpdate(sql);
+            System.out.println("guide table is deleted!");
 
             sql = "DROP TABLE IF EXISTS customer";
             stmt.executeUpdate(sql);
@@ -180,6 +188,15 @@ public class App {
             
             stmt.executeUpdate(sql);
             System.out.println("Employee table created!");
+
+            sql = "CREATE TABLE guide " +
+            "(guide_id INT(12), " +
+            " PRIMARY KEY ( guide_id ), " +
+            " FOREIGN KEY (guide_id) REFERENCES account(user_id)) " +
+            " ENGINE=innodb;";
+            
+            stmt.executeUpdate(sql);
+            System.out.println("guide table created!");
 
             sql = "CREATE TABLE activity " +
             "(activity_id INT(12) AUTO_INCREMENT, " +
@@ -320,6 +337,17 @@ public class App {
 
             stmt.executeUpdate(sql);
             System.out.println("reservation table created!");
+
+            sql = "CREATE TABLE past_reservation " +
+            "(reservation_id INT(12), " +
+            " customer_id INT(12), " +
+            " PRIMARY KEY ( reservation_id, customer )) " +
+            " FOREIGN KEY (reservation_id) REFERENCES reservation(reservation_id), " +
+            " FOREIGN KEY (customer_id) REFERENCES customer(customer_id))" +
+            " ENGINE=innodb;";
+
+            stmt.executeUpdate(sql);
+            System.out.println("past_reservation table created!");
 
 
             sql = "CREATE TABLE reservation_hotel " +
@@ -581,6 +609,12 @@ public class App {
             stmt.executeUpdate(sql);
             sql = "INSERT INTO tour_city (city_id, tour_id)" +
             "VALUES ( 1, 4 )";
+            stmt.executeUpdate(sql);
+
+            
+
+            sql = "INSERT INTO past_reservation (reservation_id, user_id)" +
+            "VALUES ( '1', '1' )";
             stmt.executeUpdate(sql);
 
 

@@ -2,8 +2,8 @@
 include('./components/navbar.php');
 include("./connection/checkSession.php");
 
-//$hotel_id = $_GET["id"];
-$hotel_id = 1;
+$hotel_id = $_GET["id"];
+//$hotel_id = 1;
 $query = "select name, city, star, image from Hotel where hotel_id=$hotel_id";
 $result = $mysqli->query($query);
 $hotel = $result->fetch_array(MYSQLI_NUM);
@@ -55,7 +55,7 @@ $hotel = $result->fetch_array(MYSQLI_NUM);
         <br>
         <div class="evaluation">
             <form action="./profilePage.php">
-                <textarea name="review" rows="5" cols="80">
+                <textarea name="review" rows="5" cols="120">
 
   </textarea>
                 <br>

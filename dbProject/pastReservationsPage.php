@@ -1,5 +1,8 @@
 <?php
+session_start();
 include("./connection/checkSession.php");
+include('./components/navbar.php');
+
 //$user_id = $_SESSION['user_id'];
 
 //USER
@@ -40,7 +43,7 @@ if ($tour_id_result->num_rows > 0) {
     $tour_info = $mysqli->query($query);
 }
 */
-//FLIGHT
+//GUIDE
 
 ?>
 
@@ -53,7 +56,7 @@ if ($tour_id_result->num_rows > 0) {
 <head>
 
     <style>
-        
+        .page {}
 
         .profile {
             display: flex;
@@ -72,12 +75,13 @@ if ($tour_id_result->num_rows > 0) {
             height: 100%;
         }
 
+        .profile .profile_information {}
 
         .profile .profile_button {
             display: flex;
             align-items: center;
         }
-        .past_reservations_button {
+        .profile_page_button {
             display: flex;
             align-items: center;
         }
@@ -105,6 +109,7 @@ if ($tour_id_result->num_rows > 0) {
         }
 
 
+
         .hotel {
             width: 100%;
             display: flex;
@@ -126,9 +131,16 @@ if ($tour_id_result->num_rows > 0) {
             margin-right: 10%;
         }
 
+        .input {
+            border-radius: 5px;
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            padding: 10px 25px;
+            display: flex;
+            align-items: center;
+            margin-right: 10%;
+        }
         
-        
-        .input, .edit, .past_reservations {
+        .edit, .past_reservations {
             border-radius: 5px;
             box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             padding: 10px 25px;
@@ -145,43 +157,14 @@ if ($tour_id_result->num_rows > 0) {
 
 <body>
     <div class="page">
-        <div class="profile">
-            <div class="profile_icon">
-                <img src='./img/user_icon.png' />
-            </div>
-            <div class="profile_information">
-
-                <h4>
-                    <?php echo "Name: ", $user_info[0] ?>
-                </h4>
-
-
-                <h4>
-                    <?php echo "E-mail: ", $user_info[1] ?>
-                </h4>
-
-
-                <h4>
-                    <?php echo "Phone: ", $user_info[2] ?>
-                </h4>
-
-            </div>
-            <div class="profile_button">
-                <div class="profile_button_inner">
-                <a href="editInformationPage.php">
-                        <input class="edit" type="submit" value="Edit User Information">
+            <div class="profile_page_button">
+            
+                    <a href="ProfilePage.php">
+                        <input class="past_reservations" type="submit" value="Go Back To Profile Page">
                     </a>
-                </div>
-            </div>
-            <div class="past_reservations_button">
-                <div class="profile_reservation_inner">
-                
-                    <a href="pastReservationsPage.php">
-                        <input class="past_reservations" type="submit" value="Past Reservations">
-                    </a>
-                </div>
             </div>
         </div>
+        <br>
         <div class="reservations">
             <div class="hotels" style="background-color:#aaa;">
                 <h2>Hotel Reservations</h2>
@@ -189,13 +172,13 @@ if ($tour_id_result->num_rows > 0) {
                 if (!$hotel_exists) {
                 ?>
                     <div class="hotel">
-                        <h3>You have no hotel reservations</h3>
+                        <h3>You have no past hotel reservations</h3>
                     </div>
                 <?php
                 }
                 while ($hotel_exists && $tuple = $hotel_info->fetch_array(MYSQLI_NUM)) {
                 ?>
-                    <form class="form" action='deleteHotelReservation.php' method="post">
+                    
                         <div>
                             <input type="hidden" id="reservation_id" name="reservation_id" value=<?php echo $hotel_id[4] ?>>
                         </div>
@@ -224,12 +207,14 @@ if ($tour_id_result->num_rows > 0) {
                             </div>
                             <div>
                                 <div class="hotel_button">
-                                    <input class="input" type="submit" value="Cancel Reservation">
+                                <a href='./hotelCommentAndRatePage.php?id=<?php echo $tuple[0] ?>'>
+                                    <input class="input" type="submit" value="Comment and Rate">
+                                    </a>
                                 </div>
                             </div>
 
                         </div>
-                    </form>
+                   
                 <?php
                 }
                 ?>
@@ -239,7 +224,7 @@ if ($tour_id_result->num_rows > 0) {
                 
             </div>
             <div class="flights" style="background-color:#aaa;">
-                <h2>Flight Reservations</h2>
+                <h2>Guides</h2>
                 <p>Selectable rows</p>
             </div>
         </div>
