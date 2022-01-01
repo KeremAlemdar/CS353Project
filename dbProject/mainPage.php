@@ -44,13 +44,13 @@
     <div class="types">
         <div class="menuItem">
             <div class="image">
-                <a href='THERE WILL BE PLANE LISTING PAGE'>
+                <a href='THERE WILL BE PLANE LIST PAGE'>
                     <img src='./img/planes.png' />
                 </a>
             </div>
             <div class="header">
                 <h1>
-                    Planes
+                    Plane
                 </h1>
             </div>
         </div>
@@ -68,13 +68,13 @@
         </div>
         <div class="menuItem">
             <div class="image">
-                <a href='./tour.php'>
-                    <img src='./img/tour.png' />
+                <a href='./hotelListPage.php'>
+                    <img src='./img/hotel.jpg' />
                 </a>
             </div>
             <div class="header">
                 <h1>
-                    Tour
+                    Hotel
                 </h1>
             </div>
         </div>
