@@ -16,7 +16,7 @@ $total_hotel_cost = 0;
 $user_id = 1; // FOR TEST PURPOSES
 // $query = "select * from ((tour natural join tour_bucket) natural join activity) where user_id =" . $user_id . "";
 
-$query = "SELECT DISTINCT `tour`.* FROM `tour` LEFT JOIN `tour_bucket` ON `tour_bucket`.`tour_id` = `tour`.`tour_id` WHERE `user_id`= 1";
+$query = "SELECT DISTINCT * FROM `tour` LEFT JOIN `tour_bucket` ON `tour_bucket`.`tour_id` = `tour`.`tour_id` WHERE `user_id`= 1";
 $tours = $mysqli->query($query);
 $empty = false;
 if ($tours->num_rows == 0) {
@@ -124,6 +124,10 @@ if ($tours->num_rows == 0) {
 
         .activity_all .activity_information {}
 
+        .activity_information .price {
+            display: flex;
+        }
+
         .activity .activity_button {
             display: flex;
             margin-left: 1%;
@@ -136,11 +140,22 @@ if ($tours->num_rows == 0) {
 
         .number_of_tour {
             display: flex;
+            flex-direction: column;
+        }
+
+        .number_of_tour .numberOf {
+            display: flex;
             flex-direction: row;
             align-items: center;
         }
 
-        .number_of_tour .input {
+        .number_of_tour .price {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        price .number_of_tour .input {
             margin-left: 5%;
         }
 
@@ -204,6 +219,15 @@ if ($tours->num_rows == 0) {
         .payment div {
             margin: 1%;
         }
+
+        .payment button {
+            width: 15%;
+            padding: 20px;
+        }
+        .all_model {
+            display: flex;
+            justify-content: center;
+        }
     </style>
 </head>
 
@@ -236,19 +260,15 @@ if ($tours->num_rows == 0) {
                             <div class="tours">
                                 <?php
                                 while ($tuple = $tours->fetch_array(MYSQLI_NUM)) {
-                                    $total_tour_cost = $total_tour_cost + $tuple[6];
+                                    $total_tour_cost = $total_tour_cost + $tuple[6] * $tuple[9];
                                 ?>
                                     <form class="form" action='deleteTourFromBucket.php' method="post">
-                                    <input type="hidden" id="tour_id" name="tour_id" value=<?php echo $tuple[0] ?>>
-                                    <input type="hidden" tag="patates" id="<?php echo $tuple[0]?>" name="tour_cost" value=<?php echo $tuple[6] ?>>
+                                        <input type="hidden" id="tour_id" name="tour_id" value=<?php echo $tuple[0] ?>>
                                         <div class="tour">
                                             <div class="tour_all">
                                                 <div class="tour_information">
                                                     <h1>
                                                         <?php echo $tuple[5] ?>
-                                                    </h1>
-                                                    <h1>
-                                                        <?php echo $tuple[6] ?>
                                                     </h1>
                                                 </div>
                                                 <div class="tour_img">
@@ -257,11 +277,24 @@ if ($tours->num_rows == 0) {
                                                     </a>
                                                 </div>
                                                 <div class="number_of_tour">
-                                                    <div>
-                                                        <h1>Enter the number of people</h1>
+                                                    <div class="price">
+                                                        <div>
+                                                            <h2>Price:<h2>
+                                                        </div>
+                                                        <div>
+                                                            <h2><?php echo $tuple[6] ?></h2>
+                                                        </div>
+                                                        <div>
+                                                            <h2>$<h2>
+                                                        </div>
                                                     </div>
-                                                    <div class="input">
-                                                        <input type="number" id="<?php echo $tuple[0]?>" name="numberOfPeople">
+                                                    <div class="numberOf">
+                                                        <div>
+                                                            <h2>Number of people:<h2>
+                                                        </div>
+                                                        <div>
+                                                            <h2><?php echo $tuple[9] ?></h2>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -274,7 +307,7 @@ if ($tours->num_rows == 0) {
                                     <div class="activities">
 
                                         <?php
-                                        $query = "SELECT `A`.* FROM `activity` AS `A` , `tour` AS `T` ,`tour_activity_bucket` AS `TB` 
+                                        $query = "SELECT `A`.*,`TB`.* FROM `activity` AS `A` , `tour` AS `T` ,`tour_activity_bucket` AS `TB` 
                     WHERE `TB`.`tour_id` = `T`.`tour_id` AND `TB`.`activity_id` = `A`.`activity_id` AND user_id = 1";
                                         $activities = $mysqli->query($query);
                                         if ($activities->num_rows > 0) {
@@ -286,6 +319,7 @@ if ($tours->num_rows == 0) {
                                         <?php
                                         }
                                         while ($activity_tuple = $activities->fetch_array(MYSQLI_NUM)) {
+                                            $total_tour_cost = $total_tour_cost + ($activity_tuple[10] * $activity_tuple[4]);
                                         ?>
                                             <form class="form" action='deleteActivityFromBucket.php' method="post">
                                                 <input type="hidden" id="activity_id" name="activity_id" value=<?php echo $activity_tuple[0] ?>>
@@ -300,18 +334,28 @@ if ($tours->num_rows == 0) {
                                                                 <?php echo $activity_tuple[2] ?>
 
                                                             </div>
-                                                            <div>
-                                                                <?php echo $activity_tuple[4] ?>
+                                                            <div class="price">
+                                                                <div>
+                                                                    Price:
+                                                                </div>
+                                                                <div>
+                                                                    <?php echo $activity_tuple[4] ?>
+                                                                </div>
+                                                                <div>
+                                                                    $
+                                                                </div>
                                                             </div>
+
                                                         </div>
 
                                                     </div>
                                                     <div class="number_of_tour">
                                                         <div>
-                                                            <p>Enter the number of people</p>
+                                                            <p>Number of people:
+                                                            <p>
                                                         </div>
-                                                        <div class="input">
-                                                            <input type="text" id="number" name="number">
+                                                        <div>
+                                                            <p><?php echo $activity_tuple[10] ?></p>
                                                         </div>
                                                     </div>
                                                     <div class="activity_button">
@@ -347,44 +391,38 @@ if ($tours->num_rows == 0) {
             </div>
             <div class="payment">
                 <h1>Payment</h1>
-                <button id="myBtn">Open Modal</button>
+                <button id="myBtn">Make Payment</button>
 
                 <!-- The Modal -->
                 <div id="myModal" class="modal">
 
                     <!-- Modal content -->
-                    <div class="modal-content">
-                        <span class="close">&times;</span>
-                        <div class="payment">
-                            <div>
-                                <input type="text" placeholder="Card Number"></input>
-                            </div>
-                            <div>
-                                <input type="text" placeholder="Expire Date"></input>
-                            </div>
-                            <div>
-                                <input type="text" placeholder="CVC"></input>
-                            </div>
-                            <div>
-                                <input type="text" placeholder="Street Address"></input>
-                            </div>
-                            <div>
-                                <input type="text" placeholder="Apt, unit, suite, etc."></input>
-                            </div>
-                            <div>
-                                <input type="text" placeholder="United States"></input>
-                            </div>
-                            <div>
-                                <input type="text" placeholder="City"></input>
-                            </div>
-                            <div>
-                                <h1>Subtotal: <?php echo $total_hotel_cost + $total_plane_cost + $total_tour_cost?></h1>
-                            </div>
-                            <div>
-                                <input type="submit" value="Pay"></input>
+                    <form class="form" action='payAllBucket.php' method="post">
+                    
+                    <div class="all_model">
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <div class="payment">
+                                <div>
+                                    <input type="text" placeholder="Card Number"></input>
+                                </div>
+                                <div>
+                                    <input type="text" placeholder="Expire Date"></input>
+                                </div>
+                                <div>
+                                    <input type="text" placeholder="CVC"></input>
+                                </div>
+                                <div>
+                                    <h1>Subtotal: <?php echo $total_hotel_cost + $total_plane_cost + $total_tour_cost ?></h1>
+                                </div>
+                                <div>
+                                    <input type="submit" value="Pay"></input>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    </form>
+
                 </div>
 
             </div>
