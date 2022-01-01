@@ -164,7 +164,14 @@ $activities = $mysqli->query($query);
                                             <div>
                                                 <h2>Tour Details</h2>
                                             </div>
-                                            <div><?php echo $tuple[3] ?>
+                                            <div>
+                                                <?php echo $tuple[3] ?>
+                                            </div>
+                                            <div>
+                                                <label>Enter number of people &nbsp
+                                                    <input type="number" name="numberOfTour" value=1 />
+                                                </label>
+                                                <br />
                                             </div>
                                         </div>
                                     </div>
@@ -199,7 +206,14 @@ $activities = $mysqli->query($query);
                                     <div><?php echo $tuple[2] ?>
                                     </div>
                                 </div>
-                                <label><input type="number" name="activities[]" /> <input type="hidden" name="activityNames[]" value="<?php echo $tuple[0] ?>" /><?php echo $tuple[0] ?></label><br />
+                                <label>
+                                    <input type="hidden" name="activities[]" value=<?php echo $tuple[0] ?> />
+                                </label>
+                                <br />
+                                <label>Enter number of people &nbsp
+                                    <input type="number" name="numberOfActivity[]" value=0 />
+                                </label>
+                                <br />
                             <?php
                             }
                             ?>
