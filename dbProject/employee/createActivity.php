@@ -12,7 +12,13 @@ $query = "INSERT INTO `activity` (`activity_id`, `content`, `name`, `location`, 
 
 $result = $mysqli->query($query);
 
+if ($result) {
+    echo "Success";
+    header("location: activityCrud.php");
+}
+else {
+    echo("Error description: " . $mysqli -> error);
+}
 
-header("location: activityCrud.php");
 
 ?>

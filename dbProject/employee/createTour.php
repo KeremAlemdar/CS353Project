@@ -14,5 +14,13 @@ $end_date=date("Y-m-d H:i:s",strtotime($tsta));
 $query =  "INSERT INTO `tour` (`tour_id`, `start_date`, `end_date`, `tour_information`, `image`, `tour_name`) VALUES (NULL, '$std_date', '$end_date', '$tinf', NULL, '$tname')";
 $result = $mysqli->query($query);
 
-header("location: tourCrud.php");
+if ($result) {
+    echo "Success";
+    header("location: tourCrud.php");
+}
+else {
+    echo("Error description: " . $mysqli -> error);
+}
+
+
 ?>
