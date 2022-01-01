@@ -10,8 +10,8 @@ if ($tours->num_rows == 0) {
 }
 while ($tuple = $tours->fetch_array(MYSQLI_NUM)) {
     echo "patates";
-    $query = "INSERT INTO reservation";
-    $reservationAdding = $mysqli->query($query);
-    echo $reservationAdding;
+    $query = "INSERT INTO reservation (reservation_id) VALUES (null)";
+    $mysqli->query($query);
+    // $mysqli->insert_id   ID si burda
 }
 ?>
