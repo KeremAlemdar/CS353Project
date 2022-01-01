@@ -2,23 +2,24 @@
 include('./components/navbar.php');
 include("./connection/checkSession.php");
 
-//$tour_id = $_GET["id"];
+//$guide_id = $_GET["id"];
 $tour_id = 1;
-$query = "select image, tour_name from tour where tour_id=$tour_id";
-$result = $mysqli->query($query);
-$tour = $result->fetch_array(MYSQLI_NUM);
+//$query = "select image, tour_name from tour where tour_id=$tour_id";
+//$result = $mysqli->query($query);
+//$guide = $result->fetch_array(MYSQLI_NUM);
 ?>
 <!DOCTYPE html>
 <html>
 
 <head>
     <style>
-        .all_page{
+        .all_page {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
-        .evaluated_tour{
+
+        .evaluated_guide {
             display: flex;
             flex-direction: column;
             border: solid;
@@ -26,6 +27,7 @@ $tour = $result->fetch_array(MYSQLI_NUM);
             width: 50%;
             text-align: center;
         }
+
         .submit_button {
             border-radius: 5px;
             box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -38,17 +40,19 @@ $tour = $result->fetch_array(MYSQLI_NUM);
             transform: translateY(2px);
         }
     </style>
-    <title> <?php echo $hotel[1], " Evaluation"?></title>
+    <title> <?php echo $hotel[1], " Evaluation" ?></title>
 </head>
 
 <body style="text-align:center; margin: 0px;">
     <div class="all_page">
-        <div class="evaluated_tour">
+        <div class="evaluated_guide">
 
-            <h1><?php echo $tour[1]?></h1>
-            <div class="tour_img">
-                <img src='./img/<?php echo $tour[0] ?>' />
-            </div>
+            <h1>
+                <?php
+                // echo 
+                ?>
+            </h1>
+
 
         </div>
         <br>
