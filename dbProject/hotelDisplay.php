@@ -3,7 +3,6 @@ include("./connection/checkSession.php");
 include("./components/navbarHotel.php");
 
 $hotel_id = $_GET["id"];
-//$hotel_id = 1;
 $query = "select * from Hotel where hotel_id=$hotel_id";
 $result = $mysqli->query($query);
 $hotel = $result->fetch_array(MYSQLI_NUM);
@@ -46,21 +45,19 @@ $evaluation = $mysqli->query($query);
             width: 50%;
             height: auto;
         }
-
-        .hotel_comments .comments {
+    
+        .hotel_comments .comments{
             margin: 3px;
             border: solid;
             border-color: black;
             display: flex;
 
         }
-
         .star {
             width: 100%;
             display: flex;
             justify-content: left;
         }
-
         .comment {
             display: flex;
             justify-content: left;
@@ -71,45 +68,41 @@ $evaluation = $mysqli->query($query);
 
 <body>
     <div class="all_page">
-        <div class="hotel_name">
+        <div class="hotel_name" >
             <h1><?php echo $hotel[1] ?></h1>
             <h1><?php echo $hotel[3], " STAR HOTEL " ?></h1>
             <div class="hotel_img">
                 <img src='./img/<?php echo $hotel[5] ?>' />
             </div>
-            <div>
-                <h3><?php echo $hotel[4] ?></h3>
-            </div>
+            <div> <h3><?php echo $hotel[4] ?></h3></div>
         </div>
-        <div class="hotel_comments">
+        <div class="hotel_comments" >
             <h1>Comments and Rates</h1>
             <?php
-            while ($tuple = $evaluation->fetch_array(MYSQLI_NUM)) {
+                while ($tuple = $evaluation->fetch_array(MYSQLI_NUM)) {
             ?>
-                <div class="comments">
-                    <div>
-                        <div class="star">
-                            <?php
-                            $counter = 0;
-                            while ($counter != $tuple[3]) {
-                            ?>
-                                <i class="fa fa-star fa-2x" data-index=$counter style="color: yellow;"></i>
-
-                            <?php
-                                $counter = $counter + 1;
-                            }
-                            ?>
-                        </div>
-                        <div class="comment">
-                            <h3><?php echo $tuple[4] ?></h3>
-                        </div>
-
-                    </div>
+            <div class="comments">
+            <div>
+                <div class="star">
+                    <?php 
+                        $counter = 0;
+                        while($counter != $tuple[3]){
+                    ?>
+                            <i class="fa fa-star fa-2x" data-index=$counter style="color: yellow;"></i>
+                            
+                    <?php
+                        $counter = $counter + 1;
+                        }
+                    ?>
                 </div>
-
+                <div class="comment"><h3><?php echo $tuple[4] ?></h3></div>
+                
+            </div>
+            </div>
+            
             <?php
-            }
-            ?>
+                }
+                ?>
         </div>
 
 
