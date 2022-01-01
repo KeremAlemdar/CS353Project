@@ -202,6 +202,7 @@ public class App {
             " tour_information VARCHAR(255), " +
             " image VARCHAR(255), " +
             " tour_name VARCHAR(255), " +
+            " cost VARCHAR(255), " +
             " PRIMARY KEY ( tour_id ))" +
             " ENGINE=innodb;";
             
@@ -447,19 +448,19 @@ public class App {
 
             //insert tuples to tour
             sql = "INSERT INTO tour " +
-            "VALUES (null, '2022/01/01', '2022/01/02', 'This tour is in besiktas and MUKEMMEL', 'tour1.jpg', 'France Tour')";
+            "VALUES (null, '2022/01/01', '2022/01/02', 'This tour is in besiktas and MUKEMMEL', 'tour1.jpg', 'France Tour', 100)";
             stmt.executeUpdate(sql);
             sql = "INSERT INTO tour " +
-            "VALUES (null, '2022/01/03', '2022/01/05', 'This tour is in besiktas and MUKEMMEL', 'tour1.jpg', 'France Tour')";
+            "VALUES (null, '2022/01/03', '2022/01/05', 'This tour is in besiktas and MUKEMMEL', 'tour1.jpg', 'France Tour', 150)";
             stmt.executeUpdate(sql);
             sql = "INSERT INTO tour " +
-            "VALUES (null, '2022/01/02', '2022/01/03', 'This tour is also MUKEMMEL but in diyarbakir', 'tour2.jpg', 'Loire Valley Tour')";
+            "VALUES (null, '2022/01/02', '2022/01/03', 'This tour is also MUKEMMEL but in diyarbakir', 'tour2.jpg', 'Loire Valley Tour', 220)";
             stmt.executeUpdate(sql);
             sql = "INSERT INTO tour " +
-            "VALUES (null, '2022/01/01', '2022/01/03', 'This tour is in istanbul', 'tour1.jpg', 'Eylül Turu')";
+            "VALUES (null, '2022/01/01', '2022/01/03', 'This tour is in istanbul', 'tour1.jpg', 'Eylül Turu', 320)";
             stmt.executeUpdate(sql);
             sql = "INSERT INTO tour " +
-            "VALUES (null, '2022/01/05', '2022/01/08', 'This tour is ekmek yeme turu', 'tour2.jpg', 'İsmet Turu')";
+            "VALUES (null, '2022/01/05', '2022/01/08', 'This tour is ekmek yeme turu', 'tour2.jpg', 'İsmet Turu', 340)";
             stmt.executeUpdate(sql); 
 
             //insert tuples to activity

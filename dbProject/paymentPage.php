@@ -10,7 +10,9 @@ if ($error == "cannotDelete") {
     </script>";
 }
 
-
+$total_tour_cost = 0;
+$total_plane_cost = 0;
+$total_hotel_cost = 0;
 $user_id = 1; // FOR TEST PURPOSES
 // $query = "select * from ((tour natural join tour_bucket) natural join activity) where user_id =" . $user_id . "";
 
@@ -107,6 +109,7 @@ if ($tours->num_rows == 0) {
             width: 40%;
             display: flex;
             flex-direction: column;
+            margin-right: 1%;
         }
 
         .activity_all .activity_img {
@@ -123,11 +126,83 @@ if ($tours->num_rows == 0) {
 
         .activity .activity_button {
             display: flex;
+            margin-left: 1%;
         }
 
         /* PLANE CSS */
         .plane_bucket {
             width: 33%;
+        }
+
+        .number_of_tour {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .number_of_tour .input {
+            margin-left: 5%;
+        }
+
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            padding-top: 100px;
+            /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .payment {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .payment input {
+            padding: 20px;
+            width: 80%;
+        }
+
+        .payment div {
+            margin: 1%;
         }
     </style>
 </head>
@@ -161,14 +236,19 @@ if ($tours->num_rows == 0) {
                             <div class="tours">
                                 <?php
                                 while ($tuple = $tours->fetch_array(MYSQLI_NUM)) {
+                                    $total_tour_cost = $total_tour_cost + $tuple[6];
                                 ?>
                                     <form class="form" action='deleteTourFromBucket.php' method="post">
-                                        <input type="hidden" id="tour_id" name="tour_id" value=<?php echo $tuple[0] ?>>
+                                    <input type="hidden" id="tour_id" name="tour_id" value=<?php echo $tuple[0] ?>>
+                                    <input type="hidden" tag="patates" id="<?php echo $tuple[0]?>" name="tour_cost" value=<?php echo $tuple[6] ?>>
                                         <div class="tour">
                                             <div class="tour_all">
                                                 <div class="tour_information">
                                                     <h1>
                                                         <?php echo $tuple[5] ?>
+                                                    </h1>
+                                                    <h1>
+                                                        <?php echo $tuple[6] ?>
                                                     </h1>
                                                 </div>
                                                 <div class="tour_img">
@@ -176,11 +256,20 @@ if ($tours->num_rows == 0) {
                                                         <img src='./img/<?php echo $tuple[4] ?>' />
                                                     </a>
                                                 </div>
+                                                <div class="number_of_tour">
+                                                    <div>
+                                                        <h1>Enter the number of people</h1>
+                                                    </div>
+                                                    <div class="input">
+                                                        <input type="number" id="<?php echo $tuple[0]?>" name="numberOfPeople">
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="tour_button">
                                                 <input class="input" type="submit" value="Remove">
                                             </div>
                                         </div>
+
                                     </form>
                                     <div class="activities">
 
@@ -212,8 +301,17 @@ if ($tours->num_rows == 0) {
 
                                                             </div>
                                                             <div>
-                                                                <?php echo $tuple[4] ?>
+                                                                <?php echo $activity_tuple[4] ?>
                                                             </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="number_of_tour">
+                                                        <div>
+                                                            <p>Enter the number of people</p>
+                                                        </div>
+                                                        <div class="input">
+                                                            <input type="text" id="number" name="number">
                                                         </div>
                                                     </div>
                                                     <div class="activity_button">
@@ -247,8 +345,79 @@ if ($tours->num_rows == 0) {
                     </div>
                 </div>
             </div>
+            <div class="payment">
+                <h1>Payment</h1>
+                <button id="myBtn">Open Modal</button>
+
+                <!-- The Modal -->
+                <div id="myModal" class="modal">
+
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <div class="payment">
+                            <div>
+                                <input type="text" placeholder="Card Number"></input>
+                            </div>
+                            <div>
+                                <input type="text" placeholder="Expire Date"></input>
+                            </div>
+                            <div>
+                                <input type="text" placeholder="CVC"></input>
+                            </div>
+                            <div>
+                                <input type="text" placeholder="Street Address"></input>
+                            </div>
+                            <div>
+                                <input type="text" placeholder="Apt, unit, suite, etc."></input>
+                            </div>
+                            <div>
+                                <input type="text" placeholder="United States"></input>
+                            </div>
+                            <div>
+                                <input type="text" placeholder="City"></input>
+                            </div>
+                            <div>
+                                <h1>Subtotal: <?php echo $total_hotel_cost + $total_plane_cost + $total_tour_cost?></h1>
+                            </div>
+                            <div>
+                                <input type="submit" value="Pay"></input>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
+    </div>
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal 
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 </body>
 
 </html>
