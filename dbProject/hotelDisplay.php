@@ -2,8 +2,8 @@
 include("./connection/checkSession.php");
 include("./components/navbarHotel.php");
 
-//$hotel_id = $_GET["id"];
-$hotel_id = 1;
+$hotel_id = $_GET["id"];
+//$hotel_id = 1;
 $query = "select * from Hotel where hotel_id=$hotel_id";
 $result = $mysqli->query($query);
 $hotel = $result->fetch_array(MYSQLI_NUM);
