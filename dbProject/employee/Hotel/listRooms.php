@@ -22,13 +22,13 @@ include("../employeeNavbar.php");
 $(document).ready(function(){
 	// Activate tooltip
 	$('[data-toggle="tooltip"]').tooltip();
-	
-	$('#deleteEmployeeModal').on('show.bs.modal', function(e) {
+
+	$('#deleteRoomModal').on('show.bs.modal', function(e) {
 		var activiyID = $(e.relatedTarget).data('delete-id');
 		$(e.currentTarget).find('input[name="hidden_delete"]').val(activiyID);
 	});
 
-	$('#editEmployeeModal').on('show.bs.modal', function(e) {
+	$('#editRoomModal').on('show.bs.modal', function(e) {
 		var activiyID = $(e.relatedTarget).data('edit-id');
 		$(e.currentTarget).find('input[name="hidden_edit"]').val(activiyID);
 	});
@@ -46,7 +46,7 @@ $(document).ready(function(){
 						<h2>Manage <b>Rooms</b></h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Room</span></a>
+						<a href="#addRoomModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Room</span></a>
 					</div>
 				</div>
 			</div>
@@ -83,10 +83,10 @@ $(document).ready(function(){
 							<td>$details</td>\n
 
 							<td>\n
-							<a href=\"#editEmployeeModal\" data-edit-id=\"".$hotelID."\" class=\"edit\" data-toggle=\"modal\">
+							<a href=\"#editRoomModal\" data-edit-id=\"".$hotelID."\" class=\"edit\" data-toggle=\"modal\">
 								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Edit\">&#xE254;</i>
 							</a>\n
-							<a href=\"#deleteEmployeeModal\" data-delete-id=\"".$hotelID."\" class=\"delete\" data-toggle=\"modal\">
+							<a href=\"#deleteRoomModal\" data-delete-id=\"".$hotelID."\" class=\"delete\" data-toggle=\"modal\">
 								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Delete\">&#xE872;</i>
 							</a>\n
 
@@ -102,34 +102,31 @@ $(document).ready(function(){
 	</div>        
 </div>
 <!-- Add Modal HTML -->
-<div id="addEmployeeModal" class="modal fade">
+<div id="addRoomModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form action="./createHotel.php" method="POST">
+			<form action="./createRoom.php" method="POST">
 				<div class="modal-header">						
-					<h4 class="modal-title">Add Activity</h4>
+					<h4 class="modal-title">Add Room</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">					
 					<div class="form-group">
-						<label>Name</label>
-						<input id="name" name="name" type="text" class="form-control" required>
+						<label>Amount of People</label>
+						<input id="amp" name="amp" type="number" class="form-control" required>
 					</div>
 					<div class="form-group">
-						<label>City</label>
-						<input id="city" name="city" type="text" class="form-control" required>
+						<label>Price</label>
+						<input id="price" name="price" type="number" class="form-control" required>
 					</div>
 					<div class="form-group">
-						<label>Details</label>
-						<textarea id="details" name="details" class="form-control" required></textarea>
-					</div>
-					<div class="form-group">
-						<label>Image Link</label>
-						<textarea id="link" name="link" class="form-control" required></textarea>
-					</div>				
+						<label>Type</label>
+						<textarea id="type" name="type" class="form-control" required></textarea>
+					</div>		
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    <input type="hidden" name="hidden_create" value="<?php echo $id;?>">
 					<input type="submit" class="btn btn-success" value="Add">
 				</div>
 			</form>
@@ -137,34 +134,31 @@ $(document).ready(function(){
 	</div>
 </div>
 <!-- Edit Modal HTML -->
-<div id="editEmployeeModal" class="modal fade">
+<div id="editRoomModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form action="./editHotel.php" method="POST"> 
+			<form action="./editRoom.php" method="POST"> 
 				<div class="modal-header">						
-					<h4 class="modal-title">Edit Employee</h4>
+					<h4 class="modal-title">Edit Room</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">					
 					<div class="form-group">
-						<label>Name</label>
-						<input id="name" name="name" type="text" class="form-control" required>
+						<label>Amount of People</label>
+						<input id="amp" name="amp" type="number" class="form-control" required>
 					</div>
 					<div class="form-group">
-						<label>City</label>
-						<input id="city" name="city" type="text" class="form-control" required>
+						<label>Price</label>
+						<input id="price" name="price" type="number" class="form-control" required>
 					</div>
 					<div class="form-group">
-						<label>Details</label>
-						<textarea id="details" name="details" class="form-control" required></textarea>
-					</div>
-					<div class="form-group">
-						<label>Image Link</label>
-						<textarea id="link" name="link" class="form-control" required></textarea>
-					</div>				
+						<label>Type</label>
+						<textarea id="type" name="type" class="form-control" required></textarea>
+					</div>		
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    <input type="hidden" name="hidden_hotel_id" value="<?php echo $id;?>">
 					<input type="hidden" name="hidden_edit" value="0">
 					<input type="submit" class="btn btn-info" value="Save">
 				</div>
@@ -173,12 +167,12 @@ $(document).ready(function(){
 	</div>
 </div>
 <!-- Delete Modal HTML -->
-<div id="deleteEmployeeModal" class="modal fade">
+<div id="deleteRoomModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form action="./deleteHotel.php" method="POST">
+			<form action="./deleteRoom.php" method="POST">
 				<div class="modal-header">						
-					<h4 class="modal-title">Delete Employee</h4>
+					<h4 class="modal-title">Delete Room</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">					
