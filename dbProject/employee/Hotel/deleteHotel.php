@@ -1,9 +1,15 @@
 <?php
 session_start();
 include("../../connection/config.php");
-$query = "DELETE FROM `tour` WHERE `tour`.`tour_id` = " . $_POST["hidden_delete"];
+$query = "DELETE FROM `hotel` WHERE `hotel`.`hotel_id` =". $_POST["hidden_delete"];
 $result = $mysqli->query($query);
 
-var_dump($query);
-header("location: tourCrud.php");
+
+if ($result) {
+    echo "Success";
+    header("location: hotelCrud.php");
+}
+else {
+    echo("Error description: " . $mysqli -> error);
+}
 ?>
