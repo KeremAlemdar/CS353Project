@@ -58,7 +58,7 @@ if ($rateId !== "empty") {
         <div class="evaluated_tour">
 
             <h1><?php echo $tour[1] ?></h1>
-            <div class="hotel_img">
+            <div class="tour_img">
                 <img src='./img/<?php echo $tour[0] ?>' />
             </div>
 
