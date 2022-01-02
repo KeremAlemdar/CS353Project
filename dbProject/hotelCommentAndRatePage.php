@@ -81,7 +81,6 @@ if ($rateId !== "empty") {
                     <textarea name="review" rows="5" cols="120">
                 </textarea>
                 </div>
-
                 <input class="submit_button" type="submit" value="Submit">
 
             </form>

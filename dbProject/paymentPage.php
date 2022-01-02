@@ -15,6 +15,12 @@ $total_plane_cost = 0;
 $total_hotel_cost = 0;
 $user_id = 1; // FOR TEST PURPOSES
 // $query = "select * from ((tour natural join tour_bucket) natural join activity) where user_id =" . $user_id . "";
+$query = "SELECT DISTINCT * FROM `hotel` LEFT JOIN `hotel_bucket` ON `hotel_bucket`.`hotel_id` = `hotel`.`hotel_id` WHERE `user_id`= 1";
+$hotels = $mysqli->query($query);
+$hotel_empty = false;
+if ($hotels->num_rows == 0) {
+    $hotel_empty = true;
+}
 
 $query = "SELECT DISTINCT * FROM `tour` LEFT JOIN `tour_bucket` ON `tour_bucket`.`tour_id` = `tour`.`tour_id` WHERE `user_id`= 1";
 $tours = $mysqli->query($query);
@@ -47,10 +53,57 @@ if ($tours->num_rows == 0) {
             flex-direction: row;
         }
 
+        .number_of_hotel {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .number_of_hotel .numberOf {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .number_of_hotel .price {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
         /* HOTEL CSS */
         .hotel_bucket {
             border: 1px solid black;
-            width: 33%;
+        }
+
+        .hotel {
+            margin: 2.5%;
+            display: flex;
+            flex-direction: row;
+            border: 1.5px solid black;
+        }
+
+        .hotel_all {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hotel_all .hotel_img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .hotel_all .hotel_img img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .hotel_all .hotel_information {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .hotel .hotel_button {
+            display: flex;
         }
 
         .tour_all_bucket {
@@ -239,9 +292,73 @@ if ($tours->num_rows == 0) {
             </div>
             <div class="buckets">
                 <div class="hotel_bucket">
-                    <div class="hotel_bucket_header">
-                        <h1>Hotels in your bucket</h1>
-                    </div>
+                <?php
+                    if ($hotel_empty) {
+                    ?>
+                        <div class="hotel_bucket_header">
+                            <h1>Your hotel bucket is empty</h1>
+                        </div>
+                    <?php
+                    } else {
+                    ?>
+                        <div class="hotel_bucket_header">
+                            <h1>Hotels in your bucket</h1>
+                        </div>
+                        <div class="hotel_bucket">
+                            <div class="hotels">
+                                <?php
+                                while ($tuple = $hotels->fetch_array(MYSQLI_NUM)) {
+                                    $total_hotel_cost = $total_hotel_cost + $tuple[6] * $tuple[8];
+                                ?>
+                                    <form class="form" action='deleteHotelFromBucket.php' method="post">
+                                        <input type="hidden" id="hotel_id" name="hotel_id" value=<?php echo $tuple[0] ?>>
+                                        <div class="hotel">
+                                            <div class="hotel_all">
+                                                <div class="hotel_information">
+                                                    <h1>
+                                                        <?php echo $tuple[1] ?>
+                                                    </h1>
+                                                </div>
+                                                <div class="hotel_img">
+                                                    <a href='./hotelDetails.php?id=<?php echo $tuple[0] ?>'>
+                                                        <img src='./img/<?php echo $tuple[5] ?>' />
+                                                    </a>
+                                                </div>
+                                                <div class="number_of_hotel">
+                                                    <div class="price">
+                                                        <div>
+                                                            <h2>Price:<h2>
+                                                        </div>
+                                                        <div>
+                                                            <h2><?php echo $tuple[6] ?></h2>
+                                                        </div>
+                                                        <div>
+                                                            <h2>$<h2>
+                                                        </div>
+                                                    </div>
+                                                    <div class="numberOf">
+                                                        <div>
+                                                            <h2>Number of people:<h2>
+                                                        </div>
+                                                        <div>
+                                                            <h2><?php echo $tuple[8] ?></h2>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="hotel_button">
+                                                <input class="input" type="submit" value="Remove">
+                                            </div>
+                                        </div>
+                                    </form>
+                                <?php
+                                }
+                                ?>
+                            </div>
+                        </div>
+                    <?php
+                    }
+                    ?>
                 </div>
                 <div class="tour_all_bucket">
                     <?php
@@ -379,7 +496,7 @@ if ($tours->num_rows == 0) {
                 </div>
                 <div class="plane_bucket">
                     <div class="tour_bucket_header">
-                        <h1>Your tour bucket is empty</h1>
+                        <h1>Your plane bucket is empty</h1>
                     </div>
                     <div class="plane">
                         <div class="plane_information">
