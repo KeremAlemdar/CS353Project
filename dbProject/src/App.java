@@ -1,7 +1,4 @@
-@@-1,658+1,659 @@
-
 import java.sql.*;
-
 public class App {
     public static void main(String[] args) throws Exception {
         try
@@ -265,8 +262,8 @@ public class App {
             "(tour_id INT(12), " +
             " customer_id INT(12), " +
             " rate INT(12), " +
-" evaluation VARCHAR(255), " +            
-" PRIMARY KEY ( tour_id, customer_id ), " +
+            " evaluation VARCHAR(255), " +
+            " PRIMARY KEY ( tour_id, customer_id ), " +
             " FOREIGN KEY (tour_id) REFERENCES tour(tour_id), " +
             " FOREIGN KEY (customer_id) REFERENCES customer(customer_id))" +
             " ENGINE=innodb;";
@@ -535,14 +532,12 @@ public class App {
 
             //insert tuples to Hotel
              sql = "INSERT INTO Hotel (hotel_id, name, city, star, details, image) " +
-            "VALUES ( null, 'Bilkent Hotel', 'Ankara', '5', 'Located 2 km from Bilkent University, this modern and cozy hotel is 14 km from the Anıtkabir, and the iconic Kocatepe Mosque.', 'bilkent_hotel.jpg' )";
             "VALUES ( null, 'Bilkent Hotel', 'Ankara', '3', 'Located 2 km from Bilkent University, this modern and cozy hotel is 14 km from the Anıtkabir, and the iconic Kocatepe Mosque.', 'bilkent_hotel.jpg' )";
             stmt.executeUpdate(sql);
             sql = "INSERT INTO Hotel (hotel_id, name, city, star, details, image) " +
             "VALUES ( null, 'Kerem Hotel', 'Sakarya', '5', 'Located in Sakarya, good location.', 'kerem_hotel.jpg' )";
             stmt.executeUpdate(sql);
             sql = "INSERT INTO Hotel (hotel_id, name, city, star, details, image) " +
-            "VALUES ( null, 'Ismet Hotel', 'Denizli', '5', 'Located in Denizli, good rooms.', 'ismet_hotel.jpg' )";
             "VALUES ( null, 'Ismet Hotel', 'Denizli', '2', 'Located in Denizli, good rooms.', 'ismet_hotel.jpg' )";
             stmt.executeUpdate(sql); 
 
@@ -635,24 +630,25 @@ public class App {
             //e.printStackTrace();
         }
     }
-
     public static void printSql(String sql, Statement stmt) throws SQLException {
         ResultSet rs = stmt.executeQuery(sql);
         ResultSetMetaData rsmd = rs.getMetaData();
         int columnsNumber = rsmd.getColumnCount();
-        for (int i = 1; i <= columnsNumber; i++) {
-            if (i == 1) {
+        for(int i = 1; i <=columnsNumber; i++) {
+            if(i == 1) {
                 System.out.print(rsmd.getColumnName(i));
-            } else {
+            }
+            else {
                 System.out.print(" | " + rsmd.getColumnName(i));
             }
         }
-        while (rs.next()) {
+        while(rs.next()){
             System.out.println();
-            for (int i = 1; i <= columnsNumber; i++) {
-                if (i == 1) {
+            for(int i = 1; i <=columnsNumber; i++) {
+                if(i == 1) {
                     System.out.print(rs.getString(i));
-                } else {
+                }
+                else {
                     System.out.print(", " + rs.getString(i));
                 }
             }
