@@ -16,7 +16,7 @@ while ($tuple = $tours->fetch_array(MYSQLI_NUM)) {
     $query = "INSERT INTO reservation (reservation_id) VALUES (null)";
     $mysqli->query($query);
     $reservation_id = $mysqli->insert_id;
-    $tour_id = $tuple[0];
+    $tour_id = $tuple[1];
     $count = $tuple[2];
     $query = "INSERT INTO customer_reserve (reservation_id,customer_id) VALUES ($reservation_id,$user_id)";
     if ($mysqli->query($query)) {
@@ -42,7 +42,8 @@ while ($tuple = $tours->fetch_array(MYSQLI_NUM)) {
 
 $query = "SELECT * FROM `hotel_bucket` WHERE `user_id`= 1";
 
-// PAY TOURS
+$date = date("Y/m/d");
+// PAY HOTELS
 $hotels = $mysqli->query($query);
 $empty = false;
 if ($hotels->num_rows == 0) {
@@ -53,7 +54,7 @@ while ($tuple = $hotels->fetch_array(MYSQLI_NUM)) {
     $query = "INSERT INTO reservation (reservation_id) VALUES (null)";
     $mysqli->query($query);
     $reservation_id = $mysqli->insert_id;
-    $hotel_id = $tuple[0];
+    $hotel_id = $tuple[1];
     $count = $tuple[2];
     $query = "INSERT INTO customer_reserve (reservation_id,customer_id) VALUES ($reservation_id,$user_id)";
     if ($mysqli->query($query)) {
@@ -72,5 +73,3 @@ while ($tuple = $hotels->fetch_array(MYSQLI_NUM)) {
         // header("Location: paymentPage.php?error=cannotDelete");
     }
 }
-
-// PAY HOTELS

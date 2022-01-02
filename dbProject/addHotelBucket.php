@@ -10,11 +10,10 @@ if (isset($_POST['hotel_id'])) {
 }
 // $user_id = $_SESSION['uid'];
 $user_id = 1;
-$tour_id = $_GET['tour_id'];
 $date = date("Y/m/d");
 
-$query = "INSERT INTO `hotel_bucket` (`user_id`, `hotel_id`, `count`) VALUES (" . $user_id . "," . $hotel_id . "," . $numberOfGuest . ")";
-$result = $mysqli->query($query);
+$query = "INSERT INTO `hotel_bucket` (`user_id`, `hotel_id`, `count`) VALUES ('$user_id','$hotel_id','$numberOfGuest')";
+echo $query;
 if ($result = $mysqli->query($query)) {
     header("Location: paymentPage.php");
     // echo "added";
