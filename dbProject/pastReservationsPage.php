@@ -11,7 +11,8 @@ $result = $mysqli->query($query);
 $user_info = $result->fetch_array(MYSQLI_NUM);
 
 //HOTEL
-$query = "SELECT hotel_id, start_date, end_date, amount_of_people, reservation_id FROM reservation NATURAL JOIN reservation_hotel NATURAL JOIN customer_reserve WHERE customer_id = " . 1 . "";
+$date = date("Y/m/d");
+$query = "SELECT hotel_id, start_date, end_date, amount_of_people, reservation_id FROM reservation NATURAL JOIN reservation_hotel NATURAL JOIN customer_reserve WHERE customer_id = " . 1 . " AND end_date < '$date'";
 $hotel_id_result = $mysqli->query($query);
 
 if ($hotel_id_result->num_rows == 0) {

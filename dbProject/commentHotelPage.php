@@ -7,6 +7,7 @@ $hotelId =  isset($_POST['hotelId']) ? $_POST['hotelId'] : "empty";
 $query = "INSERT INTO hotel_evaluation (evalutaion_id, hotel_id, rate, evaluation) VALUES ( null, '$hotelId', '$rate', '$evaluation' )";
 echo $query;
 if($mysqli->query($query)){
+    header("Location: hotelDisplay.php?id=$hotelId");
     echo "basarili";
 }
 else {
