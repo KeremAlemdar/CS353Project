@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("../connection/config.php");
+include("../../connection/config.php");
 $query = "DELETE FROM `tour` WHERE `tour`.`tour_id` = " . $_POST["hidden_delete"];
 $result = $mysqli->query($query);
 

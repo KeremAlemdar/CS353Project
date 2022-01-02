@@ -96,7 +96,7 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("Hotel_Room table is deleted!");
 
-            sql = "DROP TABLE IF EXISTS past_reservations";
+            sql = "DROP TABLE IF EXISTS past_reservation";
             stmt.executeUpdate(sql);
             System.out.println("past_reservations table is deleted!");
 
@@ -285,6 +285,7 @@ public class App {
             " arrival_time DATETIME, " +
             " departure_airport INT(12), " +
             " arrival_airport INT(12), " +
+            " cost INT(12), " +
             " PRIMARY KEY ( flight_id ), " +
             " FOREIGN KEY (departure_airport) REFERENCES Airport(airport_id), " +
             " FOREIGN KEY (arrival_airport) REFERENCES Airport(airport_id))" +
@@ -341,8 +342,8 @@ public class App {
             sql = "CREATE TABLE past_reservation " +
             "(reservation_id INT(12), " +
             " customer_id INT(12), " +
-            " PRIMARY KEY ( reservation_id, customer )) " +
-            " FOREIGN KEY (reservation_id) REFERENCES reservation(reservation_id), " +
+            " PRIMARY KEY ( reservation_id, customer_id ), " +
+            " FOREIGN KEY (reservation_id) REFERENCES Reservation(reservation_id), " +
             " FOREIGN KEY (customer_id) REFERENCES customer(customer_id))" +
             " ENGINE=innodb;";
 
@@ -459,6 +460,7 @@ public class App {
             sql = "CREATE TABLE flight_bucket " +
             "(user_id INT(12), " +
             " flight_id INT(12), " +
+            " count INT(12), " +
             " PRIMARY KEY ( user_id, flight_id ), " +
             " FOREIGN KEY (user_id) REFERENCES account(user_id), " +
             " FOREIGN KEY (flight_id) REFERENCES Flight(flight_id))" +
@@ -538,16 +540,15 @@ public class App {
             stmt.executeUpdate(sql); 
 
             //insert tuples to bucket
-            sql = "INSERT INTO Flight (departure_time, arrival_time, departure_airport, arrival_airport) " +
-            "VALUES ( '2021/12/25 13:30:00', '2021/12/25 15:30:00', '1', '2')";
+            sql = "INSERT INTO Flight (departure_time, arrival_time, departure_airport, arrival_airport, cost) " +
+            "VALUES ( '2021/12/25 13:30:00', '2021/12/25 15:30:00', '1', '2', '240')";
             stmt.executeUpdate(sql);
-            sql = "INSERT INTO Flight (departure_time, arrival_time, departure_airport, arrival_airport) " +
-            "VALUES ( '2021/12/25 16:30:00', '2021/12/25 17:30:00', '1', '2')";
+            sql = "INSERT INTO Flight (departure_time, arrival_time, departure_airport, arrival_airport, cost) " +
+            "VALUES ( '2021/12/25 16:30:00', '2021/12/25 17:30:00', '1', '2', '250')";
             stmt.executeUpdate(sql);
-            sql = "INSERT INTO Flight (departure_time, arrival_time, departure_airport, arrival_airport) " +
-            "VALUES ( '2021/12/25 13:30:00', '2021/12/25 15:30:00', '2', '1')";
+            sql = "INSERT INTO Flight (departure_time, arrival_time, departure_airport, arrival_airport, cost) " +
+            "VALUES ( '2021/12/25 13:30:00', '2021/12/25 15:30:00', '2', '1', '120')";
             stmt.executeUpdate(sql);
-
 
             sql = "INSERT INTO account " +
             "VALUES (null, 'eylul', '1234', 'eylula', '05555555555', 'Eylul Caglar')";
@@ -610,14 +611,6 @@ public class App {
             sql = "INSERT INTO tour_city (city_id, tour_id)" +
             "VALUES ( 1, 4 )";
             stmt.executeUpdate(sql);
-
-            
-
-            sql = "INSERT INTO past_reservation (reservation_id, user_id)" +
-            "VALUES ( '1', '1' )";
-            stmt.executeUpdate(sql);
-
-
 
             
             // System.out.println("------------------1----------------");

@@ -30,8 +30,9 @@
 
 
 <div class="topnav">
-  <a class="active" href="./employeeHome.php">Home</a>
-  <a href="./tourCrud.php">Tours</a>
-  <a href="./activityCrud.php">Activites</a>
-  <a href="./tourActivities.php">Pairs</a>
+  <a class="active" href="../employeeHome.php">Home</a>
+  <a href="../Tour/tourCrud.php">Tours</a>
+  <a href="../Activity/activityCrud.php">Activites</a>
+  <a href="../TourActivities/tourActivities.php">Pairs</a>
+  <a href="../Hotel/hotelCrud.php">Hotel</a>
 </div>

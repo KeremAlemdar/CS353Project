@@ -12,11 +12,11 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet" href="crud.css">
+<link rel="stylesheet" href="../crud.css">
 <?php
 
-include("../connection/checkSession.php");
-include("./employeeNavbar.php");
+include("../../connection/checkSession.php");
+include("../employeeNavbar.php");
 ?>
 <script>
 $(document).ready(function(){
@@ -43,22 +43,21 @@ $(document).ready(function(){
 			<div class="table-title">
 				<div class="row">
 					<div class="col-sm-6">
-						<h2>Manage <b>Activities</b></h2>
+						<h2>Manage <b>Hotels</b></h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Activity</span></a>
+						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Hotel</span></a>
 					</div>
 				</div>
 			</div>
 			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
-						<th>Activity ID</th>
+						<th>Hotel ID</th>
 						<th>Name</th>
-						<th>Content</th>
-						<th>Location</th>
-						<th>Price</th>
-						<th>Catagories</th>
+						<th>City</th>
+						<th>Details</th>
+						<th>Image</th>
 						<th>Actions</th>
 					</tr>
 				</thead>
@@ -66,31 +65,30 @@ $(document).ready(function(){
 					
                         <?php 
 						
-						$sql = "SELECT * FROM `activity` ORDER BY `activity_id`  ASC;";
+						$sql = "SELECT * FROM `hotel`;";
 						$result = $mysqli->query($sql);
 					
 						while($row = $result->fetch_assoc()){
 
-							$actvityID = $row["activity_id"];
+							$hotelID = $row["hotel_id"];
 							$name = $row["name"];
-							$content = $row["content"];
-							$location = $row["location"];
-							$price = $row["price"];
-							$catagories = $row["categories"];
+							$city = $row["city"];
+							$details = $row["details"];
+							
 							
 							echo("
 							<tr>
-							<td>$actvityID</td>\n
+							<td>$hotelID</td>\n
 							<td>$name</td>\n
-							<td>$content</td>\n
-							<td>$price</td>\n
-							<td>$location</td>\n
-							<td>$catagories</td>\n
+							<td>$city</td>\n
+							<td>$details</td>\n
+							<td> IMG Link </td>\n
+
 							<td>\n
-							<a href=\"#editEmployeeModal\" data-edit-id=\"".$actvityID."\" class=\"edit\" data-toggle=\"modal\">
+							<a href=\"#editEmployeeModal\" data-edit-id=\"".$hotelID."\" class=\"edit\" data-toggle=\"modal\">
 								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Edit\">&#xE254;</i>
 							</a>\n
-							<a href=\"#deleteEmployeeModal\" data-delete-id=\"".$actvityID."\" class=\"delete\" data-toggle=\"modal\">
+							<a href=\"#deleteEmployeeModal\" data-delete-id=\"".$hotelID."\" class=\"delete\" data-toggle=\"modal\">
 								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Delete\">&#xE872;</i>
 							</a>\n</td></tr>");
 						
@@ -107,7 +105,7 @@ $(document).ready(function(){
 <div id="addEmployeeModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form action="./createActivity.php" method="POST">
+			<form action="./createHotel.php" method="POST">
 				<div class="modal-header">						
 					<h4 class="modal-title">Add Activity</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -115,24 +113,20 @@ $(document).ready(function(){
 				<div class="modal-body">					
 					<div class="form-group">
 						<label>Name</label>
-						<input id="activity_name" name="activity_name" type="text" class="form-control" required>
+						<input id="name" name="name" type="text" class="form-control" required>
 					</div>
 					<div class="form-group">
-						<label>Content</label>
-						<input id="activity_con" name="activity_con" type="text" class="form-control" required>
+						<label>City</label>
+						<input id="city" name="city" type="text" class="form-control" required>
 					</div>
 					<div class="form-group">
-						<label>Location</label>
-						<textarea id="activity_loc" name="activity_loc" class="form-control" required></textarea>
+						<label>Details</label>
+						<textarea id="details" name="details" class="form-control" required></textarea>
 					</div>
 					<div class="form-group">
-						<label>Price</label>
-						<textarea id="activity_price" name="activity_price" class="form-control" required></textarea>
-					</div>
-					<div class="form-group">
-						<label>Catagories</label>
-						<input id="activity_cat" name="activity_cat" type="text" class="form-control" required>
-					</div>					
+						<label>Image Link</label>
+						<textarea id="link" name="link" class="form-control" required></textarea>
+					</div>				
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -146,7 +140,7 @@ $(document).ready(function(){
 <div id="editEmployeeModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form action="./editActivity.php" method="POST"> 
+			<form action="./editHotel.php" method="POST"> 
 				<div class="modal-header">						
 					<h4 class="modal-title">Edit Employee</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -154,24 +148,20 @@ $(document).ready(function(){
 				<div class="modal-body">					
 					<div class="form-group">
 						<label>Name</label>
-						<input id="activity_name" name="activity_name" type="text" class="form-control" required>
+						<input id="name" name="name" type="text" class="form-control" required>
 					</div>
 					<div class="form-group">
-						<label>Content</label>
-						<input id="activity_con" name="activity_con" type="text" class="form-control" required>
+						<label>City</label>
+						<input id="city" name="city" type="text" class="form-control" required>
 					</div>
 					<div class="form-group">
-						<label>Location</label>
-						<textarea id="activity_loc" name="activity_loc" class="form-control" required></textarea>
+						<label>Details</label>
+						<textarea id="details" name="details" class="form-control" required></textarea>
 					</div>
 					<div class="form-group">
-						<label>Price</label>
-						<textarea id="activity_price" name="activity_price" class="form-control" required></textarea>
-					</div>
-					<div class="form-group">
-						<label>Catagories</label>
-						<input id="activity_cat" name="activity_cat" type="text" class="form-control" required>
-					</div>					
+						<label>Image Link</label>
+						<textarea id="link" name="link" class="form-control" required></textarea>
+					</div>				
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -186,7 +176,7 @@ $(document).ready(function(){
 <div id="deleteEmployeeModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form action="./deleteActivity.php" method="POST">
+			<form action="./deleteHotel.php" method="POST">
 				<div class="modal-header">						
 					<h4 class="modal-title">Delete Employee</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
