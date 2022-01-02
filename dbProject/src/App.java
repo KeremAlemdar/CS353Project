@@ -371,8 +371,6 @@ public class App {
             "(reservation_id INT(12), " +
             " tour_id INT(12), " +
             " amount_of_people INT(12), " +
-            " start_date DATE, " +
-            " end_date DATE, " +
             " PRIMARY KEY ( reservation_id ), " +
             " FOREIGN KEY (reservation_id) REFERENCES reservation(reservation_id), " +
             " FOREIGN KEY (tour_id) REFERENCES tour(tour_id))" +
