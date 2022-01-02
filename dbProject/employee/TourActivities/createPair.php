@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("../connection/config.php");
+include("../../connection/config.php");
 
 $aid = $_POST["aid"];
 $tid = $_POST["tid"];

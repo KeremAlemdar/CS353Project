@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Tours</title>
+<title>Activities</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -12,23 +12,23 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet" href="crud.css">
+<link rel="stylesheet" href="../crud.css">
 <?php
 
-include("../connection/checkSession.php");
-include("./employeeNavbar.php");
+include("../../connection/checkSession.php");
+include("../employeeNavbar.php");
 ?>
 <script>
 $(document).ready(function(){
 	// Activate tooltip
 	$('[data-toggle="tooltip"]').tooltip();
 	
-	$('#deleteTourModal').on('show.bs.modal', function(e) {
+	$('#deleteEmployeeModal').on('show.bs.modal', function(e) {
 		var activiyID = $(e.relatedTarget).data('delete-id');
 		$(e.currentTarget).find('input[name="hidden_delete"]').val(activiyID);
 	});
 
-	$('#editTourModal').on('show.bs.modal', function(e) {
+	$('#editEmployeeModal').on('show.bs.modal', function(e) {
 		var activiyID = $(e.relatedTarget).data('edit-id');
 		$(e.currentTarget).find('input[name="hidden_edit"]').val(activiyID);
 	});
@@ -37,93 +37,102 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-
 <div class="container-xl">
 	<div class="table-responsive">
 		<div class="table-wrapper">
 			<div class="table-title">
 				<div class="row">
 					<div class="col-sm-6">
-						<h2>Manage <b>Tours</b></h2>
+						<h2>Manage <b>Activities</b></h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="#addTourModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Tour</span></a>
+						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Activity</span></a>
 					</div>
 				</div>
 			</div>
 			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
-						<th>Tour ID</th>
+						<th>Activity ID</th>
 						<th>Name</th>
-						<th>Information</th>
-						<th>Start Date</th>
-						<th>End Date</th>
+						<th>Content</th>
+						<th>Price</th>
+						<th>Location</th>
+						<th>Catagories</th>
 						<th>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
 					
                         <?php 
-						$sql = "SELECT * FROM `tour` ORDER BY `tour`.`tour_id` ASC;";
+						
+						$sql = "SELECT * FROM `activity` ORDER BY `activity_id`  ASC;";
 						$result = $mysqli->query($sql);
 					
 						while($row = $result->fetch_assoc()){
 
-							$tour_id = $row["tour_id"];
-							$name = $row["tour_name"];
-							$tour_information = $row["tour_information"];
-							$start_Date = $row["start_date"];
-							$end_date = $row["end_date"];
+							$actvityID = $row["activity_id"];
+							$name = $row["name"];
+							$content = $row["content"];
+							$location = $row["location"];
+							$price = $row["price"];
+							$catagories = $row["categories"];
 							
 							echo("
 							<tr>
-							<td>$tour_id</td>\n
+							<td>$actvityID</td>\n
 							<td>$name</td>\n
-							<td>$tour_information</td>\n
-							<td>$start_Date</td>\n
-							<td>$end_date</td>\n
+							<td>$content</td>\n
+							<td>$price</td>\n
+							<td>$location</td>\n
+							<td>$catagories</td>\n
 							<td>\n
-							<a href=\"#editTourModal\" data-edit-id=\"".$tour_id."\" class=\"edit\" data-toggle=\"modal\">
+							<a href=\"#editEmployeeModal\" data-edit-id=\"".$actvityID."\" class=\"edit\" data-toggle=\"modal\">
 								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Edit\">&#xE254;</i>
 							</a>\n
-							<a href=\"#deleteTourModal\" data-delete-id=\"".$tour_id."\" class=\"delete\" data-toggle=\"modal\">
+							<a href=\"#deleteEmployeeModal\" data-delete-id=\"".$actvityID."\" class=\"delete\" data-toggle=\"modal\">
 								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Delete\">&#xE872;</i>
 							</a>\n</td></tr>");
 						
 						}
+						
 						?>
+					
 				</tbody>
 			</table>
 		</div>
 	</div>        
 </div>
 <!-- Add Modal HTML -->
-<div id="addTourModal" class="modal fade">
+<div id="addEmployeeModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form action="./createTour.php" method="POST">
+			<form action="./createActivity.php" method="POST">
 				<div class="modal-header">						
-					<h4 class="modal-title">Add Tour</h4>
+					<h4 class="modal-title">Add Activity</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">					
 					<div class="form-group">
 						<label>Name</label>
-						<input id="tour_name" name="tour_name" type="text" class="form-control" required>
+						<input id="activity_name" name="activity_name" type="text" class="form-control" required>
 					</div>
 					<div class="form-group">
-						<label>Info</label>
-						<input id="tour_inf" name="tour_inf" type="text" class="form-control" required>
+						<label>Content</label>
+						<input id="activity_con" name="activity_con" type="text" class="form-control" required>
 					</div>
 					<div class="form-group">
-						<label>Start Date</label>
-						<input id="tour_sta" type="date" name="tour_sta" class="form-control" required></input>
+						<label>Location</label>
+						<textarea id="activity_loc" name="activity_loc" class="form-control" required></textarea>
 					</div>
 					<div class="form-group">
-						<label>End Date</label>
-						<input id="tour_end" type ="date" name="tour_end" class="form-control" required></input>
+						<label>Price</label>
+						<textarea id="activity_price" name="activity_price" class="form-control" required></textarea>
 					</div>
+					<div class="form-group">
+						<label>Catagories</label>
+						<input id="activity_cat" name="activity_cat" type="text" class="form-control" required>
+					</div>					
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -134,10 +143,10 @@ $(document).ready(function(){
 	</div>
 </div>
 <!-- Edit Modal HTML -->
-<div id="editTourModal" class="modal fade">
+<div id="editEmployeeModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form action="./editTour.php" method="POST"> 
+			<form action="./editActivity.php" method="POST"> 
 				<div class="modal-header">						
 					<h4 class="modal-title">Edit Employee</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -145,21 +154,25 @@ $(document).ready(function(){
 				<div class="modal-body">					
 					<div class="form-group">
 						<label>Name</label>
-						<input id="tour_name" name="tour_name" type="text" class="form-control" required>
+						<input id="activity_name" name="activity_name" type="text" class="form-control" required>
 					</div>
 					<div class="form-group">
-						<label>Info</label>
-						<input id="tour_inf" name="tour_inf" type="text" class="form-control" required>
+						<label>Content</label>
+						<input id="activity_con" name="activity_con" type="text" class="form-control" required>
 					</div>
 					<div class="form-group">
-						<label>Start Date</label>
-						<input id="tour_sta" type="date" name="tour_sta" class="form-control" required></input>
+						<label>Location</label>
+						<textarea id="activity_loc" name="activity_loc" class="form-control" required></textarea>
 					</div>
 					<div class="form-group">
-						<label>End Date</label>
-						<input id="tour_end" type ="date" name="tour_end" class="form-control" required></input>
-					</div>				
-				</div>					
+						<label>Price</label>
+						<textarea id="activity_price" name="activity_price" class="form-control" required></textarea>
+					</div>
+					<div class="form-group">
+						<label>Catagories</label>
+						<input id="activity_cat" name="activity_cat" type="text" class="form-control" required>
+					</div>					
+				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
 					<input type="hidden" name="hidden_edit" value="0">
@@ -170,10 +183,10 @@ $(document).ready(function(){
 	</div>
 </div>
 <!-- Delete Modal HTML -->
-<div id="deleteTourModal" class="modal fade">
+<div id="deleteEmployeeModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form action="./deleteTour.php" method="POST">
+			<form action="./deleteActivity.php" method="POST">
 				<div class="modal-header">						
 					<h4 class="modal-title">Delete Employee</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("../connection/config.php");
+include("../../connection/config.php");
 var_dump($_POST);
 
 $id = $_POST["hidden_edit"];

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("../connection/config.php");
+include("../../connection/config.php");
 
 $aname = $_POST["activity_name"];
 $aloc = $_POST["activity_loc"];
