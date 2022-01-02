@@ -43,38 +43,37 @@ $(document).ready(function(){
 			<div class="table-title">
 				<div class="row">
 					<div class="col-sm-6">
-						<h2>Manage <b>Hotels</b></h2>
+						<h2>Manage <b>Rooms</b></h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Hotel</span></a>
+						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Room</span></a>
 					</div>
 				</div>
 			</div>
 			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
-						<th>Hotel ID</th>
-						<th>Name</th>
-						<th>City</th>
-						<th>Details</th>
-						<th>Image</th>
+						<th>Room ID</th>
+						<th>Amount of People</th>
+						<th>Price</th>
+						<th>Type</th>
 						<th>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
 					
                         <?php 
-						
-						$sql = "SELECT * FROM `hotel`;";
+						$id = $_GET["id"];
+						$sql = "SELECT * FROM `hotel_room` NATURAL JOIN `hotel` WHERE hotel.hotel_id = $id;";
 						$result = $mysqli->query($sql);
 					
 						while($row = $result->fetch_assoc()){
 
-							$hotelID = $row["hotel_id"];
-							$name = $row["name"];
-							$city = $row["city"];
-							$details = $row["details"];
-							$star = $row["star"];
+							$hotelID = $row["room_id"];
+							$name = $row["amount_of_people"];
+							$city = $row["price"];
+							$details = $row["type"];
+							
 							
 							echo("
 							<tr>
@@ -82,8 +81,6 @@ $(document).ready(function(){
 							<td>$name</td>\n
 							<td>$city</td>\n
 							<td>$details</td>\n
-							<td>$star</td>\n
-							<td> IMG Link </td>\n
 
 							<td>\n
 							<a href=\"#editEmployeeModal\" data-edit-id=\"".$hotelID."\" class=\"edit\" data-toggle=\"modal\">
@@ -91,9 +88,6 @@ $(document).ready(function(){
 							</a>\n
 							<a href=\"#deleteEmployeeModal\" data-delete-id=\"".$hotelID."\" class=\"delete\" data-toggle=\"modal\">
 								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Delete\">&#xE872;</i>
-							</a>\n
-							<a href=\"./listRooms.php?id=".$hotelID."\" style=\"color: #28A745 \" >
-								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"List\">&#xe06d;</i>
 							</a>\n
 
 							</td></tr>");
@@ -130,10 +124,6 @@ $(document).ready(function(){
 						<textarea id="details" name="details" class="form-control" required></textarea>
 					</div>
 					<div class="form-group">
-						<label>Star</label>
-						<textarea id="star" name="star" class="form-control" required></textarea>
-					</div>
-					<div class="form-group">
 						<label>Image Link</label>
 						<textarea id="link" name="link" class="form-control" required></textarea>
 					</div>				
@@ -167,10 +157,6 @@ $(document).ready(function(){
 					<div class="form-group">
 						<label>Details</label>
 						<textarea id="details" name="details" class="form-control" required></textarea>
-					</div>
-					<div class="form-group">
-						<label>Star</label>
-						<textarea id="star" name="star" class="form-control" required></textarea>
 					</div>
 					<div class="form-group">
 						<label>Image Link</label>

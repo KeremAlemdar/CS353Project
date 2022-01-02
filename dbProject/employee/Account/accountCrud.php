@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Activities</title>
+<title>Account</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -23,12 +23,12 @@ $(document).ready(function(){
 	// Activate tooltip
 	$('[data-toggle="tooltip"]').tooltip();
 	
-	$('#deleteEmployeeModal').on('show.bs.modal', function(e) {
+	$('#deleteAccountModal').on('show.bs.modal', function(e) {
 		var activiyID = $(e.relatedTarget).data('delete-id');
 		$(e.currentTarget).find('input[name="hidden_delete"]').val(activiyID);
 	});
 
-	$('#editEmployeeModal').on('show.bs.modal', function(e) {
+	$('#editAccountModal').on('show.bs.modal', function(e) {
 		var activiyID = $(e.relatedTarget).data('edit-id');
 		$(e.currentTarget).find('input[name="hidden_edit"]').val(activiyID);
 	});
@@ -43,21 +43,22 @@ $(document).ready(function(){
 			<div class="table-title">
 				<div class="row">
 					<div class="col-sm-6">
-						<h2>Manage <b>Hotels</b></h2>
+						<h2>Manage <b>Accounts</b></h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Hotel</span></a>
+						<a href="#addAccountModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Account</span></a>
 					</div>
 				</div>
 			</div>
 			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
-						<th>Hotel ID</th>
+						<th>Account ID</th>
 						<th>Name</th>
-						<th>City</th>
-						<th>Details</th>
-						<th>Image</th>
+						<th>Content</th>
+						<th>Price</th>
+						<th>Location</th>
+						<th>Catagories</th>
 						<th>Actions</th>
 					</tr>
 				</thead>
@@ -65,38 +66,33 @@ $(document).ready(function(){
 					
                         <?php 
 						
-						$sql = "SELECT * FROM `hotel`;";
+						$sql = "SELECT * FROM `account` ORDER BY `account_id`  ASC;";
 						$result = $mysqli->query($sql);
 					
 						while($row = $result->fetch_assoc()){
 
-							$hotelID = $row["hotel_id"];
+							$accountID = $row["account_id"];
 							$name = $row["name"];
-							$city = $row["city"];
-							$details = $row["details"];
-							$star = $row["star"];
+							$content = $row["content"];
+							$location = $row["location"];
+							$price = $row["price"];
+							$catagories = $row["categories"];
 							
 							echo("
 							<tr>
-							<td>$hotelID</td>\n
+							<td>$accountID</td>\n
 							<td>$name</td>\n
-							<td>$city</td>\n
-							<td>$details</td>\n
-							<td>$star</td>\n
-							<td> IMG Link </td>\n
-
+							<td>$content</td>\n
+							<td>$price</td>\n
+							<td>$location</td>\n
+							<td>$catagories</td>\n
 							<td>\n
-							<a href=\"#editEmployeeModal\" data-edit-id=\"".$hotelID."\" class=\"edit\" data-toggle=\"modal\">
+							<a href=\"#editAccountModal\" data-edit-id=\"".$accountID."\" class=\"edit\" data-toggle=\"modal\">
 								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Edit\">&#xE254;</i>
 							</a>\n
-							<a href=\"#deleteEmployeeModal\" data-delete-id=\"".$hotelID."\" class=\"delete\" data-toggle=\"modal\">
+							<a href=\"#deleteAccountModal\" data-delete-id=\"".$accountID."\" class=\"delete\" data-toggle=\"modal\">
 								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Delete\">&#xE872;</i>
-							</a>\n
-							<a href=\"./listRooms.php?id=".$hotelID."\" style=\"color: #28A745 \" >
-								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"List\">&#xe06d;</i>
-							</a>\n
-
-							</td></tr>");
+							</a>\n</td></tr>");
 						
 						}
 						
@@ -108,35 +104,35 @@ $(document).ready(function(){
 	</div>        
 </div>
 <!-- Add Modal HTML -->
-<div id="addEmployeeModal" class="modal fade">
+<div id="addAccountModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form action="./createHotel.php" method="POST">
+			<form action="./createAccount.php" method="POST">
 				<div class="modal-header">						
-					<h4 class="modal-title">Add Activity</h4>
+					<h4 class="modal-title">Add Account</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">					
 					<div class="form-group">
 						<label>Name</label>
-						<input id="name" name="name" type="text" class="form-control" required>
+						<input id="account_name" name="account_name" type="text" class="form-control" required>
 					</div>
 					<div class="form-group">
-						<label>City</label>
-						<input id="city" name="city" type="text" class="form-control" required>
+						<label>Content</label>
+						<input id="account_con" name="account_con" type="text" class="form-control" required>
 					</div>
 					<div class="form-group">
-						<label>Details</label>
-						<textarea id="details" name="details" class="form-control" required></textarea>
+						<label>Location</label>
+						<textarea id="account_loc" name="account_loc" class="form-control" required></textarea>
 					</div>
 					<div class="form-group">
-						<label>Star</label>
-						<textarea id="star" name="star" class="form-control" required></textarea>
+						<label>Price</label>
+						<textarea id="account_price" name="account_price" class="form-control" required></textarea>
 					</div>
 					<div class="form-group">
-						<label>Image Link</label>
-						<textarea id="link" name="link" class="form-control" required></textarea>
-					</div>				
+						<label>Catagories</label>
+						<input id="account_cat" name="account_cat" type="text" class="form-control" required>
+					</div>					
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -147,35 +143,35 @@ $(document).ready(function(){
 	</div>
 </div>
 <!-- Edit Modal HTML -->
-<div id="editEmployeeModal" class="modal fade">
+<div id="editAccountModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form action="./editHotel.php" method="POST"> 
+			<form action="./editAccount.php" method="POST"> 
 				<div class="modal-header">						
-					<h4 class="modal-title">Edit Employee</h4>
+					<h4 class="modal-title">Edit Account</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">					
 					<div class="form-group">
 						<label>Name</label>
-						<input id="name" name="name" type="text" class="form-control" required>
+						<input id="account_name" name="account_name" type="text" class="form-control" required>
 					</div>
 					<div class="form-group">
-						<label>City</label>
-						<input id="city" name="city" type="text" class="form-control" required>
+						<label>Content</label>
+						<input id="account_con" name="account_con" type="text" class="form-control" required>
 					</div>
 					<div class="form-group">
-						<label>Details</label>
-						<textarea id="details" name="details" class="form-control" required></textarea>
+						<label>Location</label>
+						<textarea id="account_loc" name="account_loc" class="form-control" required></textarea>
 					</div>
 					<div class="form-group">
-						<label>Star</label>
-						<textarea id="star" name="star" class="form-control" required></textarea>
+						<label>Price</label>
+						<textarea id="account_price" name="account_price" class="form-control" required></textarea>
 					</div>
 					<div class="form-group">
-						<label>Image Link</label>
-						<textarea id="link" name="link" class="form-control" required></textarea>
-					</div>				
+						<label>Catagories</label>
+						<input id="account_cat" name="account_cat" type="text" class="form-control" required>
+					</div>					
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -187,12 +183,12 @@ $(document).ready(function(){
 	</div>
 </div>
 <!-- Delete Modal HTML -->
-<div id="deleteEmployeeModal" class="modal fade">
+<div id="deleteAccountModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<form action="./deleteHotel.php" method="POST">
 				<div class="modal-header">						
-					<h4 class="modal-title">Delete Employee</h4>
+					<h4 class="modal-title">Delete Account</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">					
@@ -208,6 +204,5 @@ $(document).ready(function(){
 		</div>
 	</div>
 </div>
-
 </body>
 </html>
