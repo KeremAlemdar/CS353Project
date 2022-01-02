@@ -262,6 +262,7 @@ public class App {
             "(tour_id INT(12), " +
             " customer_id INT(12), " +
             " rate INT(12), " +
+            " evaluation VARCHAR(255), " +
             " PRIMARY KEY ( tour_id, customer_id ), " +
             " FOREIGN KEY (tour_id) REFERENCES tour(tour_id), " +
             " FOREIGN KEY (customer_id) REFERENCES customer(customer_id))" +
