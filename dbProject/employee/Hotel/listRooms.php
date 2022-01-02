@@ -46,7 +46,8 @@ $(document).ready(function(){
 						<h2>Manage <b>Rooms</b></h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="#addRoomModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Room</span></a>
+						<a href="#addRoomModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> 
+                        <span>Add New Room</span></a>
 					</div>
 				</div>
 			</div>
