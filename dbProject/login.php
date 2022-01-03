@@ -1,35 +1,35 @@
 <?php
 include('./connection/config.php');
 session_start();
-$error = 0;
+
 if (isset($_POST['logIn'])) {
 	$email = $_POST['email'];
 	$pass = $_POST['pass'];
-	echo $email;
-	echo $pass;
 	$query = "select user_id from account where email='$email' or username='$email' and password='$pass'";
-	if ($result = $mysqli->query($query)) {
-		if ($result->num_rows == 1) {
-			echo 'asd';
-			$_SESSION['login_user'] = $email;
-			$_SESSION['user_id'] = $result;
-			$query = "select * from Employee where employee_id='$email'";
-			if ($result = $mysqli->query($query)) {
-				if ($result->num_rows == 1) { // if enployee
-					header("Location: welcome.php");
-				} else {
-					header("Location: login.php?msg=logindone");
-				}
-			} else {
-				header("Location: login.php?msg=err3");
-			}
+	$result = $mysqli->query($query);
+	if ($result->num_rows == 1) {
+		$user_id = $result->fetch_array(MYSQLI_NUM)[0];
+		$_SESSION['user_id'] = $user_id;
+		$query = "select * from Employee where employee_id='$user_id'";
+		$result = $mysqli->query($query);
+		if ($result->num_rows == 1) { // if enployee
+			header("Location: login.php?msg=emp");
 		} else {
-			header("Location: login.php?msg=err1");
+			$query = "select * from Guide where guide_id='$user_id'";
+			$result = $mysqli->query($query);
+			if ($result->num_rows == 1) { // guide
+				header("Location: login.php?msg=guide");
+			} else {
+				header("Location: login.php?msg=cust");
+			}
 		}
 	} else {
-		header("Location: login.php?msg=err2");
+		echo '<script language="javascript">';
+		echo 'alert("Account Not Found")';
+		echo '</script>';
 	}
 }
+
 if (isset($_POST['register'])) {
 	$email = $_POST['email'];
 	$pss = $_POST['pass'];
@@ -40,13 +40,14 @@ if (isset($_POST['register'])) {
 	if ($result = $mysqli->query($query)) {
 		$user_id = $mysqli->insert_id;
 		$query = "insert into customer values('$user_id')";
+		$mysqli->query($query);
 		header("Location: login.php?msg=regdone");
 	} else {
 		// header("Location: login.php?msg=err");
 	}
 }
 
-if (isset($_POST['registerEmp'])) {
+if (isset($_POST['registerGuide'])) {
 	$email = $_POST['email'];
 	$pss = $_POST['pass'];
 	$username = $_POST['username'];
@@ -55,8 +56,8 @@ if (isset($_POST['registerEmp'])) {
 
 	$query = "insert into account values(null, '$username','$pss','$email','$phonenum', '$fname')";
 	if ($result = $mysqli->query($query)) {
-		echo $mysqli->insert_id;
-		$query = "insert into employee values('$mysqli->insert_id')";
+		$user_id = $mysqli->insert_id;
+		$query = "insert into guide values('$user_id')";
 		if ($result = $mysqli->query($query)) {
 			// header("Location: mainPage.php");
 		} else {
@@ -66,9 +67,6 @@ if (isset($_POST['registerEmp'])) {
 		// header("Location: login.php?msg=err");
 	}
 }
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -146,7 +144,7 @@ if (isset($_POST['registerEmp'])) {
 					</div>
 					<br>
 					<div class="group">
-						<input type="submit" class="button" value="Sign Up Employee" name="registerEmp">
+						<input type="submit" class="button" value="Sign Up Guide" name="registerGuide">
 					</div>
 				</form>
 				<script>
