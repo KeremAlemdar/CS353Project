@@ -10,19 +10,11 @@ public class App {
             System.out.println("JDBC Driver NOT FOUND!");
         }
 
-        // final String dbName = "dbproject";
-        // final String URL = "jdbc:mysql://localhost:3306/" + dbName;
-        // final String user = "root";
-        // final String pass = "";
-        final String user; // = "eylul.caglar";
-        final String pass; // = "GwHo8l2b";
-        final String dbName; // = "";
-        final String URL; // = "" + database;
+        final String dbName = "dbproject";
+        final String URL = "jdbc:mysql://localhost:3306/" + dbName;
+        final String user = "root";
+        final String pass = "";
 
-        user = "eylul.caglar";
-        pass = "GwHo8l2b";
-        dbName = "eylul_caglar";
-        URL = "jdbc:mysql://dijkstra.ug.bcc.bilkent.edu.tr/" + dbName;
 
         Connection con = null;
         Statement stmt = null;
