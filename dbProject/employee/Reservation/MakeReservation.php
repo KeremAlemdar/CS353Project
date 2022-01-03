@@ -84,13 +84,16 @@ $(document).ready(function(){
 					$hotelName = $row["name"];
 					$roomPrice = $row["price"];
 					$roomType = $row["type"];
-
+					$end = $_SESSION["employee_hotel_select_edate"];
+					$start = $_SESSION["employee_hotel_select_sdate"];
 					echo 
 						"<tr> 
 							<td> HotelID :   $hotelID  </td> 
 							<td> HotelName :$hotelName </td>
 							<td> Room Type : $roomType 	</td>
 							<td> Price : 	$roomPrice </td>
+							<td> end : 	$end </td>
+							<td> start : 	$start </td>
 						</tr>";
 				}else {
 					echo "<tr> <td>Hotel is not set </td> </tr>";

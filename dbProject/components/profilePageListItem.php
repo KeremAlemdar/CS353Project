@@ -16,11 +16,11 @@ $hotel_id_result = $mysqli->query($query);
 $query = "SELECT * FROM employee_reserve NATURAL JOIN reservation_hotel NATURAL JOIN Hotel WHERE customer_id = $user_id AND end_date > '$date'";
 $hotel_id_result_employee = $mysqli->query($query);
 $hotel_empty_employee = false;
-if ($hotel_id_result_employee->num_rows > 0) {
+if ($hotel_id_result_employee->num_rows == 0) {
     $hotel_empty_employee = true;
 }
 $hotel_empty = false;
-if ($hotel_id_result->num_rows > 0) {
+if ($hotel_id_result->num_rows == 0) {
     $hotel_empty = true;
 }
 
