@@ -39,6 +39,13 @@ if ($tour_id_result->num_rows > 0) {
 
 //GUIDE
 
+$query = "SELECT guide_id, fname, tour_name FROM account NATURAL JOIN guide NATURAL JOIN tour_guide NATURAL JOIN tour NATURAL JOIN reservation_tour NATURAL JOIN customer_reserve WHERE customer_id = 1 AND end_date < '$date' ";
+$guide_result = $mysqli->query($query);
+
+$guide_exists = false;
+if ($guide_result->num_rows > 0) {
+    $guide_exists = true;
+}
 ?>
 
 
@@ -126,6 +133,14 @@ if ($tour_id_result->num_rows > 0) {
         }
 
         .tour {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            border: 3px solid black;
+            align-items: center;
+        }
+
+        .guide {
             width: 100%;
             display: flex;
             flex-direction: row;
@@ -255,21 +270,21 @@ if ($tour_id_result->num_rows > 0) {
                         <div class="tour">
                             <div class="tour_img">
                                 <a href='./tourDetails.php?id=<?php echo $tuple[0] ?>'>
-                                    <img src='./img/<?php echo $tuple[7] ?>' />
+                                    <img src='./img/<?php echo $tuple[8] ?>' />
                                 </a>
                             </div>
                             <div class="tours">
                                 <div>
                                     <h2>
-                                        <?php echo $tuple[8]  ?>
+                                        <?php echo $tuple[9]  ?>
                                     </h2>
                                 </div>
                                 <div>
                                     <h3>
                                         <?php
-                                        echo " First day: ", $tuple[4];
+                                        echo " First day: ", $tuple[5];
                                         echo "<br></br>";
-                                        echo " Last day: ", $tuple[5];
+                                        echo " Last day: ", $tuple[6];
                                         echo "<br></br>";
                                         echo $tuple[3], " customers"; ?>
                                     </h3>
@@ -288,9 +303,45 @@ if ($tour_id_result->num_rows > 0) {
                 }
                 ?>
             </div>
-            <div class="flights" style="background-color:#aaa;">
+            <div class="guides" style="background-color:#aaa;">
                 <h2>Guides</h2>
-                <p>Selectable rows</p>
+                <?php
+                if (!$guide_exists) {
+                ?>
+                    <div class="tour">
+                        <h3>You have no past guides</h3>
+                    </div>
+                <?php
+                }
+                while ($guide_exists && $tuple = $guide_result->fetch_array(MYSQLI_NUM)) {
+
+                ?>
+                    
+                        <div>
+                            <input type="hidden" id="guide_id" name="guide_id" value=<?php echo $tuple[0] ?>>
+                        </div>
+                        <div class="guide">
+                            
+                            <div class="guides">
+                                <div>
+                                    <h2>
+                                        <?php echo $tuple[1]  ?>
+                                    </h2>
+                                </div>
+                               
+                            </div>
+                            <div>
+                                <div class="guide_button">
+                                <a href='./guideCommentAndRatePage.php?id=<?php echo $tuple[0] ?>'>
+                                    <input class="input" type="submit" value="Comment and Rate">
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                <?php
+                }
+                ?>
             </div>
         </div>
     </div>
