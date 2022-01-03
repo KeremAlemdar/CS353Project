@@ -95,4 +95,8 @@
   <h1><a href="./Guides/guideToursStatus.php">Display Guide Assignment Status</a></h1>
 
   <h1><a href="./Reservation/displayTourRes.php">Display All Tour Resevations</a></h1> 
+
+  <h1><a href="./Reservation/displayTourRes.php">Display Customer Tour Comments</a></h1> 
+
+  <h1><a href="./Reservation/displayTourRes.php">Display Guide Tour Comments</a></h1> 
   </html>

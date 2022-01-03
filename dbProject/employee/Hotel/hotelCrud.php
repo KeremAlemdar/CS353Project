@@ -96,7 +96,10 @@ $(document).ready(function(){
 							<a href=\"./listRooms.php?id=".$hotelID."\" style=\"color: #28A745 \" >
 								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"List\">&#xe06d;</i>
 							</a>\n
-
+							
+							<a href=\"./hotelDisplayComments.php?id=".$hotelID."\" style=\"color: #28A745 \" >
+								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Comments\">&#xe87f;</i>
+							</a>\n
 							</td></tr>");
 						
 						}
