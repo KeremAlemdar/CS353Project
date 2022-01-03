@@ -259,11 +259,12 @@ public class App {
             System.out.println("tour_activity table created!");
 
             sql = "CREATE TABLE evaluate_tour " +
-            "(tour_id INT(12), " +
+            "(evalutaion_id INT(12) AUTO_INCREMENT, " + 
+            " tour_id INT(12), " +
             " customer_id INT(12), " +
             " rate INT(12), " +
             " evaluation VARCHAR(255), " +
-            " PRIMARY KEY ( tour_id, customer_id ), " +
+            " PRIMARY KEY ( evalutaion_id ), " +
             " FOREIGN KEY (tour_id) REFERENCES tour(tour_id), " +
             " FOREIGN KEY (customer_id) REFERENCES customer(customer_id))" +
             " ENGINE=innodb;";
@@ -562,6 +563,26 @@ public class App {
             stmt.executeUpdate(sql);
             sql = "INSERT INTO customer_reserve (reservation_id, customer_id) " +
             "VALUES ( '1', '1')";
+            stmt.executeUpdate(sql);
+
+            sql = "INSERT INTO reservation (reservation_id) " +
+            "VALUES (null)";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO reservation_hotel (reservation_id, hotel_id, reservation_type, amount_of_people, start_date, end_date)" +
+            "VALUES ( '2', '2', 'luxury', '3', '2022/12/25 15:30:00', '2022/12/30 15:30:00' )";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO customer_reserve (reservation_id, customer_id) " +
+            "VALUES ( '2', '1')";
+            stmt.executeUpdate(sql);
+
+            sql = "INSERT INTO reservation (reservation_id) " +
+            "VALUES (null)";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO reservation_hotel (reservation_id, hotel_id, reservation_type, amount_of_people, start_date, end_date)" +
+            "VALUES ( '3', '3', 'luxury', '3', '2022/12/25 15:30:00', '2022/12/27 15:30:00' )";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO customer_reserve (reservation_id, customer_id) " +
+            "VALUES ( '3', '1')";
             stmt.executeUpdate(sql);
 
             sql = "INSERT INTO hotel_evaluation (evalutaion_id, hotel_id, rate, evaluation)" +

@@ -24,22 +24,19 @@ if ($hotel_id_result->num_rows > 0) {
 }
 
 //TOUR
-/*
-$query = "SELECT tour_id, start_date, end_date, tour_information, image, tour_name, reservation_id FROM reservation NATURAL JOIN reservation_tour NATURAL JOIN customer_reserve WHERE customer_id = " . 1 . "";
-$tour_id_result = $mysqli->query($query);
 
+$query = "SELECT * FROM reservation NATURAL JOIN customer_reserve NATURAL JOIN reservation_tour NATURAL JOIN tour WHERE customer_id = 1 AND end_date < '$date'";
+$tour_id_result = $mysqli->query($query);
+/*
 if ($tour_id_result->num_rows == 0) {
     $query = "SELECT tour_id, start_date, end_date, tour_information, image, tour_name, reservation_id FROM reservation NATURAL JOIN reservation_tour NATURAL JOIN employee_reserve WHERE customer_id = " . 1 . "";
     $tour_id_result = $mysqli->query($query);
-}
+}*/
 $tour_exists = false;
 if ($tour_id_result->num_rows > 0) {
     $tour_exists = true;
-    $tour_id = $tour_id_result->fetch_array(MYSQLI_NUM);
-    $query = "SELECT * from tour WHERE tour_id = " . $tour_id[0] . "";
-    $tour_info = $mysqli->query($query);
 }
-*/
+
 //GUIDE
 
 ?>
@@ -127,6 +124,28 @@ if ($tour_id_result->num_rows > 0) {
             align-items: center;
             margin-right: 10%;
         }
+
+        .tour {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            border: 3px solid black;
+            align-items: center;
+        }
+
+        .tour .tour_img {
+            align-items: center;
+            width: 30%;
+            height: 30%;
+        }
+
+        .tour_button {
+            width: 5%;
+            display: flex;
+            align-items: center;
+            margin-right: 10%;
+        }
+
 
         .input {
             border-radius: 5px;
@@ -218,7 +237,56 @@ if ($tour_id_result->num_rows > 0) {
             </div>
             <div class="tours" style="background-color:#aaa;">
                 <h2>Tour Reservations</h2>
-                
+                <?php
+                if (!$tour_exists) {
+                ?>
+                    <div class="tour">
+                        <h3>You have no past tour reservations</h3>
+                    </div>
+                <?php
+                }
+                while ($tour_exists && $tuple = $tour_id_result->fetch_array(MYSQLI_NUM)) {
+
+                ?>
+                    
+                        <div>
+                            <input type="hidden" id="reservation_id" name="reservation_id" value=<?php echo $tuple[1] ?>>
+                        </div>
+                        <div class="tour">
+                            <div class="tour_img">
+                                <a href='./tourDetails.php?id=<?php echo $tuple[0] ?>'>
+                                    <img src='./img/<?php echo $tuple[7] ?>' />
+                                </a>
+                            </div>
+                            <div class="tours">
+                                <div>
+                                    <h2>
+                                        <?php echo $tuple[8]  ?>
+                                    </h2>
+                                </div>
+                                <div>
+                                    <h3>
+                                        <?php
+                                        echo " First day: ", $tuple[4];
+                                        echo "<br></br>";
+                                        echo " Last day: ", $tuple[5];
+                                        echo "<br></br>";
+                                        echo $tuple[3], " customers"; ?>
+                                    </h3>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="tour_button">
+                                <a href='./tourCommentAndRatePage.php?id=<?php echo $tuple[0] ?>'>
+                                    <input class="input" type="submit" value="Comment and Rate">
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                <?php
+                }
+                ?>
             </div>
             <div class="flights" style="background-color:#aaa;">
                 <h2>Guides</h2>

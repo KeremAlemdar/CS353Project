@@ -50,7 +50,7 @@ if ($rateId !== "empty") {
             transform: translateY(2px);
         }
     </style>
-    <title> <?php echo $hotel[1], " Evaluation" ?></title>
+    <title> <?php echo $hotel[0], " Evaluation" ?></title>
 </head>
 
 <body style="text-align:center; margin: 0px;">
