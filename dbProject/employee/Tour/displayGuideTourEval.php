@@ -160,7 +160,7 @@ $result = $mysqli->query($query);
                             $query = "select * from tour_activity natural join activity where tour_id=$tour_id";
                             $activities = $mysqli->query($query);
 
-                            $query = "select * from evaluate_tour NATURAL JOIN tour where tour_name='$tour_name'";
+                            $query = "select * from guide_evaluate_tour NATURAL JOIN tour where tour_name='$tour_name'";
                             $evaluationExists = true;
                             $evaluation = $mysqli->query($query);
                             if ($evaluation->num_rows == 0) {
