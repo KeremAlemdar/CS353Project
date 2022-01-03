@@ -230,6 +230,17 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("tour table created!");
 
+            sql = "CREATE TABLE tour_guide " +
+            "(tour_id INT(12), " +
+            " guide_id INT(12), " +
+            " FOREIGN KEY (guide_id) REFERENCES guide(guide_id), " +
+            " FOREIGN KEY (tour_id) REFERENCES tour(tour_id), " +
+            " PRIMARY KEY ( tour_id, guide_id ))" +
+            " ENGINE=innodb;";
+            
+            stmt.executeUpdate(sql);
+            System.out.println("tour table created!");
+
             sql = "CREATE TABLE city " +
             "(city_id INT(12) AUTO_INCREMENT, " +
             " city_name VARCHAR(255), " +
