@@ -580,13 +580,13 @@ public class App {
             "VALUES (null, '2022/01/01', '2022/01/02', 'This tour is in besiktas and MUKEMMEL', 'tour1.jpg', 'France Tour', 100)";
             stmt.executeUpdate(sql);
             sql = "INSERT INTO tour " +
-            "VALUES (null, '2022/01/03', '2022/01/05', 'This tour is in besiktas and MUKEMMEL', 'tour1.jpg', 'France Tour', 150)";
+            "VALUES (null, '2022/02/03', '2022/02/05', 'This tour is in besiktas and MUKEMMEL', 'tour1.jpg', 'France Tour', 150)";
             stmt.executeUpdate(sql);
             sql = "INSERT INTO tour " +
-            "VALUES (null, '2022/01/02', '2022/01/03', 'This tour is also MUKEMMEL but in diyarbakir', 'tour2.jpg', 'Loire Valley Tour', 220)";
+            "VALUES (null, '2022/02/02', '2022/02/03', 'This tour is also MUKEMMEL but in diyarbakir', 'tour2.jpg', 'Loire Valley Tour', 220)";
             stmt.executeUpdate(sql);
             sql = "INSERT INTO tour " +
-            "VALUES (null, '2022/01/01', '2022/01/03', 'This tour is in istanbul', 'tour1.jpg', 'Eylül Turu', 320)";
+            "VALUES (null, '2022/02/01', '2022/02/03', 'This tour is in istanbul', 'tour1.jpg', 'Eylül Turu', 320)";
             stmt.executeUpdate(sql);
             sql = "INSERT INTO tour " +
             "VALUES (null, '2022/01/05', '2022/01/08', 'This tour is ekmek yeme turu', 'tour2.jpg', 'İsmet Turu', 340)";

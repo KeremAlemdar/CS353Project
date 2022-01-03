@@ -412,8 +412,7 @@ if ($flight_result->num_rows > 0) {
                                         <?php
                                         $tour_id = $tuple[0];
                                         $query = "SELECT `A`.*,`TB`.* FROM `activity` AS `A` , `tour` AS `T` ,`reservation_tour_activity` AS `TB` 
-                    WHERE `TB`.`tour_id` = `T`.`tour_id` AND `TB`.`activity_id` = `A`.`activity_id` AND user_id = $user_id AND tour_id = $tour_id";
-                    echo $query;
+                    WHERE `TB`.`tour_id` = `T`.`tour_id` AND `TB`.`activity_id` = `A`.`activity_id` AND user_id = $user_id AND `T`.`tour_id` = $tour_id";
                                         $activities = $mysqli->query($query);
                                         if ($activities->num_rows > 0) {
                                         ?>
