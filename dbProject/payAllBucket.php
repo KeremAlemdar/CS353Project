@@ -94,7 +94,6 @@ while ($tuple = $hotels->fetch_array(MYSQLI_NUM)) {
         // header("Location: paymentPage.php?error=cannotDelete");
     }
 }
-// header("Location: profilePage.php");
 
 $query = "SELECT * FROM `flight_bucket` WHERE `user_id`= 1";
 
@@ -122,9 +121,10 @@ while ($tuple = $flights->fetch_array(MYSQLI_NUM)) {
 
     $query = "DELETE FROM `flight_bucket` WHERE `flight_bucket`.`user_id` = $user_id AND `flight_bucket`.`flight_id` = $flight_id";
     if ($result = $mysqli->query($query)) {
-        header("Location: profilePage.php");
+        // header("Location: profilePage.php");
         // header("Location: paymentPage.php?error=cannotDelete");
     } else {
         // header("Location: paymentPage.php?error=cannotDelete");
     }
 }
+header("Location: profilePage.php");
