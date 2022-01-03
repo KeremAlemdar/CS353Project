@@ -319,7 +319,6 @@ if ($guide_result->num_rows > 0) {
                 while ($guide_exists && $tuple = $guide_result->fetch_array(MYSQLI_NUM)) {
 
                 ?>
-                    
                         <div>
                             <input type="hidden" id="guide_id" name="guide_id" value=<?php echo $tuple[0] ?>>
                         </div>
@@ -328,7 +327,10 @@ if ($guide_result->num_rows > 0) {
                             <div class="guides">
                                 <div>
                                     <h2>
-                                        <?php echo $tuple[1]  ?>
+                                        <?php echo "Guide: ", $tuple[1]  ?>
+                                    </h2>
+                                    <h2>
+                                        <?php echo "Tour name: ", $tuple[2]  ?>
                                     </h2>
                                 </div>
                                
