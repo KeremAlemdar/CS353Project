@@ -452,7 +452,7 @@ if ($flight_result->num_rows > 0) {
                                         if ($activities->num_rows > 0) {
                                         ?>
                                             <div>
-                                                <h1>Activities in <?php echo $tuple[5] ?>
+                                                <h1>Activities in <?php echo $tuple[10] ?>
                                                 </h1>
                                             </div>
                                         <?php
