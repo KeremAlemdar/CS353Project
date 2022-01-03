@@ -652,7 +652,7 @@ public class App {
 
             //insert tuples to Hotel
              sql = "INSERT INTO Hotel (hotel_id, name, city, star, details, image, price, people_rated, total_rate) " +
-            "VALUES ( null, 'Bilkent Hotel', 'Ankara', '3', 'Located 2 km from Bilkent University, this modern and cozy hotel is 14 km from the Anıtkabir, and the iconic Kocatepe Mosque.', 'bilkent_hotel.jpg', '100.00', '0', '0' )";
+            "VALUES ( null, 'Bilkent Hotel', 'Ankara', '3', 'Located 2 km from Bilkent University, this modern and cozy hotel is 14 km from the Anıtkabir, and the iconic Kocatepe Mosque.', 'bilkent_hotel.jpg', '100.00', '2', '9' )";
             stmt.executeUpdate(sql);
             sql = "INSERT INTO Hotel (hotel_id, name, city, star, details, image, price, people_rated, total_rate) " +
             "VALUES ( null, 'Kerem Hotel', 'Sakarya', '5', 'Located in Sakarya, good location.', 'kerem_hotel.jpg', '200', '0', '0' )";
