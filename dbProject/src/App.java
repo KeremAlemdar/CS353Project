@@ -52,6 +52,10 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("tour_activity table is deleted!");
 
+            sql = "DROP TABLE IF EXISTS guide_evaluate_tour";
+            stmt.executeUpdate(sql);
+            System.out.println("guide_evaluate_tour table is deleted!");
+
             sql = "DROP TABLE IF EXISTS tour_guide";
             stmt.executeUpdate(sql);
             System.out.println("tour_guide table is deleted!");
@@ -237,6 +241,7 @@ public class App {
             sql = "CREATE TABLE tour_guide " +
             "(tour_id INT(12), " +
             " guide_id INT(12), " +
+            " acceptance_status INT(12), " +
             " FOREIGN KEY (guide_id) REFERENCES guide(guide_id), " +
             " FOREIGN KEY (tour_id) REFERENCES tour(tour_id), " +
             " PRIMARY KEY ( tour_id, guide_id ))" +
@@ -304,6 +309,20 @@ public class App {
 
             stmt.executeUpdate(sql);
             System.out.println("evaluate_guide table created!");
+
+            sql = "CREATE TABLE guide_evaluate_tour " +
+            "(evalutaion_id INT(12) AUTO_INCREMENT, " + 
+            " guide_id INT(12), " +
+            " tour_id INT(12), " +
+            " rate INT(12), " +
+            " evaluation VARCHAR(255), " +
+            " PRIMARY KEY ( evalutaion_id ), " +
+            " FOREIGN KEY (guide_id) REFERENCES guide(guide_id), " +
+            " FOREIGN KEY (tour_id) REFERENCES tour(tour_id))" +
+            " ENGINE=innodb;";
+
+            stmt.executeUpdate(sql);
+            System.out.println("guide_evaluate_tour table created!");
 
             sql = "CREATE TABLE Airport " +
             "(airport_id INT(12) AUTO_INCREMENT, " +
@@ -432,6 +451,7 @@ public class App {
             sql = "CREATE TABLE customer_reserve " +
             "(reservation_id INT(12), " +
             " customer_id INT(12), " +
+            " acceptance_status INT(12), " +
             " PRIMARY KEY ( reservation_id, customer_id), " +
             " FOREIGN KEY (reservation_id) REFERENCES reservation(reservation_id), " +
             " FOREIGN KEY (customer_id) REFERENCES account(user_id))" +
@@ -446,7 +466,6 @@ public class App {
             " hotel_id INT(12), " +
             " rate INT(12), " +
             " evaluation VARCHAR(255), " +
-            " acceptance_status INT(12), " +
             " PRIMARY KEY ( evalutaion_id ), " +
             " FOREIGN KEY (customer_id) REFERENCES customer(customer_id), " +
             " FOREIGN KEY (hotel_id) REFERENCES Hotel(hotel_id)) " +
@@ -588,6 +607,18 @@ public class App {
 
             sql = "INSERT INTO account " +
             "VALUES (null, 'eylul', '1234', 'eylula', '05555555555', 'Eylul Caglar')";
+            stmt.executeUpdate(sql);
+
+            sql = "INSERT INTO guide (guide_id) " +
+            "VALUES ('2')";
+            stmt.executeUpdate(sql);
+
+            sql = "INSERT INTO tour_guide ( tour_id, guide_id, acceptance_status) " +
+            "VALUES ('1', '2', '1')";
+            stmt.executeUpdate(sql);
+
+            sql = "INSERT INTO tour_guide ( tour_id, guide_id, acceptance_status) " +
+            "VALUES ('5', '2', '2')";
             stmt.executeUpdate(sql);
 
             sql = "INSERT INTO reservation (reservation_id) " +

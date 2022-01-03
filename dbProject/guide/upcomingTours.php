@@ -82,7 +82,7 @@
 						<th>Information</th>
                         <th>Start Date</th>
                         <th>End Date</th>
-                        <th>Make Comment</th>
+                        <th>Accept/Decline</th>
 						
 					</tr>
 				</thead>
@@ -90,9 +90,9 @@
 					
                         <?php 
 						$date = date("Y/m/d");
-						$sql = "SELECT * FROM `tour` NATURAL JOIN  `tour_guide` WHERE `guide_id`= 2 AND end_date <= '$date' AND `acceptance_status` = 1";
+						$sql = "SELECT * FROM `tour` NATURAL JOIN  `tour_guide` WHERE `guide_id`= 2 AND start_date > '$date' AND `acceptance_status` = 1";
 						$result = $mysqli->query($sql);
-                       
+                        
 						while($row = $result->fetch_assoc()){
 
 							$tourID = $row["tour_id"];
