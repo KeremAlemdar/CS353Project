@@ -12,29 +12,37 @@ $user_info = $result->fetch_array(MYSQLI_NUM);
 
 //HOTEL
 $date = date("Y/m/d");
-$query = "SELECT * FROM reservation NATURAL JOIN customer_reserve NATURAL JOIN reservation_hotel NATURAL JOIN Hotel WHERE customer_id = 1 AND end_date < '$date'";
-// if ($hotel_id_result->num_rows == 0) {
-//     $query = "SELECT hotel_id, start_date, end_date, amount_of_people, reservation_id FROM reservation NATURAL JOIN reservation_hotel NATURAL JOIN employee_reserve WHERE customer_id = " . 1 . "";
-//     $hotel_id_result = $mysqli->query($query);
-// }
+$query = "SELECT * FROM reservation NATURAL JOIN customer_reserve NATURAL JOIN reservation_hotel NATURAL JOIN Hotel WHERE customer_id = 1 AND end_date < '$date' AND acceptance_status = 1";
 $hotel_id_result = $mysqli->query($query);
-$hotel_exists = false;
-if ($hotel_id_result->num_rows > 0) {
-    $hotel_exists = true;
+
+$hotel_empty = false;
+if ($hotel_id_result->num_rows == 0) {
+    $$hotel_empty = true;
+}
+
+$query = "SELECT * FROM reservation NATURAL JOIN employee_reserve NATURAL JOIN reservation_hotel NATURAL JOIN Hotel WHERE customer_id = 1 AND end_date < '$date'";
+$hotel_id_result_employee = $mysqli->query($query);
+$hotel_empty_employee = false;
+if ($hotel_id_result_employee->num_rows > 0) {
+    $hotel_empty_employee = true;
 }
 
 //TOUR
 
-$query = "SELECT * FROM reservation NATURAL JOIN customer_reserve NATURAL JOIN reservation_tour NATURAL JOIN tour WHERE customer_id = 1 AND end_date < '$date'";
+$query = "SELECT * FROM reservation NATURAL JOIN customer_reserve NATURAL JOIN reservation_tour NATURAL JOIN tour WHERE customer_id = 1 AND end_date < '$date' AND acceptance_status = 1";
 $tour_id_result = $mysqli->query($query);
-/*
+
+$tour_empty = false;
 if ($tour_id_result->num_rows == 0) {
-    $query = "SELECT tour_id, start_date, end_date, tour_information, image, tour_name, reservation_id FROM reservation NATURAL JOIN reservation_tour NATURAL JOIN employee_reserve WHERE customer_id = " . 1 . "";
-    $tour_id_result = $mysqli->query($query);
-}*/
-$tour_exists = false;
-if ($tour_id_result->num_rows > 0) {
-    $tour_exists = true;
+    $tour_empty = true;
+}
+
+$query = "SELECT * FROM reservation NATURAL JOIN employee_reserve NATURAL JOIN reservation_tour NATURAL JOIN tour WHERE customer_id = 1 AND end_date < '$date'";
+$tour_id_result_employee = $mysqli->query($query);
+
+$tour_empty_employee = false;
+if ($tour_id_result_employee->num_rows == 0) {
+    $tour_empty_employee = true;
 }
 
 //GUIDE
@@ -85,6 +93,7 @@ if ($guide_result->num_rows > 0) {
             display: flex;
             align-items: center;
         }
+
         .profile_page_button {
             display: flex;
             align-items: center;
@@ -173,8 +182,9 @@ if ($guide_result->num_rows > 0) {
             align-items: center;
             margin-right: 10%;
         }
-        
-        .edit, .past_reservations {
+
+        .edit,
+        .past_reservations {
             border-radius: 5px;
             box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             padding: 10px 25px;
@@ -182,7 +192,6 @@ if ($guide_result->num_rows > 0) {
             align-items: center;
             margin-right: 10%;
         }
-        
     </style>
 
 </head>
@@ -191,164 +200,247 @@ if ($guide_result->num_rows > 0) {
 
 <body>
     <div class="page">
-            <div class="profile_page_button">
-            
-                    <a href="ProfilePage.php">
-                        <input class="past_reservations" type="submit" value="Go Back To Profile Page">
-                    </a>
-            </div>
+        <div class="profile_page_button">
+
+            <a href="ProfilePage.php">
+                <input class="past_reservations" type="submit" value="Go Back To Profile Page">
+            </a>
         </div>
-        <br>
-        <div class="reservations">
-            <div class="hotels" style="background-color:#aaa;">
-                <h2>Hotel Reservations</h2>
-                <?php
-                if (!$hotel_exists) {
-                ?>
-                    <div class="hotel">
-                        <h3>You have no past hotel reservations</h3>
+    </div>
+    <br>
+    <div class="reservations">
+        <div class="hotels" style="background-color:#aaa;">
+            <h2>Hotel Reservations</h2>
+            <?php
+            if ($hotel_empty_employee && $hotel_empty) {
+            ?>
+                <div class="hotel">
+                    <h3>You have no past hotel reservations</h3>
+                </div>
+            <?php
+            }
+            while (!$hotel_empty && $tuple = $hotel_id_result->fetch_array(MYSQLI_NUM)) {
+
+            ?>
+
+                <div>
+                    <input type="hidden" id="reservation_id" name="reservation_id" value=<?php echo $tuple[1] ?>>
+                </div>
+                <div class="hotel">
+                    <div class="hotel_img">
+                        <a href='./hotelDisplay.php?id=<?php echo $tuple[0] ?>'>
+                            <img src='./img/<?php echo $tuple[13] ?>' />
+                        </a>
                     </div>
-                <?php
-                }
-                while ($hotel_exists && $tuple = $hotel_id_result->fetch_array(MYSQLI_NUM)) {
-
-                ?>
-                    
+                    <div class="hotels">
                         <div>
-                            <input type="hidden" id="reservation_id" name="reservation_id" value=<?php echo $tuple[1] ?>>
+                            <h2>
+                                <?php echo $tuple[9], ",  ",  $tuple[10] ?>
+                            </h2>
                         </div>
-                        <div class="hotel">
-                            <div class="hotel_img">
-                                <a href='./hotelDisplay.php?id=<?php echo $tuple[0] ?>'>
-                                    <img src='./img/<?php echo $tuple[12] ?>' />
-                                </a>
-                            </div>
-                            <div class="hotels">
-                                <div>
-                                    <h2>
-                                        <?php echo $tuple[8], ",  ",  $tuple[9] ?>
-                                    </h2>
-                                </div>
-                                <div>
-                                    <h3>
-                                        <?php
-                                        echo " First day: ", $tuple[6];
-                                        echo "<br></br>";
-                                        echo " Last day: ", $tuple[7];
-                                        echo "<br></br>";
-                                        echo $tuple[5], " customers"; ?>
-                                    </h3>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="hotel_button">
-                                <a href='./hotelCommentAndRatePage.php?id=<?php echo $tuple[0] ?>'>
-                                    <input class="input" type="submit" value="Comment and Rate">
-                                    </a>
-                                </div>
-                            </div>
-
+                        <div>
+                            <h3>
+                                <?php
+                                echo " First day: ", $tuple[7];
+                                echo "<br></br>";
+                                echo " Last day: ", $tuple[8];
+                                echo "<br></br>";
+                                echo $tuple[6], " customers"; ?>
+                            </h3>
                         </div>
-                <?php
-                }
-                ?>
-            </div>
-            <div class="tours" style="background-color:#aaa;">
-                <h2>Tour Reservations</h2>
-                <?php
-                if (!$tour_exists) {
-                ?>
-                    <div class="tour">
-                        <h3>You have no past tour reservations</h3>
                     </div>
-                <?php
-                }
-                while ($tour_exists && $tuple = $tour_id_result->fetch_array(MYSQLI_NUM)) {
-
-                ?>
-                    
-                        <div>
-                            <input type="hidden" id="reservation_id" name="reservation_id" value=<?php echo $tuple[1] ?>>
+                    <div>
+                        <div class="hotel_button">
+                            <a href='./hotelCommentAndRatePage.php?id=<?php echo $tuple[0] ?>'>
+                                <input class="input" type="submit" value="Comment and Rate">
+                            </a>
                         </div>
-                        <div class="tour">
-                            <div class="tour_img">
-                                <a href='./tourDetails.php?id=<?php echo $tuple[0] ?>'>
-                                    <img src='./img/<?php echo $tuple[8] ?>' />
-                                </a>
-                            </div>
-                            <div class="tours">
-                                <div>
-                                    <h2>
-                                        <?php echo $tuple[9]  ?>
-                                    </h2>
-                                </div>
-                                <div>
-                                    <h3>
-                                        <?php
-                                        echo " First day: ", $tuple[5];
-                                        echo "<br></br>";
-                                        echo " Last day: ", $tuple[6];
-                                        echo "<br></br>";
-                                        echo $tuple[3], " customers"; ?>
-                                    </h3>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="tour_button">
-                                <a href='./tourCommentAndRatePage.php?id=<?php echo $tuple[0] ?>'>
-                                    <input class="input" type="submit" value="Comment and Rate">
-                                    </a>
-                                </div>
-                            </div>
-
-                        </div>
-                <?php
-                }
-                ?>
-            </div>
-            <div class="guides" style="background-color:#aaa;">
-                <h2>Guides</h2>
-                <?php
-                if (!$guide_exists) {
-                ?>
-                    <div class="tour">
-                        <h3>You have no past guides</h3>
                     </div>
-                <?php
-                }
-                while ($guide_exists && $tuple = $guide_result->fetch_array(MYSQLI_NUM)) {
 
-                ?>
+                </div>
+            <?php
+            }
+            ?>
+            <?php
+            while (!$hotel_empty_employee && $tuple = $hotel_id_result_employee->fetch_array(MYSQLI_NUM)) {
+            ?>
+                <div>
+                    <input type="hidden" id="reservation_id" name="reservation_id" value=<?php echo $tuple[1] ?>>
+                </div>
+                <div class="hotel">
+                    <div class="hotel_img">
+                        <a href='./hotelDisplay.php?id=<?php echo $tuple[0] ?>'>
+                            <img src='./img/<?php echo $tuple[13] ?>' />
+                        </a>
+                    </div>
+                    <div class="hotels">
                         <div>
-                            <input type="hidden" id="guide_id" name="guide_id" value=<?php echo $tuple[0] ?>>
+                            <h2>
+                                <?php echo $tuple[9], ",  ",  $tuple[10] ?>
+                            </h2>
                         </div>
-                        <div class="guide">
-                            
-                            <div class="guides">
-                                <div>
-                                    <h2>
-                                        <?php echo "Guide: ", $tuple[1]  ?>
-                                    </h2>
-                                    <h2>
-                                        <?php echo "Tour name: ", $tuple[2]  ?>
-                                    </h2>
-                                </div>
-                               
-                            </div>
-                            <div>
-                                <div class="guide_button">
-                                <a href='./guideCommentAndRatePage.php?id=<?php echo $tuple[0] ?>'>
-                                    <input class="input" type="submit" value="Comment and Rate">
-                                    </a>
-                                </div>
-                            </div>
+                        <div>
+                            <h3>
+                                <?php
+                                echo " First day: ", $tuple[7];
+                                echo "<br></br>";
+                                echo " Last day: ", $tuple[8];
+                                echo "<br></br>";
+                                echo $tuple[6], " customers"; ?>
+                            </h3>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="hotel_button">
+                            <a href='./hotelCommentAndRatePage.php?id=<?php echo $tuple[0] ?>'>
+                                <input class="input" type="submit" value="Comment and Rate">
+                            </a>
+                        </div>
+                    </div>
 
-                        </div>
-                <?php
-                }
-                ?>
-            </div>
+                </div>
+            <?php
+            }
+            ?>
         </div>
+        <div class="tours" style="background-color:#aaa;">
+            <h2>Tour Reservations</h2>
+            <?php
+            if ($tour_empty_employee && $tour_empty) {
+            ?>
+                <div class="tour">
+                    <h3>You have no past tour reservations</h3>
+                </div>
+            <?php
+            }
+            while (!$tour_empty && $tuple = $tour_id_result->fetch_array(MYSQLI_NUM)) {
+
+            ?>
+
+                <div>
+                    <input type="hidden" id="reservation_id" name="reservation_id" value=<?php echo $tuple[1] ?>>
+                </div>
+                <div class="tour">
+                    <div class="tour_img">
+                        <a href='./tourDetails.php?id=<?php echo $tuple[0] ?>'>
+                            <img src='./img/<?php echo $tuple[9] ?>' />
+                        </a>
+                    </div>
+                    <div class="tours">
+                        <div>
+                            <h2>
+                                <?php echo $tuple[10]  ?>
+                            </h2>
+                        </div>
+                        <div>
+                            <h3>
+                                <?php
+                                echo " First day: ", $tuple[6];
+                                echo "<br></br>";
+                                echo " Last day: ", $tuple[7];
+                                echo "<br></br>";
+                                echo $tuple[5], " customers"; ?>
+                            </h3>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="tour_button">
+                            <a href='./tourCommentAndRatePage.php?id=<?php echo $tuple[0] ?>'>
+                                <input class="input" type="submit" value="Comment and Rate">
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            <?php
+            }
+            ?>
+            <?php
+            while (!$tour_empty_employee && $tuple = $tour_id_result_employee->fetch_array(MYSQLI_NUM)) {
+
+            ?>
+                <div>
+                    <input type="hidden" id="reservation_id" name="reservation_id" value=<?php echo $tuple[1] ?>>
+                </div>
+                <div class="tour">
+                    <div class="tour_img">
+                        <a href='./tourDetails.php?id=<?php echo $tuple[0] ?>'>
+                            <img src='./img/<?php echo $tuple[9] ?>' />
+                        </a>
+                    </div>
+                    <div class="tours">
+                        <div>
+                            <h2>
+                                <?php echo $tuple[10]  ?>
+                            </h2>
+                        </div>
+                        <div>
+                            <h3>
+                                <?php
+                                echo " First day: ", $tuple[6];
+                                echo "<br></br>";
+                                echo " Last day: ", $tuple[7];
+                                echo "<br></br>";
+                                echo $tuple[5], " customers"; ?>
+                            </h3>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="tour_button">
+                            <a href='./tourCommentAndRatePage.php?id=<?php echo $tuple[0] ?>'>
+                                <input class="input" type="submit" value="Comment and Rate">
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            <?php
+            }
+            ?>
+        </div>
+        <div class="guides" style="background-color:#aaa;">
+            <h2>Guides</h2>
+            <?php
+            if (!$guide_exists) {
+            ?>
+                <div class="tour">
+                    <h3>You have no past guides</h3>
+                </div>
+            <?php
+            }
+            while ($guide_exists && $tuple = $guide_result->fetch_array(MYSQLI_NUM)) {
+
+            ?>
+                <div>
+                    <input type="hidden" id="guide_id" name="guide_id" value=<?php echo $tuple[0] ?>>
+                </div>
+                <div class="guide">
+
+                    <div class="guides">
+                        <div>
+                            <h2>
+                                <?php echo "Guide: ", $tuple[1]  ?>
+                            </h2>
+                            <h2>
+                                <?php echo "Tour name: ", $tuple[2]  ?>
+                            </h2>
+                        </div>
+
+                    </div>
+                    <div>
+                        <div class="guide_button">
+                            <a href='./guideCommentAndRatePage.php?id=<?php echo $tuple[0] ?>'>
+                                <input class="input" type="submit" value="Comment and Rate">
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            <?php
+            }
+            ?>
+        </div>
+    </div>
     </div>
 
 </body>
