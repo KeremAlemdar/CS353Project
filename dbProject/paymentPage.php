@@ -1,6 +1,10 @@
 <?php
 include("./components/navbar.php");
 include("./connection/checkSession.php");
+$date = date("Y/m/d");
+$start_date = isset($_GET['start_date']) ? $_GET['start_date'] : $date;
+$end_date =  isset($_GET['end_date']) ? $_GET['end_date'] : $date;
+
 $user_id =  isset($_SESSION['user_id']) ? $_SESSION['user_id'] : "";
 $error =  isset($_GET['error']) ? $_GET['error'] : "";
 if ($error == "cannotDelete") {
@@ -15,14 +19,14 @@ $total_flights_cost = 0;
 $total_hotel_cost = 0;
 $user_id = 1; // FOR TEST PURPOSES
 // $query = "select * from ((tour natural join tour_bucket) natural join activity) where user_id =" . $user_id . "";
-$query = "SELECT DISTINCT * FROM `hotel` LEFT JOIN `hotel_bucket` ON `hotel_bucket`.`hotel_id` = `hotel`.`hotel_id` WHERE `user_id`= 1";
+$query = "SELECT DISTINCT * FROM `hotel` LEFT JOIN `hotel_bucket` ON `hotel_bucket`.`hotel_id` = `hotel`.`hotel_id` WHERE `user_id`= $user_id";
 $hotels = $mysqli->query($query);
 $hotel_empty = false;
 if ($hotels->num_rows == 0) {
     $hotel_empty = true;
 }
 
-$query = "SELECT DISTINCT * FROM `tour` LEFT JOIN `tour_bucket` ON `tour_bucket`.`tour_id` = `tour`.`tour_id` WHERE `user_id`= 1";
+$query = "SELECT DISTINCT * FROM `tour` LEFT JOIN `tour_bucket` ON `tour_bucket`.`tour_id` = `tour`.`tour_id` WHERE `user_id`= $user_id";
 $tours = $mysqli->query($query);
 $empty = false;
 if ($tours->num_rows == 0) {
@@ -316,7 +320,7 @@ if ($flights->num_rows == 0) {
                             <div class="hotels">
                                 <?php
                                 while ($tuple = $hotels->fetch_array(MYSQLI_NUM)) {
-                                    $total_hotel_cost = $total_hotel_cost + $tuple[6] * $tuple[8];
+                                    $total_hotel_cost = $total_hotel_cost + $tuple[6] * $tuple[9];
                                 ?>
                                     <form class="form" action='deleteHotelFromBucket.php' method="post">
                                         <input type="hidden" id="hotel_id" name="hotel_id" value=<?php echo $tuple[0] ?>>
@@ -349,7 +353,7 @@ if ($flights->num_rows == 0) {
                                                             <h2>Number of people:<h2>
                                                         </div>
                                                         <div>
-                                                            <h2><?php echo $tuple[8] ?></h2>
+                                                            <h2><?php echo $tuple[9] ?></h2>
                                                         </div>
                                                     </div>
                                                 </div>

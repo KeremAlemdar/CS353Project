@@ -1,3 +1,11 @@
+<?php 
+$date = date("Y/m/d");
+$start_date = isset($_GET['start_date']) ? $_GET['start_date'] : $date;
+$end_date =  isset($_GET['end_date']) ? $_GET['end_date'] : $date;
+$searchKey =  isset($_GET['searchKey']) ? $_GET['searchKey'] : "";
+$rate =  isset($_GET['rate']) ? $_GET['rate'] : "";
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +29,6 @@
             font-size: 20px;
         }
         .search button{
-            width: 8%;
             font-size: 25px;
             border-radius: 3px;
             border-color: #cc9900;
@@ -29,12 +36,6 @@
         }
         button {
             background-color: white;
-        }
-        .search_bar input[type=text]{
-            width: 37%;
-        }
-        .search_bar input[type=date]{
-            width: 25%;
         }
 
     </style>
@@ -48,11 +49,12 @@
         <a href="#about">About</a>
     </div>
     <div class="search">
-        <form class="search_bar" action='hotelListPage.php' method='post'>
+        <form class="search_bar" action='hotelListPage.php' method='get'>
             <tr>
-            <td><input type='text' placeholder="Search.." name='searchKey'></td>
-            <td><input type='date' placeholder="Start Date" name='start_date'></td>
-            <td><input type='date' placeholder="End Date" name='end_date'></td>
+            <td><input type='text' placeholder="Search.." name='searchKey' value=<?php echo $searchKey?>></td>
+            <td><input type='number' placeholder="Rate.." name='rate' value=<?php echo $rate?>></td>
+            <td><input type='date' placeholder="Start Date" name='start_date' value=<?php echo $start_date?>></td>
+            <td><input type='date' placeholder="End Date" name='end_date' value=<?php echo $end_date?>></td>
             <button type ='submit' name='Search' value='Search' class="fa fa-search"></button>
             </tr>
         </form>
