@@ -7,7 +7,7 @@ include("../../connection/config.php");
 $id = $_GET["id"];
 $status = $_GET["status"];
 
-$query = "INSERT INTO `guide` (`guide_id`) VALUES ('$id')";
+$query = "INSERT INTO `employee` (`employee_id`) VALUES ('$id')";
 $result = $mysqli->query($query);
 
 
@@ -15,8 +15,8 @@ $result = $mysqli->query($query);
 if (strcmp($status , "Customer") == 0) {
     $query = "DELETE FROM `customer` WHERE `customer`.`customer_id` = $id";
 }
-elseif (strcmp($status, "Employee") == 0) {
-    $query = "DELETE FROM `employee` WHERE `employee`.`employee_id` = $id";
+elseif (strcmp($status, "Guide") == 0) {
+    $query = "DELETE FROM `guide` WHERE `guide`.`guide_id` = $id";
 }
 
 $result = $mysqli->query($query);
@@ -30,3 +30,4 @@ else {
 }
 
 ?>
+

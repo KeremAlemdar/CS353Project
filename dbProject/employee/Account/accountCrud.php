@@ -119,8 +119,11 @@ $(document).ready(function(){
 							<a href=\"./selectAccount.php?id=".$accountID."\" style=\"color: #28A745 \" >
 								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Select\">&#xe5ca;</i>
 							</a>\n
-							<a href=\"./promoteGuide.php?id=".$accountID."\" style=\"color: #28A745 \" >
+							<a href=\"./promoteGuide.php?id=".$accountID."&status=".$status."\" style=\"color: #28A745 \" >
 								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Promote Guide\">&#xe7f0;</i>
+							</a>\n
+							<a href=\"./promoteEmp.php?id=".$accountID."&status=".$status."\" style=\"color: #870071 \" >
+								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Promote Employee\">&#xe7f0;</i>
 							</a>\n
 							</td></tr>");
 							
