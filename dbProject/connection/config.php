@@ -11,7 +11,7 @@ if(!defined('password'))
 $mysqli = new mysqli(host, username, password, databaseName);
 if ($mysqli->connect_errno) {
     echo "MYSQL connection failed";
-
+}
 // if(!defined('host')) 
 //     define('host', 'dijkstra.ug.bcc.bilkent.edu.tr');
 // if(!defined('databaseName')) 
