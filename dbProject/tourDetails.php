@@ -21,15 +21,7 @@ if ($error == "cannotAdd") {
 $tour_id = $_GET["id"];
 $query = "select * from tour where tour_id=$tour_id";
 $result = $mysqli->query($query);
-$query = "select * from tour_activity natural join activity where tour_id=$tour_id";
-$activities = $mysqli->query($query);
 
-$query = "select * from evaluate_tour where tour_id=$tour_id";
-$evaluationExists = true;
-$evaluation = $mysqli->query($query);
-if ($evaluation->num_rows == 0) {
-    $evaluationExists = false;
-}
 #ACTIVITIES
 # activity_id, tour_id, date, content, name, location, price, categories
 ?>
@@ -127,6 +119,7 @@ if ($evaluation->num_rows == 0) {
         .inner_page {
             width: 70%;
         }
+
         .tour_comments {
             display: flex;
             flex-direction: column;
@@ -162,6 +155,16 @@ if ($evaluation->num_rows == 0) {
                     <div class="inside_form">
                         <?php
                         while ($tuple = $result->fetch_array(MYSQLI_NUM)) {
+                            $tour_name = $tuple[5];
+                            $query = "select * from tour_activity natural join activity where tour_id=$tour_id";
+                            $activities = $mysqli->query($query);
+
+                            $query = "select * from evaluate_tour NATURAL JOIN tour where tour_name='$tour_name'";
+                            $evaluationExists = true;
+                            $evaluation = $mysqli->query($query);
+                            if ($evaluation->num_rows == 0) {
+                                $evaluationExists = false;
+                            }
                         ?>
                             <div class='all'>
                                 <div class='tour'>
