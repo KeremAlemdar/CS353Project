@@ -59,7 +59,7 @@ $_SESSION["employee_tour_select_amp"] = 0;
   <html>
 
   <div class="topnav">
-    <a class="active" href="../employeeHome.php">BTS TOUR MANAGEMENT SYSTEM</a>
+    <a class="active" href="./employeeHome.php">BTS TOUR MANAGEMENT SYSTEM</a>
     <a href="./Tour/tourCrud.php">Tours</a>
     <a href="./Activity/activityCrud.php">Activites</a>
     <a href="./TourActivities/tourActivities.php">Pairs</a>
