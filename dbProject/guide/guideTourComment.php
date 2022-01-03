@@ -1,5 +1,7 @@
 <?php
 include("../connection/checkSession.php");
+include("guide_navbar.php");
+
 $guide_id = $_SESSION['user_id'];
 
 $tour_id = $_GET["id"];

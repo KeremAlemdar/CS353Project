@@ -45,7 +45,7 @@ include("./components/navbar.php");
     <div class="types">
         <div class="menuItem">
             <div class="image">
-                <a href='THERE WILL BE PLANE LIST PAGE'>
+                <a href='./ticketListPage.php'>
                     <img src='./img/planes.png' />
                 </a>
             </div>

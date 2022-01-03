@@ -176,7 +176,9 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("account table is deleted!");  
 
-
+            sql = "DROP VIEW IF EXISTS tourReservations";       
+            stmt.executeUpdate(sql);
+            System.out.println("tourReservations table is deleted!");  
 
 
             // create tables
@@ -194,11 +196,12 @@ public class App {
             
             stmt.executeUpdate(sql);
             System.out.println("account table created!");
-
+            
+            
             sql = "CREATE TABLE customer " +
             "(customer_id INT(12), " +
             " PRIMARY KEY ( customer_id ), " +
-            " FOREIGN KEY (customer_id) REFERENCES account(user_id)) " +
+            " FOREIGN KEY (customer_id) REFERENCES account(user_id) ON DELETE CASCADE) " +
             " ENGINE=innodb;";
             
             stmt.executeUpdate(sql);
@@ -207,7 +210,7 @@ public class App {
             sql = "CREATE TABLE Employee " +
             "(employee_id INT(12), " +
             " PRIMARY KEY ( employee_id ), " +
-            " FOREIGN KEY (employee_id) REFERENCES account(user_id)) " +
+            " FOREIGN KEY (employee_id) REFERENCES account(user_id) ON DELETE CASCADE) " +
             " ENGINE=innodb;";
             
             stmt.executeUpdate(sql);
@@ -216,7 +219,7 @@ public class App {
             sql = "CREATE TABLE guide " +
             "(guide_id INT(12), " +
             " PRIMARY KEY ( guide_id ), " +
-            " FOREIGN KEY (guide_id) REFERENCES account(user_id)) " +
+            " FOREIGN KEY (guide_id) REFERENCES account(user_id) ON DELETE CASCADE) " +
             " ENGINE=innodb;";
             
             stmt.executeUpdate(sql);
@@ -250,13 +253,18 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("tour table created!");
 
+            sql = "ALTER TABLE `tour` ADD INDEX( `start_date`, `end_date`)";
+            stmt.executeUpdate(sql);
+            System.out.println("Secondary indices tour table updated!");
+
+
             sql = "CREATE TABLE tour_guide " +
             "(tour_id INT(12), " +
             " guide_id INT(12), " +
             " acceptance_status INT(12), " +
             " reason CHAR(255), " +
-            " FOREIGN KEY (guide_id) REFERENCES guide(guide_id), " +
-            " FOREIGN KEY (tour_id) REFERENCES tour(tour_id), " +
+            " FOREIGN KEY (guide_id) REFERENCES guide(guide_id) ON DELETE CASCADE, " +
+            " FOREIGN KEY (tour_id) REFERENCES tour(tour_id) ON DELETE CASCADE, " +
             " PRIMARY KEY ( tour_id, guide_id ))" +
             " ENGINE=innodb;";
             
@@ -275,8 +283,8 @@ public class App {
             sql = "CREATE TABLE tour_city " +
             "(city_id INT(12), " +
             "tour_id INT(12), " +
-            " FOREIGN KEY (city_id) REFERENCES city(city_id), " +
-            " FOREIGN KEY (tour_id) REFERENCES tour(tour_id), " +
+            " FOREIGN KEY (city_id) REFERENCES city(city_id) ON DELETE CASCADE, " +
+            " FOREIGN KEY (tour_id) REFERENCES tour(tour_id) ON DELETE CASCADE, " +
             " PRIMARY KEY ( city_id, tour_id ))" +
             " ENGINE=innodb;";
             
@@ -288,8 +296,8 @@ public class App {
             " tour_id INT(12), " +
             " date DATE, " +
             " PRIMARY KEY ( activity_id, tour_id ), " +
-            " FOREIGN KEY (activity_id) REFERENCES activity(activity_id), " +
-            " FOREIGN KEY (tour_id) REFERENCES tour(tour_id))" +
+            " FOREIGN KEY (activity_id) REFERENCES activity(activity_id) ON DELETE CASCADE, " +
+            " FOREIGN KEY (tour_id) REFERENCES tour(tour_id) ON DELETE CASCADE)" +
             " ENGINE=innodb;";
             
             stmt.executeUpdate(sql);
@@ -302,8 +310,8 @@ public class App {
             " rate INT(12), " +
             " evaluation VARCHAR(255), " +
             " PRIMARY KEY ( evalutaion_id ), " +
-            " FOREIGN KEY (tour_id) REFERENCES tour(tour_id), " +
-            " FOREIGN KEY (customer_id) REFERENCES customer(customer_id))" +
+            " FOREIGN KEY (tour_id) REFERENCES tour(tour_id) ON DELETE CASCADE, " +
+            " FOREIGN KEY (customer_id) REFERENCES customer(customer_id) ON DELETE CASCADE)" +
             " ENGINE=innodb;";
 
             stmt.executeUpdate(sql);
@@ -316,8 +324,8 @@ public class App {
             " rate INT(12), " +
             " evaluation VARCHAR(255), " +
             " PRIMARY KEY ( evalutaion_id ), " +
-            " FOREIGN KEY (guide_id) REFERENCES guide(guide_id), " +
-            " FOREIGN KEY (customer_id) REFERENCES customer(customer_id))" +
+            " FOREIGN KEY (guide_id) REFERENCES guide(guide_id) ON DELETE CASCADE, " +
+            " FOREIGN KEY (customer_id) REFERENCES customer(customer_id) ON DELETE CASCADE)" +
             " ENGINE=innodb;";
 
             stmt.executeUpdate(sql);
@@ -330,8 +338,8 @@ public class App {
             " rate INT(12), " +
             " evaluation VARCHAR(255), " +
             " PRIMARY KEY ( evalutaion_id ), " +
-            " FOREIGN KEY (guide_id) REFERENCES guide(guide_id), " +
-            " FOREIGN KEY (tour_id) REFERENCES tour(tour_id))" +
+            " FOREIGN KEY (guide_id) REFERENCES guide(guide_id) ON DELETE CASCADE, " +
+            " FOREIGN KEY (tour_id) REFERENCES tour(tour_id) ON DELETE CASCADE)" +
             " ENGINE=innodb;";
 
             stmt.executeUpdate(sql);
@@ -354,8 +362,8 @@ public class App {
             " arrival_airport INT(12), " +
             " cost INT(12), " +
             " PRIMARY KEY ( flight_id ), " +
-            " FOREIGN KEY (departure_airport) REFERENCES Airport(airport_id), " +
-            " FOREIGN KEY (arrival_airport) REFERENCES Airport(airport_id))" +
+            " FOREIGN KEY (departure_airport) REFERENCES Airport(airport_id) ON DELETE CASCADE, " +
+            " FOREIGN KEY (arrival_airport) REFERENCES Airport(airport_id) ON DELETE CASCADE)" +
             " ENGINE=innodb;";
 
             stmt.executeUpdate(sql);
@@ -367,8 +375,8 @@ public class App {
             " flight_id INT(12), " +
             " count INT(12), " +
             " PRIMARY KEY (ticket_id), " +
-            " FOREIGN KEY (flight_id) REFERENCES Flight(flight_id)," +
-            " FOREIGN KEY (customer_id) REFERENCES Customer(customer_id))" +
+            " FOREIGN KEY (flight_id) REFERENCES Flight(flight_id) ON DELETE CASCADE," +
+            " FOREIGN KEY (customer_id) REFERENCES Customer(customer_id) ON DELETE CASCADE)" +
             " ENGINE=innodb;";
 
             stmt.executeUpdate(sql);
@@ -407,7 +415,7 @@ public class App {
             " type varchar(50), " +
             " price FLOAT, " +
             " hotel_id INT(12), " +
-            " FOREIGN KEY (hotel_id) REFERENCES Hotel(hotel_id), " +
+            " FOREIGN KEY (hotel_id) REFERENCES Hotel(hotel_id) ON DELETE CASCADE, " +
             " PRIMARY KEY ( room_id )) " +
             " ENGINE=innodb;";
 
@@ -432,8 +440,8 @@ public class App {
             " start_date DATE, " +
             " end_date DATE, " +
             " PRIMARY KEY ( reservation_id ), " +
-            " FOREIGN KEY (reservation_id) REFERENCES reservation(reservation_id), " +
-            " FOREIGN KEY (hotel_id) REFERENCES Hotel(hotel_id))" +
+            " FOREIGN KEY (reservation_id) REFERENCES reservation(reservation_id) ON DELETE CASCADE, " +
+            " FOREIGN KEY (hotel_id) REFERENCES Hotel(hotel_id) ON DELETE CASCADE)" +
             " ENGINE=innodb;";
 
             stmt.executeUpdate(sql);
@@ -444,8 +452,8 @@ public class App {
             " tour_id INT(12), " +
             " amount_of_people INT(12), " +
             " PRIMARY KEY ( reservation_id ), " +
-            " FOREIGN KEY (reservation_id) REFERENCES reservation(reservation_id), " +
-            " FOREIGN KEY (tour_id) REFERENCES tour(tour_id))" +
+            " FOREIGN KEY (reservation_id) REFERENCES reservation(reservation_id) ON DELETE CASCADE, " +
+            " FOREIGN KEY (tour_id) REFERENCES tour(tour_id) ON DELETE CASCADE)" +
             " ENGINE=innodb;";
 
             stmt.executeUpdate(sql);
@@ -458,9 +466,9 @@ public class App {
             " employee_id INT(12), " +
             " customer_id INT(12), " +
             " PRIMARY KEY ( reservation_id, employee_id, customer_id), " +
-            " FOREIGN KEY (reservation_id) REFERENCES reservation(reservation_id), " +
-            " FOREIGN KEY (employee_id) REFERENCES account(user_id), " +
-            " FOREIGN KEY (customer_id) REFERENCES account(user_id))" +
+            " FOREIGN KEY (reservation_id) REFERENCES reservation(reservation_id) ON DELETE CASCADE, " +
+            " FOREIGN KEY (employee_id) REFERENCES account(user_id) ON DELETE CASCADE, " +
+            " FOREIGN KEY (customer_id) REFERENCES account(user_id) ON DELETE CASCADE)" +
             " ENGINE=innodb;";
 
             stmt.executeUpdate(sql);
@@ -472,8 +480,8 @@ public class App {
             " acceptance_status INT(12), " +
             " reason VARCHAR(255), " +
             " PRIMARY KEY ( reservation_id, customer_id), " +
-            " FOREIGN KEY (reservation_id) REFERENCES reservation(reservation_id), " +
-            " FOREIGN KEY (customer_id) REFERENCES account(user_id))" +
+            " FOREIGN KEY (reservation_id) REFERENCES reservation(reservation_id) ON DELETE CASCADE, " +
+            " FOREIGN KEY (customer_id) REFERENCES account(user_id) ON DELETE CASCADE)" +
             " ENGINE=innodb;";
 
             stmt.executeUpdate(sql);
@@ -486,8 +494,8 @@ public class App {
             " rate INT(12), " +
             " evaluation VARCHAR(255), " +
             " PRIMARY KEY ( evalutaion_id ), " +
-            " FOREIGN KEY (customer_id) REFERENCES customer(customer_id), " +
-            " FOREIGN KEY (hotel_id) REFERENCES Hotel(hotel_id)) " +
+            " FOREIGN KEY (customer_id) REFERENCES customer(customer_id) ON DELETE CASCADE, " +
+            " FOREIGN KEY (hotel_id) REFERENCES Hotel(hotel_id) ON DELETE CASCADE) " +
             " ENGINE=innodb;";
 
             stmt.executeUpdate(sql);
@@ -498,8 +506,8 @@ public class App {
             " tour_id INT(12), " +
             " count INT(12), " +
             " PRIMARY KEY ( user_id, tour_id ), " +
-            " FOREIGN KEY (user_id) REFERENCES account(user_id), " +
-            " FOREIGN KEY (tour_id) REFERENCES tour(tour_id))" +
+            " FOREIGN KEY (user_id) REFERENCES account(user_id) ON DELETE CASCADE, " +
+            " FOREIGN KEY (tour_id) REFERENCES tour(tour_id) ON DELETE CASCADE)" +
             " ENGINE=innodb;";
             
             stmt.executeUpdate(sql);
@@ -511,9 +519,9 @@ public class App {
             " activity_id INT(12), " +
             " count INT(12), " +
             " PRIMARY KEY ( user_id, tour_id, activity_id ), " +
-            " FOREIGN KEY (user_id) REFERENCES account(user_id), " +
-            " FOREIGN KEY (activity_id) REFERENCES activity(activity_id), " +
-            " FOREIGN KEY (tour_id) REFERENCES tour(tour_id))" +
+            " FOREIGN KEY (user_id) REFERENCES account(user_id) ON DELETE CASCADE, " +
+            " FOREIGN KEY (activity_id) REFERENCES activity(activity_id) ON DELETE CASCADE, " +
+            " FOREIGN KEY (tour_id) REFERENCES tour(tour_id) ON DELETE CASCADE)" +
             " ENGINE=innodb;";
             
             stmt.executeUpdate(sql);
@@ -525,9 +533,9 @@ public class App {
             " activity_id INT(12), " +
             " count INT(12), " +
             " PRIMARY KEY ( user_id, tour_id, activity_id ), " +
-            " FOREIGN KEY (user_id) REFERENCES account(user_id), " +
-            " FOREIGN KEY (activity_id) REFERENCES activity(activity_id), " +
-            " FOREIGN KEY (tour_id) REFERENCES tour(tour_id))" +
+            " FOREIGN KEY (user_id) REFERENCES account(user_id) ON DELETE CASCADE, " +
+            " FOREIGN KEY (activity_id) REFERENCES activity(activity_id) ON DELETE CASCADE, " +
+            " FOREIGN KEY (tour_id) REFERENCES tour(tour_id) ON DELETE CASCADE)" +
             " ENGINE=innodb;";
             
             stmt.executeUpdate(sql);
@@ -540,8 +548,8 @@ public class App {
             " start_date DATE, " +
             " end_date DATE, " +
             " PRIMARY KEY ( user_id, hotel_id ), " +
-            " FOREIGN KEY (user_id) REFERENCES account(user_id), " +
-            " FOREIGN KEY (hotel_id) REFERENCES Hotel(hotel_id))" +
+            " FOREIGN KEY (user_id) REFERENCES account(user_id) ON DELETE CASCADE, " +
+            " FOREIGN KEY (hotel_id) REFERENCES Hotel(hotel_id) ON DELETE CASCADE)" +
             " ENGINE=innodb;";
             
             stmt.executeUpdate(sql);
@@ -552,8 +560,8 @@ public class App {
             " flight_id INT(12), " +
             " count INT(12), " +
             " PRIMARY KEY ( user_id, flight_id ), " +
-            " FOREIGN KEY (user_id) REFERENCES account(user_id), " +
-            " FOREIGN KEY (flight_id) REFERENCES Flight(flight_id))" +
+            " FOREIGN KEY (user_id) REFERENCES account(user_id) ON DELETE CASCADE, " +
+            " FOREIGN KEY (flight_id) REFERENCES Flight(flight_id) ON DELETE CASCADE)" +
             " ENGINE=innodb;";
             
             stmt.executeUpdate(sql);
@@ -562,6 +570,11 @@ public class App {
             //Tour(tour_id, start_date, end_date, tour_information)
             //Tour_Activity (activity_id, tour_id, date)
             //Activity (activity_id, content, name, location, price, categories)
+
+            // VIEWS 
+            sql = "CREATE VIEW tourReservations AS SELECT * FROM customer_reserve NATURAL JOIN reservation_tour NATURAL JOIN tour";
+            stmt.executeUpdate(sql);
+            System.out.println("tourReservations View created!");
 
 
             sql = "INSERT INTO account " +
@@ -574,27 +587,30 @@ public class App {
 
             //insert tuples to tour
             sql = "INSERT INTO tour " +
-            "VALUES (null, '2022/01/01', '2022/01/02', 'This tour is in besiktas and MUKEMMEL', 'tour1.jpg', 'France Tour', 100)";
+            "VALUES (null, '2022/01/01', '2022/01/02', 'We will drink tea near blacksea and eat kebap', 'tour1.jpg', 'Blacksea Tour', 100)";
             stmt.executeUpdate(sql);
             sql = "INSERT INTO tour " +
-            "VALUES (null, '2022/02/03', '2022/02/05', 'This tour is in besiktas and MUKEMMEL', 'tour1.jpg', 'France Tour', 150)";
+            "VALUES (null, '2022/02/03', '2022/02/05', 'We will pray to garlic breads and light candles', 'tour1.jpg', 'France Tour', 150)";
             stmt.executeUpdate(sql);
             sql = "INSERT INTO tour " +
-            "VALUES (null, '2022/02/02', '2022/02/03', 'This tour is also MUKEMMEL but in diyarbakir', 'tour2.jpg', 'Loire Valley Tour', 220)";
+            "VALUES (null, '2022/02/02', '2022/02/03', 'Loire Valley will be visited in details with an informative guide', 'tour2.jpg', 'Loire Valley Tour', 220)";
             stmt.executeUpdate(sql);
             sql = "INSERT INTO tour " +
-            "VALUES (null, '2022/02/01', '2022/02/03', 'This tour is in istanbul', 'tour1.jpg', 'Eylül Turu', 320)";
+            "VALUES (null, '2022/02/01', '2022/02/03', 'This tour is in istanbul', 'tour1.jpg', 'Istanbul Tour', 320)";
             stmt.executeUpdate(sql);
             sql = "INSERT INTO tour " +
-            "VALUES (null, '2022/01/05', '2022/01/08', 'This tour is ekmek yeme turu', 'tour2.jpg', 'İsmet Turu', 340)";
+            "VALUES (null, '2022/01/05', '2022/01/08', 'Visiting Ankara castle and Anıtkabir', 'tour2.jpg', 'Ankara Tour', 380)";
+            stmt.executeUpdate(sql); 
+            sql = "INSERT INTO tour " +
+            "VALUES (null, '2021/01/05', '2021/01/08', 'Swimming in Denizli and eating corn', 'tour2.jpg', 'Denizli Tour', 340)";
             stmt.executeUpdate(sql); 
 
             //insert tuples to activity
             sql = "INSERT INTO activity " +
-            "VALUES (null, 'Doga yuruyusu yapılacak, oglene doğru mangal yakılıp sucuk kızartılacak.', 'Doga Yuruyusu', 'Ankara Dagi', 100, 'Doga, Yuruyus, Sucuk, Dag, Ankara', 'activity1.jpg')";
+            "VALUES (null, 'A nature walk will be held, barbecue will be lit and sausage will be fried towards noon.', 'Nature walking', 'Ankara Mountain', 100, 'Nature, Walking, Sausage, Mountain, Ankara', 'activity1.jpg')";
             stmt.executeUpdate(sql);
             sql = "INSERT INTO activity " +
-            "VALUES (null, 'Teleferik ile dağa çıkılıp 30 dakika etraf gezilecek. Kafeler ve yemek yerleri gösterilecek. Sonrasında dağdan aşağıya eğitimli kayak dersimiz olacak.', 'Kayak Turu', 'Erciyes Dağı', 150, 'Kar, Kayak, Dağ, Erciyes', 'activity2.jpg')";
+            "VALUES (null, 'You will go up the mountain with the cable car and go around for 30 minutes. Cafes and places to eat will be shown. Afterwards, we will have an instructional ski lesson down the mountain.', 'Ski Tour', 'Erciyes Mountain', 150, 'Snow, Ski, Mountain, Erciyes', 'activity2.jpg')";
             stmt.executeUpdate(sql);
 
             //insert tuples to tour_activity
@@ -663,35 +679,117 @@ public class App {
             "VALUES ('5', '2', '2')";
             stmt.executeUpdate(sql);
 
+
+            // HOTEL RESERVATIONS
             sql = "INSERT INTO reservation (reservation_id) " +
             "VALUES (null)";
             stmt.executeUpdate(sql);
+            sql = "INSERT INTO reservation (reservation_id) " +
+            "VALUES (null)";
+            stmt.executeUpdate(sql);
+
             sql = "INSERT INTO reservation_hotel (reservation_id, hotel_id, reservation_type, amount_of_people, start_date, end_date)" +
             "VALUES ( '1', '1', 'luxury', '3', '2021/12/25 15:30:00', '2021/12/30 15:30:00' )";
             stmt.executeUpdate(sql);
-            sql = "INSERT INTO customer_reserve (reservation_id, customer_id) " +
-            "VALUES ( '1', '1')";
+
+            sql = "INSERT INTO reservation_hotel (reservation_id, hotel_id, reservation_type, amount_of_people, start_date, end_date)" +
+            "VALUES ( '2', '2', 'luxury', '4', '2022/12/25 15:30:00', '2022/12/30 15:30:00' )";
+            stmt.executeUpdate(sql);
+
+            sql = "INSERT INTO customer_reserve (reservation_id, customer_id, acceptance_status) " +
+            "VALUES ( '1', '1', '1')";
+            stmt.executeUpdate(sql);
+
+            sql = "INSERT INTO customer_reserve (reservation_id, customer_id, acceptance_status) " +
+            "VALUES ( '2', '1', '1')";
             stmt.executeUpdate(sql);
 
             sql = "INSERT INTO reservation (reservation_id) " +
             "VALUES (null)";
             stmt.executeUpdate(sql);
             sql = "INSERT INTO reservation_hotel (reservation_id, hotel_id, reservation_type, amount_of_people, start_date, end_date)" +
-            "VALUES ( '2', '2', 'luxury', '3', '2022/12/25 15:30:00', '2022/12/30 15:30:00' )";
+            "VALUES ( '3', '2', 'luxury', '3', '2022/12/25 15:30:00', '2022/12/30 15:30:00' )";
             stmt.executeUpdate(sql);
-            sql = "INSERT INTO customer_reserve (reservation_id, customer_id) " +
-            "VALUES ( '2', '1')";
+            sql = "INSERT INTO customer_reserve (reservation_id, customer_id, acceptance_status, reason) " +
+            "VALUES ( '3', '1','0','There is no place')";
             stmt.executeUpdate(sql);
 
             sql = "INSERT INTO reservation (reservation_id) " +
             "VALUES (null)";
             stmt.executeUpdate(sql);
             sql = "INSERT INTO reservation_hotel (reservation_id, hotel_id, reservation_type, amount_of_people, start_date, end_date)" +
-            "VALUES ( '3', '3', 'luxury', '3', '2022/12/25 15:30:00', '2022/12/27 15:30:00' )";
+            "VALUES ( '4', '3', 'luxury', '3', '2022/12/25 15:30:00', '2022/12/27 15:30:00' )";
             stmt.executeUpdate(sql);
-            sql = "INSERT INTO customer_reserve (reservation_id, customer_id) " +
-            "VALUES ( '3', '1')";
+            sql = "INSERT INTO customer_reserve (reservation_id, customer_id, acceptance_status) " +
+            "VALUES ( '4', '1', '2')";
             stmt.executeUpdate(sql);
+
+            // TOUR RESERVATIONS
+            sql = "INSERT INTO reservation (reservation_id) " +
+            "VALUES (null)";
+            stmt.executeUpdate(sql);
+
+            sql = "INSERT INTO customer_reserve (reservation_id, customer_id, acceptance_status) " +
+            "VALUES ( '5', '1','2')";
+            stmt.executeUpdate(sql);
+
+            sql = "INSERT INTO reservation_tour (reservation_id, tour_id, amount_of_people) " +
+            "VALUES ( '5', '1','3')";
+            stmt.executeUpdate(sql);
+
+            sql = "INSERT INTO reservation_tour_activity (user_id, tour_id, activity_id, count) " +
+            "VALUES ( '1', '1','1','3')";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO reservation_tour_activity (user_id, tour_id, activity_id, count) " +
+            "VALUES ( '1', '1','2','4')";
+            stmt.executeUpdate(sql);
+
+            // second tour reservation
+            sql = "INSERT INTO reservation (reservation_id) " +
+            "VALUES (null)";
+            stmt.executeUpdate(sql);
+
+            sql = "INSERT INTO customer_reserve (reservation_id, customer_id, acceptance_status) " +
+            "VALUES ( '6', '1','1')";
+            stmt.executeUpdate(sql);
+
+            sql = "INSERT INTO reservation_tour (reservation_id, tour_id, amount_of_people) " +
+            "VALUES ( '6', '2','5')";
+            stmt.executeUpdate(sql);
+
+            sql = "INSERT INTO reservation_tour_activity (user_id, tour_id, activity_id, count) " +
+            "VALUES ( '1', '2','1','3')";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO reservation_tour_activity (user_id, tour_id, activity_id, count) " +
+            "VALUES ( '1', '2','2','4')";
+            stmt.executeUpdate(sql);
+
+            // third tour reservation
+            sql = "INSERT INTO reservation (reservation_id) " +
+            "VALUES (null)";
+            stmt.executeUpdate(sql);
+
+            sql = "INSERT INTO customer_reserve (reservation_id, customer_id, acceptance_status,reason) " +
+            "VALUES ( '7', '1','0','There is no more place in tour.')";
+            stmt.executeUpdate(sql);
+
+            sql = "INSERT INTO reservation_tour (reservation_id, tour_id, amount_of_people) " +
+            "VALUES ( '7', '6','3')";
+            stmt.executeUpdate(sql);
+
+            sql = "INSERT INTO reservation_tour_activity (user_id, tour_id, activity_id, count) " +
+            "VALUES ( '1', '6','1','2')";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO reservation_tour_activity (user_id, tour_id, activity_id, count) " +
+            "VALUES ( '1', '6','2','4')";
+            stmt.executeUpdate(sql);
+
+
+
+
+
+
+
 
             sql = "INSERT INTO hotel_evaluation (evalutaion_id, hotel_id, rate, evaluation)" +
             "VALUES ( null, '1', '5', 'Employees, rooms were really good.' )";

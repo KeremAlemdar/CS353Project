@@ -9,7 +9,7 @@ $result = $mysqli->query($query);
 
 if ($result) {
     echo "Success";
-    header("location: reservationAccept.php");
+    header("location: displayTourRes.php");
 }
 else {
     echo("Error description: " . $mysqli -> error);

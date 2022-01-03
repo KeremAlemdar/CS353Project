@@ -57,6 +57,7 @@ $(document).ready(function(){
 						<th>Name</th>
 						<th>City</th>
 						<th>Details</th>
+						<th>Star</th>
 						<th>Image</th>
 						<th>Actions</th>
 					</tr>

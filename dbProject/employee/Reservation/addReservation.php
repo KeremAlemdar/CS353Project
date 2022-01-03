@@ -46,6 +46,7 @@ if ($customerID == 0) {
         $result = $mysqli->query($sql);
         $row = $result->fetch_assoc();
         $hotelID = $row["hotel_id"];
+        $reservation_type = $row["type"];
 
         if ($tourID == 0) { //TODO dummy data
             $end = "2022-01-01";
@@ -59,7 +60,8 @@ if ($customerID == 0) {
             $start = $row["start_date"];
         }
 
-        $query = "INSERT INTO reservation_hotel (reservation_id,hotel_id,amount_of_people,start_date,end_date) VALUES ($reservation_id,$hotelID,$tourAmp,$start,$end)";
+        $query = "INSERT INTO reservation_hotel (reservation_id,hotel_id,reservation_type,amount_of_people,start_date,end_date) VALUES ($reservation_id,$hotelID,'$reservation_type',$tourAmp,'$start','$end')";
+        echo $query;
         $mysqli->query($query);
     }
 

@@ -30,11 +30,9 @@
 </style>
 <div class="topnav">
     <div class="topnav_elements">
-        <div><a class="active" href="./">Home</a></div>
+        <div><a class="active" href="./mainPage.php">Home</a></div>
         <div><a href="profilePage.php">Profile</a></div>
-        <div><a href="#contact">Contact</a></div>
         <div><a href="ticketListPage.php">Ticket</a></div>
-        <div><a href="#about">About</a></div>
         <div><a href="paymentPage.php">Bucket</a></div>
         <div><a href="notificationsPage.php">Notifications</a></div>
         <div><a href="logout.php">Logout</a></div>

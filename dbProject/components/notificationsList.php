@@ -16,7 +16,6 @@ if ($hotel_id_result->num_rows > 0) {
 
 //TOUR
 $query = "SELECT * FROM customer_reserve NATURAL JOIN reservation_tour NATURAL JOIN tour WHERE customer_id = $user_id AND acceptance_status = 0";
-
 $tours = $mysqli->query($query);
 $tour_empty = false;
 if ($tours->num_rows == 0) {
@@ -160,6 +159,9 @@ if ($tours->num_rows == 0) {
         .number_of_tour .numberOf {
             display: flex;
         }
+        .number_of_tour .reason {
+            display: flex;
+        }
 
         .number_of_tour .price {
             display: flex;
@@ -253,7 +255,7 @@ if ($tours->num_rows == 0) {
                                     echo "<br></br>";
                                     echo $tuple[6], " customers";
                                     echo "<br></br>";
-                                    echo "Reason: ", $tuple[4]; ?>
+                                    echo "Decline reason: ", $tuple[4]; ?>
                                 </h3>
                             </div>
                         </div>
@@ -272,14 +274,11 @@ if ($tours->num_rows == 0) {
                     if ($tour_empty) {
                     ?>
                         <div class="tour_bucket_header">
-                            <h1>Your tour bucket is empty</h1>
+                            <h1>You don't have any declined tour reservation</h1>
                         </div>
                     <?php
                     } else {
                     ?>
-                        <div class="tour_bucket_header">
-                            <h1>Tours in your bucket</h1>
-                        </div>
                         <div class="tour_bucket">
                             <div class="tours">
                                 <?php
@@ -289,12 +288,12 @@ if ($tours->num_rows == 0) {
                                         <div class="tour_all">
                                             <div class="tour_information">
                                                 <h1>
-                                                    <?php echo $tuple[9] ?>
+                                                    <?php echo $tuple[10] ?>
                                                 </h1>
                                             </div>
                                             <div class="tour_img">
                                                 <a href='./tourDetails.php?id=<?php echo $tuple[0] ?>'>
-                                                    <img src='./img/<?php echo $tuple[8] ?>' />
+                                                    <img src='./img/<?php echo $tuple[9] ?>' />
                                                 </a>
                                             </div>
                                             <div class="number_of_tour">
@@ -303,7 +302,7 @@ if ($tours->num_rows == 0) {
                                                         <h2>Price:<h2>
                                                     </div>
                                                     <div>
-                                                        <h2><?php echo $tuple[10] ?></h2>
+                                                        <h2><?php echo $tuple[11] ?></h2>
                                                     </div>
                                                     <div>
                                                         <h2>$<h2>
@@ -311,16 +310,22 @@ if ($tours->num_rows == 0) {
                                                 </div>
                                                 <div class="numberOf">
                                                     <div>
-                                                        <h2><?php echo $tuple[4] ?></h2>
+                                                        <h2><?php echo $tuple[5] ?></h2>
                                                     </div>
                                                     <div>
                                                         <h2><?php echo "&nbsp" ?>customers<h2>
                                                     </div>
                                                 </div>
+                                                <div class="reason">
+                                                    <div>
+                                                        <h2>Decline reason: &nbsp<h2>
+                                                    </div>
+                                                    <div>
+                                                        <h2><?php echo $tuple[4] ?></h2>
+                                                    </div>
+
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="tour_button">
-                                            <input class="input" type="submit" value="Cancel Reservation">
                                         </div>
                                     </div>
 
@@ -334,7 +339,7 @@ if ($tours->num_rows == 0) {
                                         if ($activities->num_rows > 0) {
                                         ?>
                                             <div>
-                                                <h1>Activities in <?php echo $tuple[5] ?>
+                                                <h1>Activities in <?php echo $tuple[10] ?>
                                                 </h1>
                                             </div>
                                         <?php

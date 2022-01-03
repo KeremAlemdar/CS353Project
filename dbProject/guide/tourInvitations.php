@@ -18,6 +18,7 @@
 
   <?php
   include("../connection/checkSession.php");
+  include("guide_navbar.php");
 
   ?>
   <style>
@@ -50,14 +51,6 @@
     }
   </style>
   <html>
-
-  <div class="topnav">
-    <a class="active" href="./guideHome.php">GUIDE HOME</a>
-    <a href="./upcomingTours.php">Upcoming Tours</a>
-    <a href="./tourInvitations.php">Tour Invitations</a>
-    <a href="./previousTours.php">Previous Tours</a>
-
-  </div>
 
 <body>
   <div class="container-xl">
