@@ -1,6 +1,10 @@
 <?php
 include("./connection/checkSession.php");
 
+$date = date("Y/m/d");
+$start_date = isset($_POST['start_date']) ? $_POST['start_date'] : $date;
+$end_date =  isset($_POST['end_date']) ? $_POST['end_date'] : $date;
+
 $previous = $_SESSION['previous'];
 $hotel_id = "";
 $numberOfGuest = "";
@@ -12,8 +16,7 @@ if (isset($_POST['hotel_id'])) {
 $user_id = 1;
 $date = date("Y/m/d");
 
-$query = "INSERT INTO `hotel_bucket` (`user_id`, `hotel_id`, `count`) VALUES ('$user_id','$hotel_id','$numberOfGuest')";
-echo $query;
+$query = "INSERT INTO `hotel_bucket` (`user_id`, `hotel_id`, `count`, `start_date`, `end_date`) VALUES ('$user_id','$hotel_id','$numberOfGuest','$start_date','$end_date')";
 if ($result = $mysqli->query($query)) {
     header("Location: paymentPage.php");
     // echo "added";

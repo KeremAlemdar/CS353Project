@@ -3,6 +3,9 @@ include("./connection/checkSession.php");
 include("./components/navbarHotel.php");
 
 $hotel_id = $_GET["id"];
+$start_date = isset($_GET['start_date']) ? $_GET['start_date'] : $date;
+$end_date =  isset($_GET['end_date']) ? $_GET['end_date'] : $date;
+
 $query = "select * from Hotel where hotel_id=$hotel_id";
 $result = $mysqli->query($query);
 $hotel = $result->fetch_array(MYSQLI_NUM);
@@ -88,7 +91,9 @@ $evaluation = $mysqli->query($query);
                 <input type="number" id="numberOfGuest" name="numberOfGuest" placeholder="Number of guest">
             </div>
             <div>
-                <input type="hidden" id="hotel_id" name="hotel_id" value=<?php echo $hotel_id ?>>
+            <input type="hidden" id="hotel_id" name="hotel_id" value=<?php echo $hotel_id ?>>
+            <input type="hidden" id="start_date" name="start_date" value=<?php echo $start_date ?>>
+            <input type="hidden" id="start_date" name="start_date" value=<?php echo $end_date ?>>
             </div>
             <div>
                 <input class="submit_button" type="submit" value="Add to bucket">

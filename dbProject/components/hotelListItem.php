@@ -1,15 +1,15 @@
 <?php
+$date = date("Y/m/d");
+$start_date = isset($_GET['start_date']) ? $_GET['start_date'] : $date;
+$end_date =  isset($_GET['end_date']) ? $_GET['end_date'] : $date;
+$searchKey =  isset($_GET['searchKey']) ? $_GET['searchKey'] : "";
+$rate =  isset($_GET['rate']) ? $_GET['rate'] : "";
 
-$start_date = isset($_POST['start_date']) ? $_POST['start_date'] : "";
-$end_date =  isset($_POST['end_date']) ? $_POST['end_date'] : "";
-$searchKey =  isset($_POST['searchKey']) ? $_POST['searchKey'] : "";
 $query = "";
-if (empty($start_date) && empty($end_date)) {
-    if (empty($searchKey)) {
-        $query = "select * from Hotel";
-    } else {
-        $query = "select * from Hotel where name LIKE '%" . $searchKey . "%'";
-    }
+if (empty($rate)) {
+    $query = "select * from Hotel where name LIKE '%" . $searchKey . "%' or details LIKE '%" . $searchKey . "%' or city LIKE '%" . $searchKey . "%'";
+} else {
+    $query = "select * from Hotel where star >= $rate AND name LIKE '%" . $searchKey . "%' or details LIKE '%" . $searchKey . "%' or city LIKE '%" . $searchKey . "%'";
 }
 $result = $mysqli->query($query);
 
@@ -76,8 +76,8 @@ $result = $mysqli->query($query);
             ?>
                 <div class="tour">
                     <div class="img">
-                        <a href='./hotelDisplay.php?id=<?php echo $tuple[0] ?>'>
-                            <img src='./img/<?php echo $tuple[5] ?>'  />
+                        <a href='./hotelDisplay.php?id=<?php echo $tuple[0] ?>&start_date=<?php echo $start_date?>&end_date=<?php echo $end_date?>'>
+                            <img src='./img/<?php echo $tuple[5] ?>' />
                         </a>
                     </div>
                     <div class="information">

@@ -9,13 +9,13 @@ $result = $mysqli->query($query);
 $user_info = $result->fetch_array(MYSQLI_NUM);
 
 //HOTEL
-$query = "SELECT * FROM reservation NATURAL JOIN customer_reserve NATURAL JOIN reservation_hotel NATURAL JOIN Hotel WHERE customer_id = 1 AND end_date > '$date'";
+$query = "SELECT * FROM customer_reserve NATURAL JOIN reservation_hotel NATURAL JOIN Hotel WHERE customer_id = 1 AND end_date > '$date'";
 $hotel_id_result = $mysqli->query($query);
 $employee_reserve = false;
 
 // ??????
 if ($hotel_id_result->num_rows == 0) {
-    $query = "SELECT * FROM reservation NATURAL JOIN employee_reserve NATURAL JOIN reservation_hotel NATURAL JOIN Hotel WHERE customer_id = 1 AND end_date > '$date'";
+    $query = "SELECT * FROM employee_reserve NATURAL JOIN reservation_hotel NATURAL JOIN Hotel WHERE customer_id = 1 AND end_date > '$date'";
     $hotel_id_result = $mysqli->query($query);
     if ($hotel_id_result->num_rows > 0) {
         $employee_reserve = true;
@@ -215,23 +215,23 @@ if ($flight_result->num_rows > 0) {
                         <div class="hotel">
                             <div class="hotel_img">
                                 <a href='./hotelDisplay.php?id=<?php echo $tuple[0] ?>'>
-                                    <img src='./img/<?php echo $tuple[11] ?>' />
+                                    <img src='./img/<?php echo $tuple[12] ?>' />
                                 </a>
                             </div>
                             <div class="hotels">
                                 <div>
                                     <h2>
-                                        <?php echo $tuple[7], ",  ",  $tuple[8] ?>
+                                        <?php echo $tuple[8], ",  ",  $tuple[9] ?>
                                     </h2>
                                 </div>
                                 <div>
                                     <h3>
                                         <?php
-                                        echo " First day: ", $tuple[5];
+                                        echo " First day: ", $tuple[6];
                                         echo "<br></br>";
-                                        echo " Last day: ", $tuple[6];
+                                        echo " Last day: ", $tuple[7];
                                         echo "<br></br>";
-                                        echo $tuple[4], " customers"; ?>
+                                        echo $tuple[5], " customers"; ?>
                                     </h3>
                                 </div>
                             </div>
