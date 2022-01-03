@@ -42,23 +42,15 @@ if ($customerID == 0) {
 
     //Insert hotel reservation
     if ($roomID != 0) {
-        $sql = "SELECT * FROM `hotel_room` JOIN hotel WHERE hotel.`hotel_id` = hotel_room.hotel_id AND hotel_room.hotel_id = $roomID";
+
+        $sql = "SELECT * FROM `hotel_room` WHERE `room_id` = " . $_SESSION["employee_room_select"];
         $result = $mysqli->query($sql);
         $row = $result->fetch_assoc();
-        $hotelID = $row["hotel_id"];
-        $reservation_type = $row["type"];
 
-        if ($tourID == 0) { //TODO dummy data
-            $end = "2022-01-01";
-            $start = "2022-01-01";
-        }
-        else{
-            $sql = "SELECT * FROM `tour` WHERE `tour_id` =  $tourID";
-            $result = $mysqli->query($sql);
-            $row = $result->fetch_assoc();
-            $end = $row["end_date"];
-            $start = $row["start_date"];
-        }
+        $reservation_type = $row["type"];
+        $end = $_SESSION["employee_hotel_select_edate"];
+        $start = $_SESSION["employee_hotel_select_sdate"];
+        $hotelID = $_SESSION["employee_hotel_select"] ;
 
         $query = "INSERT INTO reservation_hotel (reservation_id,hotel_id,reservation_type,amount_of_people,start_date,end_date) VALUES ($reservation_id,$hotelID,'$reservation_type',$tourAmp,'$start','$end')";
         echo $query;

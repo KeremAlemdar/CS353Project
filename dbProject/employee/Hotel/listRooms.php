@@ -32,6 +32,13 @@ $(document).ready(function(){
 		var activiyID = $(e.relatedTarget).data('edit-id');
 		$(e.currentTarget).find('input[name="hidden_edit"]').val(activiyID);
 	});
+
+	$('#selectRoomModal').on('show.bs.modal', function(e) {
+		var activiyID = $(e.relatedTarget).data('select-id');
+		$(e.currentTarget).find('input[name="hidden_select"]').val(activiyID);
+	});
+
+	
 });
 
 </script>
@@ -68,28 +75,27 @@ $(document).ready(function(){
 						$sql = "SELECT * FROM `hotel_room` JOIN hotel WHERE hotel.`hotel_id` = $id;";
 						$result = $mysqli->query($sql);
 						while($row = $result->fetch_assoc()){
+
+							$room_id = $row["room_id"];
+							$amp = $row["amount_of_people"];
+							$price = $row["price"];
+							$type = $row["type"];
 							
-							$hotelID = $row["room_id"];
-							$name = $row["amount_of_people"];
-							$city = $row["price"];
-							$details = $row["type"];
-							
-							//Below is not hotel id, its room id. I am lazy
 							echo("
 							<tr>
-							<td>$hotelID</td>\n
-							<td>$name</td>\n
-							<td>$city</td>\n
-							<td>$details</td>\n
+							<td>$room_id</td>\n
+							<td>$amp</td>\n
+							<td>$price</td>\n
+							<td>$type</td>\n
 
 							<td>\n
-							<a href=\"#editRoomModal\" data-edit-id=\"".$hotelID."\" class=\"edit\" data-toggle=\"modal\">
+							<a href=\"#editRoomModal\" data-edit-id=\"".$room_id."\" class=\"edit\" data-toggle=\"modal\">
 								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Edit\">&#xE254;</i>
 							</a>\n
-							<a href=\"#deleteRoomModal\" data-delete-id=\"".$hotelID."\" class=\"delete\" data-toggle=\"modal\">
+							<a href=\"#deleteRoomModal\" data-delete-id=\"".$room_id."\" class=\"delete\" data-toggle=\"modal\">
 								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Delete\">&#xE872;</i>
 							</a>\n
-                            <a href=\"./selectRoom.php?id=".$hotelID."\" style=\"color: #28A745 \" >
+                            <a href=\"#selectRoomModal\" data-select-id=\"".$room_id."\" style=\"color: #28A745 \" data-toggle=\"modal\" >
                                 <i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Select\">&#xe5ca;</i>
                             </a>\n
 							</td></tr>");
@@ -118,10 +124,6 @@ $(document).ready(function(){
 						<input id="amp" name="amp" type="number" class="form-control" required>
 					</div>
 					<div class="form-group">
-						<label>Price</label>
-						<input id="price" name="price" type="number" class="form-control" required>
-					</div>
-					<div class="form-group">
 						<label>Type</label>
 						<textarea id="type" name="type" class="form-control" required></textarea>
 					</div>		
@@ -148,10 +150,6 @@ $(document).ready(function(){
 					<div class="form-group">
 						<label>Amount of People</label>
 						<input id="amp" name="amp" type="number" class="form-control" required>
-					</div>
-					<div class="form-group">
-						<label>Price</label>
-						<input id="price" name="price" type="number" class="form-control" required>
 					</div>
 					<div class="form-group">
 						<label>Type</label>
@@ -190,6 +188,37 @@ $(document).ready(function(){
 		</div>
 	</div>
 </div>
+
+<!-- Edit Modal HTML -->
+<div id="selectRoomModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form action="./selectRoom.php" method="POST"> 
+				<div class="modal-header">						
+					<h4 class="modal-title">Select Reservation Dates</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">					
+					<div class="form-group">
+						<label>Start Date</label>
+						<input id="sdate" name="sdate" type="date" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>End Date</label>
+						<input id="edate" name="edate" type="date"  class="form-control" required></input>
+					</div>		
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    <input type="hidden" name="hidden_hotel_id" value="<?php echo $id;?>">
+					<input type="hidden" name="hidden_select" value="0">
+					<input type="submit" class="btn btn-info" value="Save">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
 
 </body>
 </html>

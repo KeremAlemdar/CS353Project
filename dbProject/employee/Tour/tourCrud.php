@@ -101,7 +101,7 @@ $(document).ready(function(){
 								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Select\">&#xe5ca;</i>
 							</a>\n
 							<a href=\"./tourDisplayComments.php?id=".$tour_id."\" style=\"color: #28A745 \" >
-								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Accept\">&#xe87f;</i>
+								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Feedbacks\">&#xe87f;</i>
 							</a>\n
 							
 							</td></tr>");
