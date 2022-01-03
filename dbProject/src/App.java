@@ -112,6 +112,14 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("Employee table is deleted!"); 
 
+            sql = "DROP TABLE IF EXISTS Customer_Ticket";
+            stmt.executeUpdate(sql);
+            System.out.println("Customer_Ticket table is deleted!");
+
+            sql = "DROP TABLE IF EXISTS Flight_Ticket";
+            stmt.executeUpdate(sql);
+            System.out.println("Flight_Ticket table is deleted!");
+
             sql = "DROP TABLE IF EXISTS guide";
             stmt.executeUpdate(sql);
             System.out.println("guide table is deleted!");
@@ -119,10 +127,6 @@ public class App {
             sql = "DROP TABLE IF EXISTS customer";
             stmt.executeUpdate(sql);
             System.out.println("customer table is deleted!");
-
-            sql = "DROP TABLE IF EXISTS Flight_Ticket";
-            stmt.executeUpdate(sql);
-            System.out.println("Flight_Ticket table is deleted!");
 
             sql = "DROP TABLE IF EXISTS Flight";
             stmt.executeUpdate(sql);
@@ -331,13 +335,27 @@ public class App {
 
             sql = "CREATE TABLE Flight_Ticket " +
             "(ticket_id INT(12) AUTO_INCREMENT, " +
+            " customer_id INT(12), " +
             " flight_id INT(12), " +
+            " count INT(12), " +
             " PRIMARY KEY (ticket_id), " +
-            " FOREIGN KEY (flight_id) REFERENCES Flight(flight_id))" +
+            " FOREIGN KEY (flight_id) REFERENCES Flight(flight_id)," +
+            " FOREIGN KEY (customer_id) REFERENCES Customer(customer_id))" +
             " ENGINE=innodb;";
 
             stmt.executeUpdate(sql);
             System.out.println("Flight_Ticket table created!");
+
+            sql = "CREATE TABLE Customer_Ticket " +
+            "(ticket_id INT(12), " +
+            " customer_id INT(12), " +
+            " PRIMARY KEY (ticket_id, customer_id), " +
+            " FOREIGN KEY (ticket_id) REFERENCES Flight_Ticket(ticket_id)," +
+            " FOREIGN KEY (customer_id) REFERENCES Customer(customer_id))" +
+            " ENGINE=innodb;";
+
+            stmt.executeUpdate(sql);
+            System.out.println("Customer_Ticket table created!");
 
             sql = "CREATE TABLE Hotel " +
             "(hotel_id INT(12) AUTO_INCREMENT, " +
@@ -512,6 +530,10 @@ public class App {
 
             sql = "INSERT INTO account " +
             "VALUES (null, 'kerem', '123', 'kerema', '05409981232', 'Kerem Alemdar')";
+            stmt.executeUpdate(sql); 
+
+            sql = "INSERT INTO customer " +
+            "VALUES ('1')";
             stmt.executeUpdate(sql); 
 
             //insert tuples to tour

@@ -17,7 +17,7 @@ $employee_reserve = false;
 if ($hotel_id_result->num_rows == 0) {
     $query = "SELECT * FROM reservation NATURAL JOIN employee_reserve NATURAL JOIN reservation_hotel NATURAL JOIN Hotel WHERE customer_id = 1 AND end_date > '$date'";
     $hotel_id_result = $mysqli->query($query);
-    if ($hotel_id_result->num_rows > 0){
+    if ($hotel_id_result->num_rows > 0) {
         $employee_reserve = true;
     }
 }
@@ -25,7 +25,6 @@ if ($hotel_id_result->num_rows == 0) {
 $hotel_exists = false;
 if ($hotel_id_result->num_rows > 0) {
     $hotel_exists = true;
-    
 }
 
 //TOUR
@@ -46,11 +45,20 @@ if ($tour_id_result->num_rows > 0) {
 }
 */
 //FLIGHT
+$query = "SELECT * 
+FROM flight_ticket, 
+(SELECT dep.city as dep_city, arr.city as arr_city, departure_time, arrival_time 
+FROM airport AS dep, airport AS arr, flight 
+WHERE flight.departure_airport = dep.airport_id AND flight.arrival_airport = arr.airport_id AND flight.flight_id = 1
+) AS res 
+WHERE flight_ticket.customer_id = 1";
+$flight_result = $mysqli->query($query);
 
+$flight_empty = true;
+if ($flight_result->num_rows > 0) {
+    $flight_empty = false;
+}
 ?>
-
-
-
 
 <!DOCTYPE html>
 <html>
@@ -58,8 +66,6 @@ if ($tour_id_result->num_rows > 0) {
 <head>
 
     <style>
-        
-
         .profile {
             display: flex;
             flex-direction: row;
@@ -82,6 +88,7 @@ if ($tour_id_result->num_rows > 0) {
             display: flex;
             align-items: center;
         }
+
         .past_reservations_button {
             display: flex;
             align-items: center;
@@ -131,9 +138,11 @@ if ($tour_id_result->num_rows > 0) {
             margin-right: 10%;
         }
 
-        
-        
-        .input, .edit, .past_reservations {
+
+
+        .input,
+        .edit,
+        .past_reservations {
             border-radius: 5px;
             box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             padding: 10px 25px;
@@ -141,7 +150,6 @@ if ($tour_id_result->num_rows > 0) {
             align-items: center;
             margin-right: 10%;
         }
-        
     </style>
 
 </head>
@@ -173,14 +181,14 @@ if ($tour_id_result->num_rows > 0) {
             </div>
             <div class="profile_button">
                 <div class="profile_button_inner">
-                <a href="editInformationPage.php">
+                    <a href="editInformationPage.php">
                         <input class="edit" type="submit" value="Edit User Information">
                     </a>
                 </div>
             </div>
             <div class="past_reservations_button">
                 <div class="profile_reservation_inner">
-                
+
                     <a href="pastReservationsPage.php">
                         <input class="past_reservations" type="submit" value="Past Reservations">
                     </a>
@@ -241,11 +249,56 @@ if ($tour_id_result->num_rows > 0) {
             </div>
             <div class="tours" style="background-color:#aaa;">
                 <h2>Tour Reservations</h2>
-                
+
             </div>
             <div class="flights" style="background-color:#aaa;">
-                <h2>Flight Reservations</h2>
-                <p>Selectable rows</p>
+                <h2>Flight Tickets</h2>
+                <?php
+                if ($flight_empty) {
+                ?>
+                    <div class="hotel">
+                        <h3>You have no Ticket</h3>
+                    </div>
+                    <?php
+                } else {
+                    while ($tuple = $flight_result->fetch_array(MYSQLI_NUM)) {
+                    ?>
+                        <form class="form" action='' method="post">
+                            <div>
+                                <input type="hidden" id="ticket_id" name="ticket_id" value=<?php echo $tuple[0] ?>>
+                            </div>
+                            <div class="hotel">
+                                <div class="hotel_img">
+                                    <img style="width: 50px;" src="https://content.r9cdn.net/rimg/provider-logos/airlines/v/PC.png?crop=false&width=108&height=92&fallback=default1.png&_v=e574f35253dcd377492e2002db829c55" alt="asd">
+                                </div>
+                                <div class="hotels">
+                                    <div>
+                                        <h3>
+                                            <?php
+                                            echo " Departure Date: ", $tuple[6];
+                                            echo "<br></br>";
+                                            echo " Departure City: ", $tuple[4];
+                                            echo "<br></br>";
+                                            echo " Arrival Date: ", $tuple[7];
+                                            echo "<br></br>";
+                                            echo " Arrival City: ", $tuple[5];
+                                            echo "<br></br>";
+                                            echo $tuple[3], " customers"; ?>
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="hotel_button">
+                                        <input class="input" type="submit" value="Cancel Reservation">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                <?php
+                    }
+                }
+                ?>
             </div>
         </div>
     </div>

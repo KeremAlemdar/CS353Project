@@ -38,6 +38,8 @@ if (isset($_POST['register'])) {
 	$phonenum = $_POST['pn'];
 	$query = "insert into account values(null, '$username','$pss','$email','$phonenum', '$fname')";
 	if ($result = $mysqli->query($query)) {
+		$user_id = $mysqli->insert_id;
+		$query = "insert into customer values('$user_id')";
 		header("Location: login.php?msg=regdone");
 	} else {
 		// header("Location: login.php?msg=err");
