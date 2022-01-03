@@ -12,14 +12,15 @@ $user_info = $result->fetch_array(MYSQLI_NUM);
 //HOTEL
 $query = "SELECT * FROM customer_reserve NATURAL JOIN reservation_hotel NATURAL JOIN Hotel WHERE customer_id = 1 AND end_date > '$date'";
 $hotel_id_result = $mysqli->query($query);
-$employee_reserve = false;
+$employee_reserve_hotel = false;
+
 
 // ??????
 if ($hotel_id_result->num_rows == 0) {
     $query = "SELECT * FROM employee_reserve NATURAL JOIN reservation_hotel NATURAL JOIN Hotel WHERE customer_id = 1 AND end_date > '$date'";
     $hotel_id_result = $mysqli->query($query);
     if ($hotel_id_result->num_rows > 0) {
-        $employee_reserve = true;
+        $employee_reserve_hotel = true;
     }
 }
 
@@ -276,13 +277,7 @@ if ($flight_result->num_rows > 0) {
                 </h4>
 
             </div>
-            <div class="profile_button">
-                <div class="profile_button_inner">
-                    <a href="editInformationPage.php">
-                        <input class="edit" type="submit" value="Edit User Information">
-                    </a>
-                </div>
-            </div>
+            
             <div class="past_reservations_button">
                 <div class="profile_reservation_inner">
 

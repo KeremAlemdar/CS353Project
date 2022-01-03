@@ -66,6 +66,8 @@ $_SESSION["employee_tour_select_amp"] = 0;
     <a href="./Hotel/hotelCrud.php">Hotel</a>
     <a href="./Account/accountCrud.php">Account</a>
     <a href="./Reservation/MakeReservation.php">Reservation List</a>
+    <a href="./Reservation/reservationAccept.php"> Tour Reservations Acceptance</a>
+    <a href="./Reservation/reservationAcceptHotel.php"> Hotel Reservations Acceptance</a>
   </div>
 
 
@@ -82,7 +84,9 @@ $_SESSION["employee_tour_select_amp"] = 0;
 
   <h1> <a href="./Account/accountCrud.php"> Manage Accounts </a> </h1>
 
-  <h1><a href="./Reservation/reservationAccept.php">Manage Reservations Acceptance</a></h1>
+  <h1><a href="./Reservation/reservationAccept.php">Manage Tour Reservations Acceptance</a></h1>
+
+  <h1><a href="./Reservation/reservationAcceptHotel.php">Manage Hotel Reservations Acceptance</a></h1>
 
 
   </html>
