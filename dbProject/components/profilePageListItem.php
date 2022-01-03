@@ -1,6 +1,7 @@
 <?php
 include("./connection/checkSession.php");
 //$user_id = $_SESSION['user_id'];
+$user_id = 1;
 
 $date = date("Y/m/d");
 //USER
@@ -28,8 +29,8 @@ if ($hotel_id_result->num_rows > 0) {
 }
 
 //TOUR
-$query = "SELECT * FROM reservation NATURAL JOIN customer_reserve NATURAL JOIN reservation_tour NATURAL JOIN tour WHERE customer_id = 1 AND end_date < '$date'";
-
+$query = "SELECT * FROM customer_reserve NATURAL JOIN reservation_tour NATURAL JOIN tour WHERE customer_id = 1 AND end_date > '$date'";
+echo $query;
 $tours = $mysqli->query($query);
 /*
 if ($tour_id_result->num_rows == 0) {
@@ -408,8 +409,10 @@ if ($flight_result->num_rows > 0) {
                                     <div class="activities">
 
                                         <?php
+                                        $tour_id = $tuple[0];
                                         $query = "SELECT `A`.*,`TB`.* FROM `activity` AS `A` , `tour` AS `T` ,`reservation_tour_activity` AS `TB` 
-                    WHERE `TB`.`tour_id` = `T`.`tour_id` AND `TB`.`activity_id` = `A`.`activity_id` AND user_id = 1";
+                    WHERE `TB`.`tour_id` = `T`.`tour_id` AND `TB`.`activity_id` = `A`.`activity_id` AND user_id = $user_id AND tour_id = $tour_id";
+                    echo $query;
                                         $activities = $mysqli->query($query);
                                         if ($activities->num_rows > 0) {
                                         ?>

@@ -77,7 +77,7 @@ while ($tuple = $hotels->fetch_array(MYSQLI_NUM)) {
     $reservation_id = $mysqli->insert_id;
     $hotel_id = $tuple[1];
     $count = $tuple[2];
-    $query = "INSERT INTO customer_reserve (reservation_id,customer_id) VALUES ($reservation_id,$user_id)";
+    $query = "INSERT INTO customer_reserve (reservation_id,customer_id,acceptance_status) VALUES ($reservation_id,$user_id,2)";
     if ($mysqli->query($query)) {
         echo "basarili1";
     } else {
