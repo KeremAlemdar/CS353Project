@@ -62,6 +62,8 @@ include("../connection/checkSession.php");
     <a href="../logout.php">Logout</a>
 
   </div>
+  <!-- Son 4 yılda Ankara yapılan kış dönemindeki otel rezervasyonlarında kazanılan helal para -->
+<!-- SELECT SUM(price * amount_of_people) AS sumtot, * FROM hotel NATURAL JOIN reservation_hotel WHERE hotel_id IN (SELECT hotel_id FROM `reservation_hotel` WHERE `start_date` BETWEEN '2018-01-01' AND '2022-01-02' AND MONTH(`start_date`) NOT BETWEEN 3 AND 11) AND city = 'Ankara' -->
 
 <div class="container-xl">
 	<div class="table-responsive">
