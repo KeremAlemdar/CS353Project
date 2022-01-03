@@ -96,7 +96,7 @@ $(document).ready(function(){
 							<a href=\"#declineReservation\" data-delete-id=\"".$user_id."\"data-reservation-id=\"".$reservation_id."\" class=\"delete\" data-toggle=\"modal\">
 								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Decline\">&#xE872;</i>
 							</a>\n
-							<a href=\"./selectTour.php?id=".$user_id."\" style=\"color: #28A745 \" >
+							<a href=\"./acceptReservation.php?id=".$user_id."&reservation_id=".$reservation_id."\" style=\"color: #28A745 \" >
 								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Accept\">&#xe5ca;</i>
 							</a>\n
 							
