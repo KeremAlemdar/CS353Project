@@ -1,14 +1,17 @@
 <?php
-include('./components/navbar.php');
-include("./connection/checkSession.php");
+include("../connection/checkSession.php");
+// $user_id = $_SESSION['uid'];
+$guide_id = 2; // FOR TEST PURPOSES
 
-$guide_id = 2;
-//$guide_id = $_GET["id"];;
 $tour_id = $_GET["id"];
 //$tour_id = 1;
 $query = "select image, tour_name from tour where tour_id=$tour_id";
+echo $query;
 $result = $mysqli->query($query);
 $tour = $result->fetch_array(MYSQLI_NUM);
+$tour_name = $tour[1];
+$tour_image = $tour[0];
+
 $page_url   = 'http';
 if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
     $page_url .= 's';
@@ -24,6 +27,7 @@ if ($rateId !== "empty") {
 <html>
 
 <head>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <style>
         .all_page {
             display: flex;
@@ -59,9 +63,9 @@ if ($rateId !== "empty") {
     <div class="all_page">
         <div class="evaluated_tour">
 
-            <h1><?php echo $tour[1] ?></h1>
+            <h1><?php echo $tour_name ?></h1>
             <div class="tour_img">
-                <img src='./img/<?php echo $tour[0] ?>' />
+                <img src='../img/<?php echo $tour_image ?>' />
             </div>
 
         </div>
@@ -71,7 +75,6 @@ if ($rateId !== "empty") {
                 <input type="hidden" id="current" name="current" value=<?php echo $current ?>>
                 <input type="hidden" id="rate" name="rate" value=<?php echo $rateId ?>>
                 <input type="hidden" id="tour_id" name="tour_id" value=<?php echo $tour_id ?>>
-                <input type="hidden" id="guide_id" name="guide_id" value=<?php echo $guide_id ?>>
                 <br>
                 <div align-items="center" style="background: #aaa; padding: 10px;">
                     <i class="fa fa-star fa-2x" data-index="0"></i>

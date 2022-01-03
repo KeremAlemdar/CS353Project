@@ -16,7 +16,7 @@
 
 
 
-<?php
+  <?php
   include("../connection/checkSession.php");
 
 
@@ -64,64 +64,65 @@
   </div>
 
   <div class="container-xl">
-	<div class="table-responsive">
-		<div class="table-wrapper">
-			<div class="table-title">
-				<div class="row">
-					<div class="col-sm-6">
-						<h2>Manage <b>Tours</b></h2>
-					</div>
-					
-				</div>
-			</div>
-			<table class="table table-striped table-hover">
-				<thead>
-					<tr>
-						<th>Tour ID</th>
-						<th>Name</th>
-						<th>Information</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Make Comment</th>
-						
-					</tr>
-				</thead>
-				<tbody>
-					
-                        <?php 
-						$date = date("Y/m/d");
-						$sql = "SELECT * FROM `tour` NATURAL JOIN  `tour_guide` WHERE `guide_id`= 2 AND end_date <= '$date' AND `acceptance_status` = 1";
-						$result = $mysqli->query($sql);
-                       
-						while($row = $result->fetch_assoc()){
+    <div class="table-responsive">
+      <div class="table-wrapper">
+        <div class="table-title">
+          <div class="row">
+            <div class="col-sm-6">
+              <h2>Manage <b>Tours</b></h2>
+            </div>
 
-							$tourID = $row["tour_id"];
-							$tour_name = $row["tour_name"];
-							$tour_information = $row["tour_information"];
-                            $start_date = $row["start_date"];
-                            $end_date = $row["end_date"];
-							//$location = $row["location"];
-							//$catagories = $row["categories"];
-							
-							echo("
+          </div>
+        </div>
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>Tour ID</th>
+              <th>Name</th>
+              <th>Information</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Make Comment</th>
+
+            </tr>
+          </thead>
+          <tbody>
+
+            <?php
+            $date = date("Y/m/d");
+            $sql = "SELECT * FROM `tour` NATURAL JOIN  `tour_guide` WHERE `guide_id`= 2 AND end_date <= '$date' AND `acceptance_status` = 1";
+            $result = $mysqli->query($sql);
+
+            while ($row = $result->fetch_assoc()) {
+
+              $tourID = $row["tour_id"];
+              $tour_name = $row["tour_name"];
+              $tour_information = $row["tour_information"];
+              $start_date = $row["start_date"];
+              $end_date = $row["end_date"];
+              //$location = $row["location"];
+              //$catagories = $row["categories"];
+
+              echo ("
 							<tr>
 							<td>$tourID</td>\n
 							<td>$tour_name</td>\n
 							<td>$tour_information</td>\n
                             <td>$start_date</td>\n
                             <td>$end_date</td>\n
+                            <td><a href=\"./guideTourComment.php?id=" . $tourID . "\"\" >Make Comment
+							</a>\n</td>
 							<td>\n
 							</tr>");
-						
-						}
-						
-						?>
-					
-				</tbody>
-			</table>
-		</div>
-	</div>        
-</div>
+            }
+
+            ?>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 
 
   </html>
