@@ -233,43 +233,35 @@ if ($tours->num_rows == 0) {
                 }
                 while ($hotel_exists && $tuple = $hotel_id_result->fetch_array(MYSQLI_NUM)) {
                 ?>
-                    <form class="form" action='deleteHotelReservation.php' method="post">
-                        <div>
-                            <input type="hidden" id="reservation_id" name="reservation_id" value=<?php echo $tuple[1] ?>>
+                    <div class="hotel">
+                        <div class="hotel_img">
+                            <a href='./hotelDisplay.php?id=<?php echo $tuple[0] ?>'>
+                                <img src='./img/<?php echo $tuple[13] ?>' />
+                            </a>
                         </div>
-                        <div class="hotel">
-                            <div class="hotel_img">
-                                <a href='./hotelDisplay.php?id=<?php echo $tuple[0] ?>'>
-                                    <img src='./img/<?php echo $tuple[13] ?>' />
-                                </a>
-                            </div>
-                            <div class="hotels">
-                                <div>
-                                    <h2>
-                                        <?php echo $tuple[8], ",  ",  $tuple[9] ?>
-                                    </h2>
-                                </div>
-                                <div>
-                                    <h3>
-                                        <?php
-                                        echo " First day: ", $tuple[7];
-                                        echo "<br></br>";
-                                        echo " Last day: ", $tuple[8];
-                                        echo "<br></br>";
-                                        echo $tuple[6], " customers";
-                                        echo "<br></br>";
-                                        echo "Reason: ", $tuple[4]; ?>
-                                    </h3>
-                                </div>
+                        <div class="hotels">
+                            <div>
+                                <h2>
+                                    <?php echo $tuple[10], ",  ",  $tuple[9] ?>
+                                </h2>
                             </div>
                             <div>
-                                <div class="hotel_button">
-                                    <input class="input" type="submit" value="Cancel Reservation">
-                                </div>
+                                <h3>
+                                    <?php
+                                    echo " First day: ", $tuple[7];
+                                    echo "<br></br>";
+                                    echo " Last day: ", $tuple[8];
+                                    echo "<br></br>";
+                                    echo $tuple[6], " customers";
+                                    echo "<br></br>";
+                                    echo "Reason: ", $tuple[4]; ?>
+                                </h3>
                             </div>
-
                         </div>
-                    </form>
+                        <div>
+                        </div>
+
+                    </div>
                 <?php
                 }
                 ?>
@@ -294,49 +286,45 @@ if ($tours->num_rows == 0) {
                                 <?php
                                 while ($tuple = $tours->fetch_array(MYSQLI_NUM)) {
                                 ?>
-                                    <form class="form" action='deleteTourFromReservation.php' method="post">
-                                        <input type="hidden" id="tour_id" name="tour_id" value=<?php echo $tuple[0] ?>>
-                                        <input type="hidden" id="reservation_id" name="reservation_id" value=<?php echo $tuple[1] ?>>
-                                        <div class="tour">
-                                            <div class="tour_all">
-                                                <div class="tour_information">
-                                                    <h1>
-                                                        <?php echo $tuple[9] ?>
-                                                    </h1>
-                                                </div>
-                                                <div class="tour_img">
-                                                    <a href='./tourDetails.php?id=<?php echo $tuple[0] ?>'>
-                                                        <img src='./img/<?php echo $tuple[8] ?>' />
-                                                    </a>
-                                                </div>
-                                                <div class="number_of_tour">
-                                                    <div class="price">
-                                                        <div>
-                                                            <h2>Price:<h2>
-                                                        </div>
-                                                        <div>
-                                                            <h2><?php echo $tuple[10] ?></h2>
-                                                        </div>
-                                                        <div>
-                                                            <h2>$<h2>
-                                                        </div>
-                                                    </div>
-                                                    <div class="numberOf">
-                                                        <div>
-                                                            <h2><?php echo $tuple[4] ?></h2>
-                                                        </div>
-                                                        <div>
-                                                            <h2><?php echo "&nbsp" ?>customers<h2>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                    <div class="tour">
+                                        <div class="tour_all">
+                                            <div class="tour_information">
+                                                <h1>
+                                                    <?php echo $tuple[9] ?>
+                                                </h1>
                                             </div>
-                                            <div class="tour_button">
-                                                <input class="input" type="submit" value="Cancel Reservation">
+                                            <div class="tour_img">
+                                                <a href='./tourDetails.php?id=<?php echo $tuple[0] ?>'>
+                                                    <img src='./img/<?php echo $tuple[8] ?>' />
+                                                </a>
+                                            </div>
+                                            <div class="number_of_tour">
+                                                <div class="price">
+                                                    <div>
+                                                        <h2>Price:<h2>
+                                                    </div>
+                                                    <div>
+                                                        <h2><?php echo $tuple[10] ?></h2>
+                                                    </div>
+                                                    <div>
+                                                        <h2>$<h2>
+                                                    </div>
+                                                </div>
+                                                <div class="numberOf">
+                                                    <div>
+                                                        <h2><?php echo $tuple[4] ?></h2>
+                                                    </div>
+                                                    <div>
+                                                        <h2><?php echo "&nbsp" ?>customers<h2>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
+                                        <div class="tour_button">
+                                            <input class="input" type="submit" value="Cancel Reservation">
+                                        </div>
+                                    </div>
 
-                                    </form>
                                     <div class="activities">
 
                                         <?php
@@ -390,9 +378,6 @@ if ($tours->num_rows == 0) {
                                                         <div>
                                                             <p><?php echo $activity_tuple[10] ?></p>
                                                         </div>
-                                                    </div>
-                                                    <div class="activity_button">
-                                                        <input class="input" type="submit" value="Cancel Reservation">
                                                     </div>
                                                 </div>
                                             </form>
