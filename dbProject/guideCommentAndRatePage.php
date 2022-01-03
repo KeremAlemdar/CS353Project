@@ -2,8 +2,8 @@
 include('./components/navbar.php');
 include("./connection/checkSession.php");
 
-//$guide_id = $_GET["id"];
-$guide_id = 1;
+$guide_id = $_GET["id"];
+//$guide_id = 1;
 $query = "select * from account where user_id=$guide_id";
 $result = $mysqli->query($query);
 $guide = $result->fetch_array(MYSQLI_NUM);
