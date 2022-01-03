@@ -39,7 +39,10 @@ if ($tour_id_result->num_rows > 0) {
 
 //GUIDE
 
-$query = "SELECT guide_id, fname, tour_name FROM account NATURAL JOIN guide NATURAL JOIN tour_guide NATURAL JOIN tour NATURAL JOIN reservation_tour NATURAL JOIN customer_reserve WHERE customer_id = 1 AND end_date < '$date' ";
+$query = "SELECT guide_id, fname, tour_name FROM reservation_tour NATURAL JOIN tour NATURAL JOIN tour_guide, account, customer_reserve 
+WHERE tour_guide.acceptance_status = 1 AND account.user_id = tour_guide.guide_id 
+AND customer_reserve.reservation_id = reservation_tour.reservation_id AND customer_reserve.customer_id = 1";
+
 $guide_result = $mysqli->query($query);
 
 $guide_exists = false;
