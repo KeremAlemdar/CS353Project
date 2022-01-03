@@ -13,22 +13,19 @@ $user_info = $result->fetch_array(MYSQLI_NUM);
 $query = "SELECT * FROM customer_reserve NATURAL JOIN reservation_hotel NATURAL JOIN Hotel WHERE customer_id = 1 AND end_date > '$date' AND acceptance_status = 1";
 
 $hotel_id_result = $mysqli->query($query);
-$employee_reserve_hotel = false;
 
-$hotel_empty_employee = false;
 $query = "SELECT * FROM employee_reserve NATURAL JOIN reservation_hotel NATURAL JOIN Hotel WHERE customer_id = 1 AND end_date > '$date'";
 $hotel_id_result_employee = $mysqli->query($query);
-
-if ($hotel_id_result_employee->num_rows == 0) {
-    $hotel_empty_employee = true;
+$hotel_exists = false;
+if ($hotel_id_result_employee->num_rows > 0) {
+    $hotel_exists = true;
 }
-$hotel_empty = false;
-if ($hotel_id_result->num_rows == 0) {
-    $hotel_empty = true;
+if ($hotel_id_result->num_rows > 0) {
+    $hotel_exists = true;
 }
 
 //TOUR
-$query = "SELECT * FROM customer_reserve NATURAL JOIN reservation_tour NATURAL JOIN tour WHERE customer_id = 1 AND end_date > '$date' AND acceptance_status = 1";
+$query = "SELECT * FROM customer_reserve NATURAL JOIN reservation_tour NATURAL JOIN tour WHERE customer_id = 1 AND end_date > '$date'";
 $tours = $mysqli->query($query);
 
 $tour_empty = false;
@@ -38,10 +35,8 @@ if ($tours->num_rows == 0) {
 
 $query = "SELECT * FROM employee_reserve NATURAL JOIN reservation_tour NATURAL JOIN tour WHERE customer_id = 1 AND end_date > '$date'";
 $tours_employee = $mysqli->query($query);
-
-$tour_empty_employee = false;
 if ($tours_employee->num_rows == 0) {
-    $tour_empty_employee = true;
+    $tour_empty = true;
 }
 
 
@@ -366,6 +361,47 @@ if ($flight_result->num_rows > 0) {
                                         echo " Last day: ", $tuple[8];
                                         echo "<br></br>";
                                         echo $tuple[6], " customers"; ?>
+                                    </h3>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="hotel_button">
+                                    <input class="input" type="submit" value="Cancel Reservation">
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                <?php
+                }
+                ?>
+                <?php
+                while ($hotel_exists && $tuple = $hotel_id_result_employee->fetch_array(MYSQLI_NUM)) {
+                ?>
+                    <form class="form" action='deleteHotelReservation.php' method="post">
+                        <div>
+                            <input type="hidden" id="reservation_id" name="reservation_id" value=<?php echo $tuple[1] ?>>
+                        </div>
+                        <div class="hotel">
+                            <div class="hotel_img">
+                                <a href='./hotelDisplay.php?id=<?php echo $tuple[0] ?>'>
+                                    <img src='./img/<?php echo $tuple[12] ?>' />
+                                </a>
+                            </div>
+                            <div class="hotels">
+                                <div>
+                                    <h2>
+                                        <?php echo $tuple[8], ",  ",  $tuple[9] ?>
+                                    </h2>
+                                </div>
+                                <div>
+                                    <h3>
+                                        <?php
+                                        echo " First day: ", $tuple[6];
+                                        echo "<br></br>";
+                                        echo " Last day: ", $tuple[7];
+                                        echo "<br></br>";
+                                        echo $tuple[5], " customers"; ?>
                                     </h3>
                                 </div>
                             </div>

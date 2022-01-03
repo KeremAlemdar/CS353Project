@@ -96,7 +96,7 @@ $(document).ready(function(){
 							<a href=\"#declineReservation\" data-delete-id=\"".$user_id."\"data-reservation-id=\"".$reservation_id."\" class=\"delete\" data-toggle=\"modal\">
 								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Decline\">&#xE872;</i>
 							</a>\n
-							<a href=\"./acceptReservationHotel.php?id=".$user_id."&reservation_id=".$reservation_id."\" style=\"color: #28A745 \" >
+							<a href=\"./acceptReservation.php?id=".$user_id."&reservation_id=".$reservation_id."\" style=\"color: #28A745 \" >
 								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Accept\">&#xe5ca;</i>
 							</a>\n
 							
@@ -152,7 +152,7 @@ $(document).ready(function(){
 <div id="declineReservation" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form action="./declineReservationHotel.php" method="POST">
+			<form action="./declineReservation.php" method="POST">
 				<div class="modal-header">						
 					<h4 class="modal-title">Decline Reservation</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>

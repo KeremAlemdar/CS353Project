@@ -12,37 +12,39 @@ $user_info = $result->fetch_array(MYSQLI_NUM);
 
 //HOTEL
 $date = date("Y/m/d");
-$query = "SELECT * FROM reservation NATURAL JOIN customer_reserve NATURAL JOIN reservation_hotel NATURAL JOIN Hotel WHERE customer_id = 1 AND end_date < '$date' AND acceptance_status = 1";
+$query = "SELECT * FROM  customer_reserve NATURAL JOIN reservation_hotel NATURAL JOIN Hotel WHERE customer_id = 1 AND end_date < '$date'";
 $hotel_id_result = $mysqli->query($query);
+$employee_reserve_hotel = false;
 
-$hotel_empty = false;
-if ($hotel_id_result->num_rows == 0) {
-    $$hotel_empty = true;
-}
+ if ($hotel_id_result->num_rows == 0) {
+    $query = "SELECT * FROM employee_reserve NATURAL JOIN reservation_hotel NATURAL JOIN Hotel WHERE customer_id = 1 AND end_date < '$date'";
+    $hotel_id_result = $mysqli->query($query);
+    if ($hotel_id_result->num_rows > 0) {
+        $employee_reserve_hotel = true;
+    }
+ }
 
-$query = "SELECT * FROM reservation NATURAL JOIN employee_reserve NATURAL JOIN reservation_hotel NATURAL JOIN Hotel WHERE customer_id = 1 AND end_date < '$date'";
-$hotel_id_result_employee = $mysqli->query($query);
-$hotel_empty_employee = false;
-if ($hotel_id_result_employee->num_rows > 0) {
-    $hotel_empty_employee = true;
+$hotel_exists = false;
+if ($hotel_id_result->num_rows > 0) {
+    $hotel_exists = true;
 }
 
 //TOUR
 
 $query = "SELECT * FROM reservation NATURAL JOIN customer_reserve NATURAL JOIN reservation_tour NATURAL JOIN tour WHERE customer_id = 1 AND end_date < '$date' AND acceptance_status = 1";
 $tour_id_result = $mysqli->query($query);
+$employee_reserve_tour = false;
 
-$tour_empty = false;
 if ($tour_id_result->num_rows == 0) {
-    $tour_empty = true;
+    $query = "SELECT * FROM reservation NATURAL JOIN employee_reserve NATURAL JOIN reservation_tour NATURAL JOIN tour WHERE customer_id = 1 AND end_date < '$date'";
+    $tour_id_result = $mysqli->query($query);
+    if ($tour_id_result->num_rows > 0) {
+        $employee_reserve_tour = true;
+    }
 }
-
-$query = "SELECT * FROM reservation NATURAL JOIN employee_reserve NATURAL JOIN reservation_tour NATURAL JOIN tour WHERE customer_id = 1 AND end_date < '$date'";
-$tour_id_result_employee = $mysqli->query($query);
-
-$tour_empty_employee = false;
-if ($tour_id_result_employee->num_rows == 0) {
-    $tour_empty_employee = true;
+$tour_exists = false;
+if ($tour_id_result->num_rows > 0) {
+    $tour_exists = true;
 }
 
 //GUIDE
