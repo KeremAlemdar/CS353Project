@@ -504,6 +504,8 @@ public class App {
             "(user_id INT(12), " +
             " hotel_id INT(12), " +
             " count INT(12), " +
+            " start_date DATE, " +
+            " end_date DATE, " +
             " PRIMARY KEY ( user_id, hotel_id ), " +
             " FOREIGN KEY (user_id) REFERENCES account(user_id), " +
             " FOREIGN KEY (hotel_id) REFERENCES Hotel(hotel_id))" +

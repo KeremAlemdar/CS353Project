@@ -1,9 +1,6 @@
 <?php
 include("./components/navbar.php");
 include("./connection/checkSession.php");
-$date = date("Y/m/d");
-$start_date = isset($_GET['start_date']) ? $_GET['start_date'] : $date;
-$end_date =  isset($_GET['end_date']) ? $_GET['end_date'] : $date;
 
 $user_id =  isset($_SESSION['user_id']) ? $_SESSION['user_id'] : "";
 $error =  isset($_GET['error']) ? $_GET['error'] : "";
@@ -262,7 +259,13 @@ if ($flights->num_rows == 0) {
             font-size: 28px;
             font-weight: bold;
         }
+        .start_date {
+            display: flex;
+        }
 
+        .end_date {
+            display: flex;
+        }
         .close:hover,
         .close:focus {
             color: #000;
@@ -355,6 +358,25 @@ if ($flights->num_rows == 0) {
                                                         <div>
                                                             <h2><?php echo $tuple[9] ?></h2>
                                                         </div>
+                                                    </div>
+                                                    <div class="date">
+                                                        <div class="start_date">
+                                                            <div>
+                                                                <h2>Start date:<h2>
+                                                            </div>
+                                                            <div>
+                                                                <h2><?php echo $tuple[10] ?></h2>
+                                                            </div>
+                                                        </div>
+                                                        <div class="end_date">
+                                                            <div>
+                                                                <h2>End date:<h2>
+                                                            </div>
+                                                            <div>
+                                                                <h2><?php echo $tuple[11] ?></h2>
+                                                            </div>
+                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </div>
