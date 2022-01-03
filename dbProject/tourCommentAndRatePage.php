@@ -2,8 +2,8 @@
 include('./components/navbar.php');
 include("./connection/checkSession.php");
 
-//$tour_id = $_GET["id"];
-$tour_id = 1;
+$tour_id = $_GET["id"];
+//$tour_id = 1;
 $query = "select image, tour_name from tour where tour_id=$tour_id";
 $result = $mysqli->query($query);
 $tour = $result->fetch_array(MYSQLI_NUM);
