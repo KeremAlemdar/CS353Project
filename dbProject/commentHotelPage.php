@@ -14,15 +14,29 @@ else {
     echo "basarisiz";
 }
 
-$query = "SELECT people_rated, total_rate FROM Hotel WHERE hotel_id = '$hotelId'";
-$result = $mysqli->query($query);
-$hotel_result = $result->fetch_assoc();
-$people_rated = $hotel_result[0];
-$total_rate = $hotel_result[1];
+$query = "UPDATE `Hotel` SET people_rated = people_rated+1 WHERE `hotel_id` = $hotelId";
+echo $query;
+if($mysqli->query($query)){
+    //header("Location: hotelDisplay.php?id=$hotelId");
+    echo "basarili";
+}
+else {
+}
 
-echo $people_rated;
-echo $total_rate;
-echo "<br></br>";
-echo $evaluation;
+$query = "UPDATE `Hotel` SET total_rate = total_rate+$rate WHERE `hotel_id` = $hotelId";
+if($mysqli->query($query)){
+    header("Location: hotelDisplay.php?id=$hotelId");
+    echo "basarili";
+}
+else {
+}
 
-?>
+// $result = $mysqli->query($query);
+// $hotel_result = $result->fetch_array(MYSQLI_NUM);
+// $people_rated = $hotel_result[0];
+// $total_rate = $hotel_result[1];
+
+// echo $people_rated;
+// echo $total_rate;
+// echo "<br></br>";
+// echo $evaluation;
