@@ -82,7 +82,6 @@
 						<th>Information</th>
                         <th>Start Date</th>
                         <th>End Date</th>
-                        <th>Accept/Decline</th>
 						
 					</tr>
 				</thead>
