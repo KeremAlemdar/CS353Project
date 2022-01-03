@@ -52,6 +52,10 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("tour_activity table is deleted!");
 
+            sql = "DROP TABLE IF EXISTS evaluate_guide";
+            stmt.executeUpdate(sql);
+            System.out.println("evaluate_guide table is deleted!");
+
             sql = "DROP TABLE IF EXISTS evaluate_tour";
             stmt.executeUpdate(sql);
             System.out.println("evaluate_tour table is deleted!");
@@ -271,6 +275,20 @@ public class App {
 
             stmt.executeUpdate(sql);
             System.out.println("evaluate_tour table created!");
+
+            sql = "CREATE TABLE evaluate_guide " +
+            "(evalutaion_id INT(12) AUTO_INCREMENT, " + 
+            " guide_id INT(12), " +
+            " customer_id INT(12), " +
+            " rate INT(12), " +
+            " evaluation VARCHAR(255), " +
+            " PRIMARY KEY ( evalutaion_id ), " +
+            " FOREIGN KEY (guide_id) REFERENCES guide(guide_id), " +
+            " FOREIGN KEY (customer_id) REFERENCES customer(customer_id))" +
+            " ENGINE=innodb;";
+
+            stmt.executeUpdate(sql);
+            System.out.println("evaluate_guide table created!");
 
             sql = "CREATE TABLE Airport " +
             "(airport_id INT(12) AUTO_INCREMENT, " +

@@ -11,11 +11,17 @@ $user_info = $result->fetch_array(MYSQLI_NUM);
 //HOTEL
 $query = "SELECT * FROM reservation NATURAL JOIN customer_reserve NATURAL JOIN reservation_hotel NATURAL JOIN Hotel WHERE customer_id = 1 AND end_date > '$date'";
 $hotel_id_result = $mysqli->query($query);
+$employee_reserve = false;
 
+// ??????
 if ($hotel_id_result->num_rows == 0) {
-    $query = "SELECT hotel_id, start_date, end_date, amount_of_people, reservation_id FROM reservation NATURAL JOIN reservation_hotel NATURAL JOIN employee_reserve WHERE customer_id = " . 1 . "";
+    $query = "SELECT * FROM reservation NATURAL JOIN employee_reserve NATURAL JOIN reservation_hotel NATURAL JOIN Hotel WHERE customer_id = 1 AND end_date > '$date'";
     $hotel_id_result = $mysqli->query($query);
+    if ($hotel_id_result->num_rows > 0){
+        $employee_reserve = true;
+    }
 }
+
 $hotel_exists = false;
 if ($hotel_id_result->num_rows > 0) {
     $hotel_exists = true;
@@ -23,7 +29,7 @@ if ($hotel_id_result->num_rows > 0) {
 }
 
 //TOUR
-
+/*
 $query = "SELECT tour_id, start_date, end_date, tour_information, image, tour_name, reservation_id FROM reservation NATURAL JOIN reservation_tour NATURAL JOIN customer_reserve WHERE customer_id = " . 1 . "";
 $tour_id_result = $mysqli->query($query);
 
@@ -38,7 +44,7 @@ if ($tour_id_result->num_rows > 0) {
     $query = "SELECT * from tour WHERE tour_id = " . $tour_id[0] . "";
     $tour_info = $mysqli->query($query);
 }
-
+*/
 //FLIGHT
 
 ?>
