@@ -12,8 +12,19 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="./crud.css">
+
+
+
 <?php
 include("../connection/checkSession.php");
+
+$_SESSION["employee_activity_select_array"] = array();
+$_SESSION["employee_room_select"] = 0;
+$_SESSION["employee_account_select"] = 0;
+$_SESSION["employee_tour_select"] = 0;
+
+
+
 ?>
 <style>
     /* Add a black background color to the top navigation */
@@ -52,6 +63,7 @@ include("../connection/checkSession.php");
   <a href="./Activity/activityCrud.php">Activites</a>
   <a href="./TourActivities/tourActivities.php">Pairs</a>
   <a href="./Hotel/hotelCrud.php">Hotel</a>
+  <a href="./Account/accountCrud.php">Account</a>
   <a href="./Reservation/MakeReservation.php">Reservation List</a>
 </div>
 
@@ -67,6 +79,6 @@ include("../connection/checkSession.php");
 
 <h1> <a href="./Reservation/MakeReservation.php"> Make Reservation </a> </h1>
 
-
+<h1> <a href="./Account/accountCrud.php"> Manage Accounts </a> </h1>
 
 </html>

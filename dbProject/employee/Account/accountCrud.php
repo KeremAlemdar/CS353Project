@@ -45,20 +45,17 @@ $(document).ready(function(){
 					<div class="col-sm-6">
 						<h2>Manage <b>Accounts</b></h2>
 					</div>
-					<div class="col-sm-6">
-						<a href="#addAccountModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Account</span></a>
-					</div>
+
 				</div>
 			</div>
 			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
 						<th>Account ID</th>
-						<th>Name</th>
-						<th>Content</th>
-						<th>Price</th>
-						<th>Location</th>
-						<th>Catagories</th>
+						<th>Username</th>
+						<th>Email</th>
+						<th>Phone</th>
+						<th>Full Name</th>
 						<th>Actions</th>
 					</tr>
 				</thead>
@@ -66,34 +63,38 @@ $(document).ready(function(){
 					
                         <?php 
 						
-						$sql = "SELECT * FROM `account` ORDER BY `account_id`  ASC;";
+						$sql = "SELECT * FROM `account` ORDER BY `account`.`user_id` ASC;";
 						$result = $mysqli->query($sql);
 					
 						while($row = $result->fetch_assoc()){
 
-							$accountID = $row["account_id"];
-							$name = $row["name"];
-							$content = $row["content"];
-							$location = $row["location"];
-							$price = $row["price"];
-							$catagories = $row["categories"];
+							$accountID = $row["user_id"];
+							$username = $row["username"];
+							$email = $row["email"];
+							$phone_num = $row["phone_num"];
+							$fname = $row["fname"];
+
 							
 							echo("
 							<tr>
 							<td>$accountID</td>\n
-							<td>$name</td>\n
-							<td>$content</td>\n
-							<td>$price</td>\n
-							<td>$location</td>\n
-							<td>$catagories</td>\n
+							<td>$username</td>\n
+							<td>$email</td>\n
+							<td>$phone_num</td>\n
+							<td>$fname</td>\n
 							<td>\n
 							<a href=\"#editAccountModal\" data-edit-id=\"".$accountID."\" class=\"edit\" data-toggle=\"modal\">
 								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Edit\">&#xE254;</i>
 							</a>\n
 							<a href=\"#deleteAccountModal\" data-delete-id=\"".$accountID."\" class=\"delete\" data-toggle=\"modal\">
 								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Delete\">&#xE872;</i>
-							</a>\n</td></tr>");
-						
+							</a>\n
+							<a href=\"./selectAccount.php?id=".$accountID."\" style=\"color: #28A745 \" >
+								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Select\">&#xe5ca;</i>
+							</a>\n
+							
+							</td></tr>");
+							
 						}
 						
 						?>
@@ -103,45 +104,7 @@ $(document).ready(function(){
 		</div>
 	</div>        
 </div>
-<!-- Add Modal HTML -->
-<div id="addAccountModal" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<form action="./createAccount.php" method="POST">
-				<div class="modal-header">						
-					<h4 class="modal-title">Add Account</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				</div>
-				<div class="modal-body">					
-					<div class="form-group">
-						<label>Name</label>
-						<input id="account_name" name="account_name" type="text" class="form-control" required>
-					</div>
-					<div class="form-group">
-						<label>Content</label>
-						<input id="account_con" name="account_con" type="text" class="form-control" required>
-					</div>
-					<div class="form-group">
-						<label>Location</label>
-						<textarea id="account_loc" name="account_loc" class="form-control" required></textarea>
-					</div>
-					<div class="form-group">
-						<label>Price</label>
-						<textarea id="account_price" name="account_price" class="form-control" required></textarea>
-					</div>
-					<div class="form-group">
-						<label>Catagories</label>
-						<input id="account_cat" name="account_cat" type="text" class="form-control" required>
-					</div>					
-				</div>
-				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-success" value="Add">
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
+
 <!-- Edit Modal HTML -->
 <div id="editAccountModal" class="modal fade">
 	<div class="modal-dialog">

@@ -50,15 +50,105 @@ $(document).ready(function(){
 				</div>
 			</div>
 			<table class="table table-striped table-hover">
-				
 				<tbody>
-					<tr> <td> Customer:     </td> <td> Name: asdad  </td> <td> Phone: asdas     </td></tr>
-                    <tr> <td> Hotel : Lmao  </td> <td> Room : Lmao  </td> <td> Price : Lmao     </td></tr>
-                    <tr> <td> Activities: Lasdfghjgfdg </td></tr>
-                    
-                        
+
+				<?php 
+				//Get customer info
+				$customerID = $_SESSION["employee_account_select"];
+				if($customerID != 0){
+					$sql = "SELECT * FROM `account` WHERE `account`.`user_id` = $customerID";
+					$result = $mysqli->query($sql);
+					$row = $result->fetch_assoc();
+					$customerName = $row["fname"];
+					$customerPhone = $row["phone_num"];
+					
+					echo "	<tr> 
+								<td> CustomerID: $customerID    </td> 
+								<td> Name: 		 $customerName  </td> 
+								<td> Phone: 	 $customerPhone </td>
+							</tr>";
+
+				}
+				else {
+					echo "<tr> <td>Customer is not set </td> </tr>";
+				}
+				//Get hotel info
+
+				$roomID = $_SESSION["employee_room_select"];
+
+				if ($roomID != 0) {
+					$sql = "SELECT * FROM `hotel_room` NATURAL JOIN hotel WHERE hotel_room.room_id = $roomID";
+					$result = $mysqli->query($sql);
+					$row = $result->fetch_assoc();
+					$hotelID = $row["hotel_id"];
+					$hotelName = $row["name"];
+					$roomPrice = $row["price"];
+					$roomType = $row["type"];
+
+					echo 
+						"<tr> 
+							<td> HotelID :   $hotelID  </td> 
+							<td> HotelName :$hotelName </td>
+							<td> Room Type : $roomType 	</td>
+							<td> Price : 	$roomPrice </td>
+						</tr>";
+				}else {
+					echo "<tr> <td>Hotel is not set </td> </tr>";
+				}
+
+
+				//Get tour info 
+				$tourID = $_SESSION["employee_tour_select"];
+				if ($tourID != 0) {
+					$sql = "SELECT * FROM `tour` WHERE tour.tour_id = $tourID";
+					$result = $mysqli->query($sql);
+					$row = $result->fetch_assoc();
+					$tourName = $row["tour_name"];
+					$tourPrice = $row["cost"];
+
+					echo "	<tr> 
+								<td> Tour ID:  $tourID   </td>  
+								<td> Tour Name: $tourName   </td>  
+								<td> Price :  $tourPrice  </td>
+							</tr>";
+				}else {
+					echo "<tr> <td>Tour is not set </td> </tr>";
+				}
+
+				//Get Activity info
+				$activity_arr = $_SESSION["employee_activity_select_array"];
+
+				if (count($activity_arr) != 0) {
+					
+					foreach ($activity_arr as $activityID){
+						
+						$sql = "SELECT * FROM `activity` WHERE activity.activity_id = $activityID";
+						$result = $mysqli->query($sql);
+						$row = $result->fetch_assoc();
+						$actvityName = $row["name"];
+						$activtyPrice = $row["price"];
+						
+						echo "	
+						<tr> 
+							<td> Activity ID:  $activityID </td>  
+							<td> Activity Name: $actvityName   </td>  
+							<td> Price :  $activtyPrice  </td>
+						</tr>";
+					}
+				}
+				else {
+					echo "<tr> <td>Activities not set.  </td> </tr>";
+				}
+
+				?>
+
 				</tbody>
 			</table>
+			<form action="./addReservation.php" method="POST"> 
+		
+				<input type="submit" class="btn btn-info" value="Confirm">
+
+			</form>
 		</div>
 	</div>        
 </div>

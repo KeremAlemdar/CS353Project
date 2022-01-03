@@ -10,8 +10,9 @@ $tsta = $_POST["tour_sta"];
 $std_date=date("Y-m-d H:i:s",strtotime($tsta));
 $tend = $_POST["tour_end"];
 $end_date=date("Y-m-d H:i:s",strtotime($tsta));
+$cost = $_POST["cost"];
 
-$query =  "INSERT INTO `tour` (`tour_id`, `start_date`, `end_date`, `tour_information`, `image`, `tour_name`) VALUES (NULL, '$std_date', '$end_date', '$tinf', NULL, '$tname')";
+$query =  "INSERT INTO `tour` (`tour_id`, `start_date`, `end_date`, `tour_information`, `image`, `tour_name`, `cost`) VALUES (NULL, '$std_date', '$end_date', '$tinf', NULL, '$tname', '$cost')";
 $result = $mysqli->query($query);
 
 if ($result) {

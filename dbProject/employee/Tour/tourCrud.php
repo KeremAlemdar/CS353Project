@@ -57,6 +57,7 @@ $(document).ready(function(){
 						<th>Tour ID</th>
 						<th>Name</th>
 						<th>Information</th>
+						<th>Cost</th>
 						<th>Start Date</th>
 						<th>End Date</th>
 						<th>Actions</th>
@@ -75,12 +76,13 @@ $(document).ready(function(){
 							$tour_information = $row["tour_information"];
 							$start_Date = $row["start_date"];
 							$end_date = $row["end_date"];
-							
+							$cost = $row["cost"];
 							echo("
 							<tr>
 							<td>$tour_id</td>\n
 							<td>$name</td>\n
 							<td>$tour_information</td>\n
+							<td>$cost</td>\n
 							<td>$start_Date</td>\n
 							<td>$end_date</td>\n
 							<td>\n
@@ -89,7 +91,12 @@ $(document).ready(function(){
 							</a>\n
 							<a href=\"#deleteTourModal\" data-delete-id=\"".$tour_id."\" class=\"delete\" data-toggle=\"modal\">
 								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Delete\">&#xE872;</i>
-							</a>\n</td></tr>");
+							</a>\n
+							<a href=\"./selectTour.php?id=".$tour_id."\" style=\"color: #28A745 \" >
+								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"List\">&#xe5ca;</i>
+							</a>\n
+							
+							</td></tr>");
 						
 						}
 						?>
@@ -115,6 +122,10 @@ $(document).ready(function(){
 					<div class="form-group">
 						<label>Info</label>
 						<input id="tour_inf" name="tour_inf" type="text" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Cost</label>
+						<input id="cost" name="cost" type="number" class="form-control" required>
 					</div>
 					<div class="form-group">
 						<label>Start Date</label>
@@ -150,6 +161,10 @@ $(document).ready(function(){
 					<div class="form-group">
 						<label>Info</label>
 						<input id="tour_inf" name="tour_inf" type="text" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Cost</label>
+						<input id="cost" name="cost" type="number" class="form-control" required>
 					</div>
 					<div class="form-group">
 						<label>Start Date</label>

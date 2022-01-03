@@ -75,7 +75,7 @@ $(document).ready(function(){
 							$city = $row["price"];
 							$details = $row["type"];
 							
-							
+							//Below is not hotel id, its room id. I am lazy
 							echo("
 							<tr>
 							<td>$hotelID</td>\n
@@ -90,7 +90,9 @@ $(document).ready(function(){
 							<a href=\"#deleteRoomModal\" data-delete-id=\"".$hotelID."\" class=\"delete\" data-toggle=\"modal\">
 								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Delete\">&#xE872;</i>
 							</a>\n
-
+                            <a href=\"./selectRoom.php?id=".$hotelID."\" style=\"color: #28A745 \" >
+                                <i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Select\">&#xe5ca;</i>
+                            </a>\n
 							</td></tr>");
 						
 						}

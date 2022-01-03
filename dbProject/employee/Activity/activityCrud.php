@@ -92,7 +92,11 @@ $(document).ready(function(){
 							</a>\n
 							<a href=\"#deleteEmployeeModal\" data-delete-id=\"".$actvityID."\" class=\"delete\" data-toggle=\"modal\">
 								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Delete\">&#xE872;</i>
-							</a>\n</td></tr>");
+							</a>\n
+							<a href=\"./selectActivities.php?id=".$actvityID."\" style=\"color: #28A745 \" >
+								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"List\">&#xe5ca;</i>
+							</a>\n
+							</td></tr>");
 						
 						}
 						

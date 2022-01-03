@@ -35,5 +35,7 @@
   <a href="../Activity/activityCrud.php">Activites</a>
   <a href="../TourActivities/tourActivities.php">Pairs</a>
   <a href="../Hotel/hotelCrud.php">Hotel</a>
-  <a href="../Reservation/MakeReservation.php">Reservation List</a>
+  <a href="../Account/accountCrud.php">Account</a>
+  <a href="../Reservation/MakeReservation.php" >Reservation List</a>
+
 </div>
