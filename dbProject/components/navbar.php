@@ -28,13 +28,54 @@
         color: white;
     }
 </style>
-<div class="topnav">
-    <div class="topnav_elements">
-        <div><a class="active" href="./mainPage.php">Home</a></div>
-        <div><a href="profilePage.php">Profile</a></div>
-        <div><a href="ticketListPage.php">Ticket</a></div>
-        <div><a href="paymentPage.php">Bucket</a></div>
-        <div><a href="notificationsPage.php">Notifications</a></div>
-        <div><a href="logout.php">Logout</a></div>
+<?php
+include("./connection/checkSession.php");
+
+$user_type = $_SESSION['user_type'];
+$user_id = $_SESSION['user_id'];
+if ($user_type == "guide") {
+?>
+    <div class="topnav">
+        <div class="topnav_elements">
+            <div><a class="active" href="./mainPage.php">Home</a></div>
+            <div><a href="profilePage.php">Profile</a></div>
+            <div><a href="ticketListPage.php">Ticket</a></div>
+            <div><a href="paymentPage.php">Bucket</a></div>
+            <div><a href="notificationsPage.php">Notifications</a></div>
+            <div><a href="guide/guideHome.php">Go to guide panel</a></div>
+            <div><a href="logout.php">Logout</a></div>
+        </div>
     </div>
-</div>
+<?php
+
+} else if ($user_type == "employee") {
+?>
+    <div class="topnav">
+        <div class="topnav_elements">
+            <div><a class="active" href="./mainPage.php">Home</a></div>
+            <div><a href="profilePage.php">Profile</a></div>
+            <div><a href="ticketListPage.php">Ticket</a></div>
+            <div><a href="paymentPage.php">Bucket</a></div>
+            <div><a href="notificationsPage.php">Notifications</a></div>
+            <div><a href="employee/employeeHome.php">Go to employee panel</a></div>
+            <div><a href="logout.php">Logout</a></div>
+        </div>
+    </div>
+<?php
+
+} else {
+?>
+
+    <div class="topnav">
+        <div class="topnav_elements">
+            <div><a class="active" href="./mainPage.php">Home</a></div>
+            <div><a href="profilePage.php">Profile</a></div>
+            <div><a href="ticketListPage.php">Ticket</a></div>
+            <div><a href="paymentPage.php">Bucket</a></div>
+            <div><a href="notificationsPage.php">Notifications</a></div>
+            <div><a href="logout.php">Logout</a></div>
+        </div>
+    </div>
+<?php
+}
+?>

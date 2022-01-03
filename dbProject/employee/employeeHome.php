@@ -68,6 +68,7 @@
     <a href="./Reservation/MakeReservation.php">Reservation List</a>
     <a href="./Reservation/reservationAccept.php"> Tour Reservations Acceptance</a>
     <a href="./Reservation/reservationAcceptHotel.php"> Hotel Reservations Acceptance</a>
+    <a href="../mainPage.php" >Go to customer page</a>
     <a href="../logout.php">Logout</a>
 
   </div>
