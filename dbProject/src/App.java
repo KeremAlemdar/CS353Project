@@ -637,6 +637,18 @@ public class App {
             sql = "INSERT INTO Airport (city)" +
             "VALUES ( 'Bolu' )";
             stmt.executeUpdate(sql);
+            sql = "INSERT INTO Airport (city)" +
+            "VALUES ( 'Roma' )";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO Airport (city)" +
+            "VALUES ( 'Denizli' )";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO Airport (city)" +
+            "VALUES ( 'London' )";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO Airport (city)" +
+            "VALUES ( 'New York' )";
+            stmt.executeUpdate(sql);
 
             //insert tuples to Hotel
              sql = "INSERT INTO Hotel (hotel_id, name, city, star, details, image, price, people_rated, total_rate) " +
@@ -651,17 +663,24 @@ public class App {
 
             //insert tuples to bucket
             sql = "INSERT INTO Flight (departure_time, arrival_time, departure_airport, arrival_airport, cost) " +
-            "VALUES ( '2021/12/25 13:30:00', '2021/12/25 15:30:00', '1', '2', '240')";
+            "VALUES ( '2022/01/25 13:30:00', '2022/01/25 15:30:00', '1', '2', '240')";
             stmt.executeUpdate(sql);
             sql = "INSERT INTO Flight (departure_time, arrival_time, departure_airport, arrival_airport, cost) " +
-            "VALUES ( '2021/12/25 16:30:00', '2021/12/25 17:30:00', '1', '2', '250')";
+            "VALUES ( '2022/01/25 13:30:00', '2022/01/25 15:30:00', '1', '3', '340')";
             stmt.executeUpdate(sql);
             sql = "INSERT INTO Flight (departure_time, arrival_time, departure_airport, arrival_airport, cost) " +
-            "VALUES ( '2021/12/25 13:30:00', '2021/12/25 15:30:00', '2', '1', '120')";
+            "VALUES ( '2022/01/25 13:30:00', '2022/01/25 15:30:00', '1', '4', '440')";
             stmt.executeUpdate(sql);
             sql = "INSERT INTO Flight (departure_time, arrival_time, departure_airport, arrival_airport, cost) " +
-            "VALUES ( '2022/01/25 13:30:00', '2022/01/25 15:30:00', '2', '1', '120')";
+            "VALUES ( '2022/01/25 13:30:00', '2022/01/25 15:30:00', '1', '5', '240')";
             stmt.executeUpdate(sql);
+            sql = "INSERT INTO Flight (departure_time, arrival_time, departure_airport, arrival_airport, cost) " +
+            "VALUES ( '2022/01/25 13:30:00', '2022/01/25 15:30:00', '1', '6', '540')";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO Flight (departure_time, arrival_time, departure_airport, arrival_airport, cost) " +
+            "VALUES ( '2022/01/26 13:30:00', '2022/01/26 15:30:00', '1', '7', '740')";
+            stmt.executeUpdate(sql);
+
 
             sql = "INSERT INTO account " +
             "VALUES (null, 'eylul', '1234', 'eylula', '05555555555', 'Eylul Caglar')";
