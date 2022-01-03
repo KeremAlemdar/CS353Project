@@ -11,7 +11,7 @@ if ($error == "cannotDelete") {
 }
 
 $total_tour_cost = 0;
-$total_plane_cost = 0;
+$total_flights_cost = 0;
 $total_hotel_cost = 0;
 $user_id = 1; // FOR TEST PURPOSES
 // $query = "select * from ((tour natural join tour_bucket) natural join activity) where user_id =" . $user_id . "";
@@ -27,6 +27,13 @@ $tours = $mysqli->query($query);
 $empty = false;
 if ($tours->num_rows == 0) {
     $empty = true;
+}
+
+$query = "SELECT DISTINCT * FROM `flight` LEFT JOIN `flight_bucket` ON `flight_bucket`.`flight_id` = `flight`.`flight_id` WHERE `user_id`= 1";
+$flights = $mysqli->query($query);
+$flights_empty = false;
+if ($flights->num_rows == 0) {
+    $flights_empty = true;
 }
 ?>
 
@@ -277,6 +284,7 @@ if ($tours->num_rows == 0) {
             width: 15%;
             padding: 20px;
         }
+
         .all_model {
             display: flex;
             justify-content: center;
@@ -292,7 +300,7 @@ if ($tours->num_rows == 0) {
             </div>
             <div class="buckets">
                 <div class="hotel_bucket">
-                <?php
+                    <?php
                     if ($hotel_empty) {
                     ?>
                         <div class="hotel_bucket_header">
@@ -495,15 +503,72 @@ if ($tours->num_rows == 0) {
                     ?>
                 </div>
                 <div class="plane_bucket">
-                    <div class="tour_bucket_header">
-                        <h1>Your plane bucket is empty</h1>
-                    </div>
-                    <div class="plane">
-                        <div class="plane_information">
-
+                    <?php
+                    if ($flights_empty) {
+                    ?>
+                        <div class="hotel_bucket_header">
+                            <h1>Your flights bucket is empty</h1>
                         </div>
-
-                    </div>
+                    <?php
+                    } else {
+                    ?>
+                        <div class="hotel_bucket_header">
+                            <h1>Flights in your bucket</h1>
+                        </div>
+                        <div class="hotel_bucket">
+                            <div class="hotels">
+                                <?php
+                                while ($tuple = $flights->fetch_array(MYSQLI_NUM)) {
+                                    $total_flights_cost = $total_flights_cost + $tuple[5] * $tuple[8];
+                                ?>
+                                    <form class="form" action='deleteFlightBucket.php' method="post">
+                                        <input type="hidden" id="flight_id" name="flight_id" value=<?php echo $tuple[0] ?>>
+                                        <div class="hotel">
+                                            <div class="hotel_all">
+                                                <div class="hotel_information">
+                                                    <h1>
+                                                        <?php echo $tuple[1] ?>
+                                                    </h1>
+                                                </div>
+                                                <div class="hotel_img">
+                                                    <img style="width: 50px;" src="https://content.r9cdn.net/rimg/provider-logos/airlines/v/PC.png?crop=false&width=108&height=92&fallback=default1.png&_v=e574f35253dcd377492e2002db829c55" alt="asd">
+                                                    </a>
+                                                </div>
+                                                <div class="number_of_hotel">
+                                                    <div class="price">
+                                                        <div>
+                                                            <h2>Price:<h2>
+                                                        </div>
+                                                        <div>
+                                                            <h2><?php echo $tuple[5] ?></h2>
+                                                        </div>
+                                                        <div>
+                                                            <h2>$<h2>
+                                                        </div>
+                                                    </div>
+                                                    <div class="numberOf">
+                                                        <div>
+                                                            <h2>Number of people:<h2>
+                                                        </div>
+                                                        <div>
+                                                            <h2><?php echo $tuple[8] ?></h2>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="hotel_button">
+                                                <input class="input" type="submit" value="Remove">
+                                            </div>
+                                        </div>
+                                    </form>
+                                <?php
+                                }
+                                ?>
+                            </div>
+                        </div>
+                    <?php
+                    }
+                    ?>
                 </div>
             </div>
             <div class="payment">
@@ -515,29 +580,29 @@ if ($tours->num_rows == 0) {
 
                     <!-- Modal content -->
                     <form class="form" action='payAllBucket.php' method="post">
-                    
-                    <div class="all_model">
-                        <div class="modal-content">
-                            <span class="close">&times;</span>
-                            <div class="payment">
-                                <div>
-                                    <input type="text" placeholder="Card Number"></input>
-                                </div>
-                                <div>
-                                    <input type="text" placeholder="Expire Date"></input>
-                                </div>
-                                <div>
-                                    <input type="text" placeholder="CVC"></input>
-                                </div>
-                                <div>
-                                    <h1>Subtotal: <?php echo $total_hotel_cost + $total_plane_cost + $total_tour_cost ?></h1>
-                                </div>
-                                <div>
-                                    <input type="submit" value="Pay"></input>
+
+                        <div class="all_model">
+                            <div class="modal-content">
+                                <span class="close">&times;</span>
+                                <div class="payment">
+                                    <div>
+                                        <input type="text" placeholder="Card Number"></input>
+                                    </div>
+                                    <div>
+                                        <input type="text" placeholder="Expire Date"></input>
+                                    </div>
+                                    <div>
+                                        <input type="text" placeholder="CVC"></input>
+                                    </div>
+                                    <div>
+                                        <h1>Subtotal: <?php echo $total_hotel_cost + $total_flights_cost + $total_tour_cost ?></h1>
+                                    </div>
+                                    <div>
+                                        <input type="submit" value="Pay"></input>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     </form>
 
                 </div>
