@@ -120,9 +120,9 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("Employee table is deleted!"); 
 
-            // sql = "DROP TABLE IF EXISTS Customer_Ticket";
-            // stmt.executeUpdate(sql);
-            // System.out.println("Customer_Ticket table is deleted!");
+            //sql = "DROP TABLE IF EXISTS Customer_Ticket";
+            //stmt.executeUpdate(sql);
+            //System.out.println("Customer_Ticket table is deleted!");
 
             sql = "DROP TABLE IF EXISTS Flight_Ticket";
             stmt.executeUpdate(sql);
