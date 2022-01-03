@@ -108,10 +108,6 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("Hotel_Room table is deleted!");
 
-            sql = "DROP TABLE IF EXISTS past_reservation";
-            stmt.executeUpdate(sql);
-            System.out.println("past_reservations table is deleted!");
-
             sql = "DROP TABLE IF EXISTS Employee";       
             stmt.executeUpdate(sql);
             System.out.println("Employee table is deleted!"); 
@@ -393,17 +389,6 @@ public class App {
 
             stmt.executeUpdate(sql);
             System.out.println("reservation table created!");
-
-            sql = "CREATE TABLE past_reservation " +
-            "(reservation_id INT(12), " +
-            " customer_id INT(12), " +
-            " PRIMARY KEY ( reservation_id, customer_id ), " +
-            " FOREIGN KEY (reservation_id) REFERENCES Reservation(reservation_id), " +
-            " FOREIGN KEY (customer_id) REFERENCES customer(customer_id))" +
-            " ENGINE=innodb;";
-
-            stmt.executeUpdate(sql);
-            System.out.println("past_reservation table created!");
 
 
             sql = "CREATE TABLE reservation_hotel " +
