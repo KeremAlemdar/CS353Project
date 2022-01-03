@@ -18,10 +18,7 @@
 <?php
 include("../connection/checkSession.php");
 
-$_SESSION["employee_activity_select_array"] = array();
-$_SESSION["employee_room_select"] = 0;
-$_SESSION["employee_account_select"] = 0;
-$_SESSION["employee_tour_select"] = 0;
+
 
 
 
@@ -60,6 +57,7 @@ $_SESSION["employee_tour_select"] = 0;
 <div class="topnav">
   <a class="active" href="../guideHome.php">GUIDE HOME</a>
   <a href="./tourInvitations.php">Tour Invitations</a>
+  <a href="./previousTours.php">Previous Tours</a>
 
 </div>
 
@@ -68,6 +66,7 @@ $_SESSION["employee_tour_select"] = 0;
 
 
 <h1> <a href="./tourInvitations.php"> Manage Tour Invitations </a> </h1>
+<h1> <a href="./previousTours.php"> Previous Tours </a> </h1>
 
 
 
