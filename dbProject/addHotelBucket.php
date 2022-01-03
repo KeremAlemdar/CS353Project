@@ -2,8 +2,8 @@
 include("./connection/checkSession.php");
 
 $date = date("Y/m/d");
-$start_date = isset($_POST['start_date']) ? $_POST['start_date'] : $date;
-$end_date =  isset($_POST['end_date']) ? $_POST['end_date'] : $date;
+$start_date = isset($_POST['start_date']) ? $_POST['start_date'] : null;
+$end_date =  isset($_POST['end_date']) ? $_POST['end_date'] : null;
 
 $previous = $_SESSION['previous'];
 $hotel_id = "";

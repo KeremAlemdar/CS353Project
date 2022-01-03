@@ -1,7 +1,7 @@
 <?php
 $date = date("Y/m/d");
-$start_date = isset($_GET['start_date']) ? $_GET['start_date'] : $date;
-$end_date =  isset($_GET['end_date']) ? $_GET['end_date'] : $date;
+$start_date = isset($_GET['start_date']) ? $_GET['start_date'] : null;
+$end_date =  isset($_GET['end_date']) ? $_GET['end_date'] : null;
 $searchKey =  isset($_GET['searchKey']) ? $_GET['searchKey'] : "";
 $rate =  isset($_GET['rate']) ? $_GET['rate'] : "";
 

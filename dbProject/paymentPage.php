@@ -367,7 +367,7 @@ if ($flights->num_rows == 0) {
                                                                 <h2>Start date:<h2>
                                                             </div>
                                                             <div>
-                                                                <h2><?php echo $tuple[10] ?></h2>
+                                                                <h2><?php echo $tuple[12] ?></h2>
                                                             </div>
                                                         </div>
                                                         <div class="end_date">
@@ -375,7 +375,7 @@ if ($flights->num_rows == 0) {
                                                                 <h2>End date:<h2>
                                                             </div>
                                                             <div>
-                                                                <h2><?php echo $tuple[11] ?></h2>
+                                                                <h2><?php echo $tuple[13] ?></h2>
                                                             </div>
                                                         </div>
 

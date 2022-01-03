@@ -1,10 +1,10 @@
 <?php
 include("./connection/checkSession.php");
-include("./components/navbarHotel.php");
+include("./components/navbar.php");
 
 $hotel_id = $_GET["id"];
-$start_date = isset($_GET['start_date']) ? $_GET['start_date'] : $date;
-$end_date =  isset($_GET['end_date']) ? $_GET['end_date'] : $date;
+$start_date = isset($_GET['start_date']) ? $_GET['start_date'] : null;
+$end_date =  isset($_GET['end_date']) ? $_GET['end_date'] : null;
 
 $query = "select * from Hotel where hotel_id=$hotel_id";
 $result = $mysqli->query($query);
@@ -88,12 +88,17 @@ $evaluation = $mysqli->query($query);
     <div class="all_page">
         <form class="form" action='addHotelBucket.php' method='post'>
             <div class="numberOfGuest">
-                <input type="number" id="numberOfGuest" name="numberOfGuest" placeholder="Number of guest">
+                <input type="number" id="numberOfGuest" name="numberOfGuest" placeholder="Number of guest" value="1">
             </div>
             <div>
-            <input type="hidden" id="hotel_id" name="hotel_id" value=<?php echo $hotel_id ?>>
-            <input type="hidden" id="start_date" name="start_date" value=<?php echo $start_date ?>>
-            <input type="hidden" id="start_date" name="start_date" value=<?php echo $end_date ?>>
+                <?php if ($start_date == null || $end_date == null) { ?>
+                    <input type="hidden" id="hotel_id" name="hotel_id" value=<?php echo $hotel_id ?>>
+                    <input type='date' placeholder="Start Date" id="start_date" name='start_date'>
+                    <input type='date' placeholder="End Date" id="end_date" name='end_date'>
+                <?php } else { ?>            
+                    <input type="hidden" id="start_date" name="start_date" value=<?php echo $start_date ?>>
+                    <input type="hidden" id="end_date" name="end_date" value=<?php echo $end_date ?>>
+                <?php } ?>
             </div>
             <div>
                 <input class="submit_button" type="submit" value="Add to bucket">
@@ -106,12 +111,11 @@ $evaluation = $mysqli->query($query);
                 <?php echo $hotel[1] ?>
             </h1>
             <h1>
-                <?php if($hotel[7] == 0){
-                        echo  " NO HOTEL RATE ";
-                    }
-                    else{
-                        echo  "HOTEL RATE ", $hotel[8]/$hotel[7], "STARS ";
-                    } ?>
+                <?php if ($hotel[7] == 0) {
+                    echo  " NO HOTEL RATE ";
+                } else {
+                    echo  "HOTEL RATE ", $hotel[8] / $hotel[7], "STARS ";
+                } ?>
             </h1>
             <h1>
                 <?php echo $hotel[3], " STAR HOTEL " ?>

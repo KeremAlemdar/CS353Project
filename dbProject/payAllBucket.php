@@ -77,13 +77,17 @@ while ($tuple = $hotels->fetch_array(MYSQLI_NUM)) {
     $reservation_id = $mysqli->insert_id;
     $hotel_id = $tuple[1];
     $count = $tuple[2];
+    $start_date = $tuple[3];
+    $end_date = $tuple[4];
+    echo $start_date, $end_date;
     $query = "INSERT INTO customer_reserve (reservation_id,customer_id,acceptance_status) VALUES ($reservation_id,$user_id,2)";
     if ($mysqli->query($query)) {
         echo "basarili1";
     } else {
         echo "basarisiz1";
     }
-    $query = "INSERT INTO reservation_hotel (reservation_id,hotel_id,amount_of_people,start_date,end_date) VALUES ($reservation_id,$hotel_id,$count,$date,$date)";
+    $query = "INSERT INTO reservation_hotel (reservation_id,hotel_id,reservation_type,amount_of_people,start_date,end_date) VALUES ($reservation_id,$hotel_id,null,$count,'$start_date','$end_date')";
+    echo $query;
     $mysqli->query($query);
 
     $query = "DELETE FROM `hotel_bucket` WHERE `hotel_bucket`.`user_id` = $user_id AND `hotel_bucket`.`hotel_id` = $hotel_id";
