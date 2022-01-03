@@ -73,6 +73,7 @@ $evaluation = $mysqli->query($query);
             align-items: center;
             margin-right: 10%;
         }
+
         .form {
             display: flex;
         }
@@ -92,6 +93,8 @@ $evaluation = $mysqli->query($query);
             <div>
                 <input class="submit_button" type="submit" value="Add to bucket">
             </div>
+            <br><br>
+
         </form>
         <div class="hotel_name">
             <h1>
@@ -100,6 +103,11 @@ $evaluation = $mysqli->query($query);
             <h1>
                 <?php echo $hotel[3], " STAR HOTEL " ?>
             </h1>
+
+            <h2>
+                <?php echo $hotel[6], " $ per person per night" ?>
+            </h2>
+
             <div class="hotel_img">
                 <img src='./img/<?php echo $hotel[5] ?>' />
             </div>

@@ -88,7 +88,7 @@ $result = $mysqli->query($query);
                             <?php echo $tuple[2] ?>
                         </h1>
                         <h1>
-                            <?php echo $tuple[4] ?>
+                            <?php echo $tuple[6], " $ per person and per night" ?>
                         </h1>
                     </div>
                 </div>

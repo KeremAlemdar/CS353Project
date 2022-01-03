@@ -331,6 +331,7 @@ public class App {
             " star INT(12), " +
             " details VARCHAR(255), " +
             " image VARCHAR(255), " +
+            " price FLOAT, " +
             " PRIMARY KEY ( hotel_id )) " +
             " ENGINE=innodb;";
 
@@ -548,14 +549,14 @@ public class App {
             stmt.executeUpdate(sql);
 
             //insert tuples to Hotel
-             sql = "INSERT INTO Hotel (hotel_id, name, city, star, details, image) " +
-            "VALUES ( null, 'Bilkent Hotel', 'Ankara', '3', 'Located 2 km from Bilkent University, this modern and cozy hotel is 14 km from the Anıtkabir, and the iconic Kocatepe Mosque.', 'bilkent_hotel.jpg' )";
+             sql = "INSERT INTO Hotel (hotel_id, name, city, star, details, image, price) " +
+            "VALUES ( null, 'Bilkent Hotel', 'Ankara', '3', 'Located 2 km from Bilkent University, this modern and cozy hotel is 14 km from the Anıtkabir, and the iconic Kocatepe Mosque.', 'bilkent_hotel.jpg', '100.00' )";
             stmt.executeUpdate(sql);
-            sql = "INSERT INTO Hotel (hotel_id, name, city, star, details, image) " +
-            "VALUES ( null, 'Kerem Hotel', 'Sakarya', '5', 'Located in Sakarya, good location.', 'kerem_hotel.jpg' )";
+            sql = "INSERT INTO Hotel (hotel_id, name, city, star, details, image, price) " +
+            "VALUES ( null, 'Kerem Hotel', 'Sakarya', '5', 'Located in Sakarya, good location.', 'kerem_hotel.jpg', '200' )";
             stmt.executeUpdate(sql);
-            sql = "INSERT INTO Hotel (hotel_id, name, city, star, details, image) " +
-            "VALUES ( null, 'Ismet Hotel', 'Denizli', '2', 'Located in Denizli, good rooms.', 'ismet_hotel.jpg' )";
+            sql = "INSERT INTO Hotel (hotel_id, name, city, star, details, image, price) " +
+            "VALUES ( null, 'Ismet Hotel', 'Denizli', '2', 'Located in Denizli, good rooms.', 'ismet_hotel.jpg', '300' )";
             stmt.executeUpdate(sql); 
 
             //insert tuples to bucket
