@@ -12,13 +12,12 @@ if ($tours->num_rows == 0) {
     $empty = true;
 }
 while ($tuple = $tours->fetch_array(MYSQLI_NUM)) {
-    echo "patates";
     $query = "INSERT INTO reservation (reservation_id) VALUES (null)";
     $mysqli->query($query);
     $reservation_id = $mysqli->insert_id;
     $tour_id = $tuple[1];
     $count = $tuple[2];
-    $query = "INSERT INTO customer_reserve (reservation_id,customer_id) VALUES ($reservation_id,$user_id)";
+    $query = "INSERT INTO customer_reserve (reservation_id,customer_id,acceptance_status) VALUES ($reservation_id,$user_id,2)";
     if ($mysqli->query($query)) {
         echo "basarili1";
     } else {
@@ -31,7 +30,7 @@ while ($tuple = $tours->fetch_array(MYSQLI_NUM)) {
     if ($result = $mysqli->query($query)) {
         $query = "DELETE FROM `tour_activity_bucket` WHERE `tour_activity_bucket`.`user_id` = $user_id AND `tour_activity_bucket`.`tour_id` = $tour_id";
         if ($result = $mysqli->query($query)) {
-            // header("Location: profilePage.php");
+            header("Location: profilePage.php");
         } else {
             // header("Location: paymentPage.php?error=cannotDelete");
         }
