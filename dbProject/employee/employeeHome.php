@@ -99,7 +99,6 @@
 
   <h1><a href="./Reservation/displayHotelRes.php">Display All Hotel Resevations</a></h1> 
 
-  <h1><a href="./Reservation/displayTourRes.php">Display Customer Tour Comments</a></h1> 
 
   <h1><a href="./Reservation/displayTourRes.php">Display Guide Tour Comments</a></h1> 
 
