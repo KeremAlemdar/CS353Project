@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <style>
     .search {
@@ -25,17 +24,10 @@
 
     button {
         background-color: white;
-        margin-left: 20px;
-    }
-
-    .search_bar {
-        display: flex;
-        flex-direction: row;
     }
 
     .search_bar input[type=text] {
         width: 37%;
-        margin-right: 20px;
     }
 
     .search_bar input[type=date] {
@@ -44,11 +36,11 @@
 </style>
 
 <div class="search">
-    <form class="search_bar" action='ticketListPage.php' method='post'>
+    <form class="search_bar" action='tour.php' method='post'>
         <tr>
-            <td><input type='text' placeholder="Departure City" name='departureCity'></td>
-            <td><input type='text' placeholder="Arrival City" name='arrivalCity'></td>
-            <td><input type='date' placeholder="Departure Date" name='departureDate'></td>
+            <td><input type='text' placeholder="Search.." name='searchKey'></td>
+            <td><input type='date' placeholder="Start Date" name='start_date'></td>
+            <td><input type='date' placeholder="End Date" name='end_date'></td>
             <button type='submit' name='Search' value='Search' class="fa fa-search"></button>
         </tr>
     </form>

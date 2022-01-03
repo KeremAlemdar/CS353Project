@@ -31,6 +31,7 @@ if ($hotel_id_result->num_rows > 0) {
 //TOUR
 $query = "SELECT * FROM customer_reserve NATURAL JOIN reservation_tour NATURAL JOIN tour WHERE customer_id = 1 AND end_date > '$date'";
 echo $query;
+
 $tours = $mysqli->query($query);
 /*
 if ($tour_id_result->num_rows == 0) {
