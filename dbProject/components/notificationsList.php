@@ -4,25 +4,11 @@ include("./connection/checkSession.php");
 $user_id = 1;
 
 $date = date("Y/m/d");
-//USER
-$query = "SELECT fname, email, phone_num FROM account WHERE user_id = " . 1 . "";
-$result = $mysqli->query($query);
-$user_info = $result->fetch_array(MYSQLI_NUM);
 
 //HOTEL
-$query = "SELECT * FROM customer_reserve NATURAL JOIN reservation_hotel NATURAL JOIN Hotel WHERE customer_id = 1 AND end_date > '$date'";
+$query = "SELECT * FROM customer_reserve NATURAL JOIN reservation_hotel NATURAL JOIN Hotel WHERE customer_id = 1 AND acceptance_status = 0";
 $hotel_id_result = $mysqli->query($query);
 $employee_reserve_hotel = false;
-
-
-// ??????
-if ($hotel_id_result->num_rows == 0) {
-    $query = "SELECT * FROM employee_reserve NATURAL JOIN reservation_hotel NATURAL JOIN Hotel WHERE customer_id = 1 AND end_date > '$date'";
-    $hotel_id_result = $mysqli->query($query);
-    if ($hotel_id_result->num_rows > 0) {
-        $employee_reserve_hotel = true;
-    }
-}
 
 $hotel_exists = false;
 if ($hotel_id_result->num_rows > 0) {
@@ -30,35 +16,14 @@ if ($hotel_id_result->num_rows > 0) {
 }
 
 //TOUR
-$query = "SELECT * FROM customer_reserve NATURAL JOIN reservation_tour NATURAL JOIN tour WHERE customer_id = 1 AND end_date > '$date'";
-echo $query;
+$query = "SELECT * FROM customer_reserve NATURAL JOIN reservation_tour NATURAL JOIN tour WHERE customer_id = 1 AND acceptance_status = 0";
 
 $tours = $mysqli->query($query);
-/*
-if ($tour_id_result->num_rows == 0) {
-    $query = "SELECT tour_id, start_date, end_date, tour_information, image, tour_name, reservation_id FROM reservation NATURAL JOIN reservation_tour NATURAL JOIN employee_reserve WHERE customer_id = " . 1 . "";
-    $tour_id_result = $mysqli->query($query);
-}*/
 $tour_empty = false;
 if ($tours->num_rows == 0) {
     $tour_empty = true;
 }
 
-
-//FLIGHT
-$query = "SELECT * 
-FROM flight_ticket, 
-(SELECT dep.city as dep_city, arr.city as arr_city, departure_time, arrival_time, flight_id
-FROM airport AS dep, airport AS arr, flight 
-WHERE flight.departure_airport = dep.airport_id AND flight.arrival_airport = arr.airport_id
-) AS res 
-WHERE flight_ticket.customer_id = 1 AND res.flight_id = flight_ticket.flight_id";
-$flight_result = $mysqli->query($query);
-
-$flight_empty = true;
-if ($flight_result->num_rows > 0) {
-    $flight_empty = false;
-}
 ?>
 
 <!DOCTYPE html>
@@ -253,41 +218,8 @@ if ($flight_result->num_rows > 0) {
 
 </head>
 
-
-
 <body>
     <div class="page">
-        <div class="profile">
-            <div class="profile_icon">
-                <img src='./img/user_icon.png' />
-            </div>
-            <div class="profile_information">
-
-                <h4>
-                    <?php echo "Name: ", $user_info[0] ?>
-                </h4>
-
-
-                <h4>
-                    <?php echo "E-mail: ", $user_info[1] ?>
-                </h4>
-
-
-                <h4>
-                    <?php echo "Phone: ", $user_info[2] ?>
-                </h4>
-
-            </div>
-            
-            <div class="past_reservations_button">
-                <div class="profile_reservation_inner">
-
-                    <a href="pastReservationsPage.php">
-                        <input class="past_reservations" type="submit" value="Past Reservations">
-                    </a>
-                </div>
-            </div>
-        </div>
         <div class="reservations">
             <div class="hotels" style="background-color:#aaa;">
                 <h2>Hotel Reservations</h2>
@@ -320,11 +252,13 @@ if ($flight_result->num_rows > 0) {
                                 <div>
                                     <h3>
                                         <?php
-                                        echo " First day: ", $tuple[6];
+                                        echo " First day: ", $tuple[7];
                                         echo "<br></br>";
-                                        echo " Last day: ", $tuple[7];
+                                        echo " Last day: ", $tuple[8];
                                         echo "<br></br>";
-                                        echo $tuple[5], " customers"; ?>
+                                        echo $tuple[6], " customers";
+                                        echo "<br></br>";
+                                        echo "Reason: ", $tuple[4]; ?>
                                     </h3>
                                 </div>
                             </div>
@@ -476,57 +410,6 @@ if ($flight_result->num_rows > 0) {
                     }
                     ?>
                 </div>
-            </div>
-            <div class="flights" style="background-color:#aaa;">
-                <h2>Flight Tickets</h2>
-                <?php
-                if ($flight_empty) {
-                ?>
-                    <div class="hotel">
-                        <h3>You have no Ticket</h3>
-                    </div>
-                    <?php
-                } else {
-                    while ($tuple = $flight_result->fetch_array(MYSQLI_NUM)) {
-                    ?>
-                        <form class="form" action='cancelTicket.php' method="post">
-                            <div>
-                                <input type="hidden" id="ticket_id" name="ticket_id" value=<?php echo $tuple[0] ?>>
-                            </div>
-                            <div class="hotel">
-                                <div style="display: flex; align-items:center; justify-content:center;" class="hotel_img">
-                                    <img style="width: 200px;" src="https://content.r9cdn.net/rimg/provider-logos/airlines/v/PC.png?crop=false&width=108&height=92&fallback=default1.png&_v=e574f35253dcd377492e2002db829c55" alt="asd">
-                                </div>
-                                <div class="hotels">
-                                    <div>
-                                        <h3>
-                                            <?php
-                                            echo " Departure Date: ", $tuple[6];
-                                            echo "<br></br>";
-                                            echo " Departure City: ", $tuple[4];
-                                            echo "<br></br>";
-                                            echo " Arrival Date: ", $tuple[7];
-                                            echo "<br></br>";
-                                            echo " Arrival City: ", $tuple[5];
-                                            echo "<br></br>";
-                                            echo $tuple[3], " customers"; ?>
-                                        </h3>
-                                    </div>
-                                </div>
-                                <div>
-                                    <?php if ($date < date_format(date_create($tuple[6]), 'Y/m/d')) { ?>
-                                        <div class="hotel_button">
-                                            <input class="input" type="submit" value="Cancel Reservation">
-                                        </div>
-                                    <?php } ?>
-                                </div>
-
-                            </div>
-                        </form>
-                <?php
-                    }
-                }
-                ?>
             </div>
         </div>
     </div>

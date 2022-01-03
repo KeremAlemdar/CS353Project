@@ -21,5 +21,6 @@
         <div><a href="ticketListPage.php">Ticket</a></div>
         <div><a href="#about">About</a></div>
         <div><a href="paymentPage.php">Bucket</a></div>
+        <div><a href="notificationsPage.php">Notifications</a></div>
     </div>
 </div>
