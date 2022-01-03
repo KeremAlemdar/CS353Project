@@ -498,8 +498,8 @@ if ($flight_result->num_rows > 0) {
                                 <input type="hidden" id="ticket_id" name="ticket_id" value=<?php echo $tuple[0] ?>>
                             </div>
                             <div class="hotel">
-                                <div class="hotel_img">
-                                    <img style="width: 50px;" src="https://content.r9cdn.net/rimg/provider-logos/airlines/v/PC.png?crop=false&width=108&height=92&fallback=default1.png&_v=e574f35253dcd377492e2002db829c55" alt="asd">
+                                <div style="display: flex; align-items:center; justify-content:center;" class="hotel_img">
+                                    <img style="width: 200px;" src="https://content.r9cdn.net/rimg/provider-logos/airlines/v/PC.png?crop=false&width=108&height=92&fallback=default1.png&_v=e574f35253dcd377492e2002db829c55" alt="asd">
                                 </div>
                                 <div class="hotels">
                                     <div>
