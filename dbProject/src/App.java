@@ -322,7 +322,7 @@ public class App {
             " ENGINE=innodb;";
 
             stmt.executeUpdate(sql);
-            System.out.println("Flight table created!");
+            System.out.println("Flight_Ticket table created!");
 
             sql = "CREATE TABLE Hotel " +
             "(hotel_id INT(12) AUTO_INCREMENT, " +
