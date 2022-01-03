@@ -23,8 +23,18 @@ if ($result = $mysqli->query($query)) {
                 header("Location: profilePage.php?error=cannotDelete");
             }
         } else {
-            // echo "basarisiz1";
-            header("Location: profilePage.php?error=cannotDelete");
+            $query = "DELETE FROM `employee_reserve` WHERE `customer_reserve`.`reservation_id` = $reservation_id";
+            if ($result = $mysqli->query($query)) {
+                $query = "DELETE FROM `reservation` WHERE `reservation`.`reservation_id` = $reservation_id";
+                echo $query;
+                if ($result = $mysqli->query($query)) {
+                    // echo "basarili";
+                    header("Location: profilePage.php");
+                } else {
+                    // echo "basarisiz1";
+                    header("Location: profilePage.php?error=cannotDelete");
+                }
+            }
         }
     } else {
         // echo "basarisiz2";

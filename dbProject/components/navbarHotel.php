@@ -6,8 +6,6 @@ $searchKey =  isset($_GET['searchKey']) ? $_GET['searchKey'] : "";
 $rate =  isset($_GET['rate']) ? $_GET['rate'] : "";
 ?>
 
-
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <style>
     .search {
         display: flex;
