@@ -100,8 +100,8 @@ $(document).ready(function(){
 							<a href=\"#selectTourModal\" data-select-id=\"".$tour_id."\" style=\"color: #28A745 \"  data-toggle=\"modal\">
 								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Select\">&#xe5ca;</i>
 							</a>\n
-							<a href=\"./tourDisplayComments.php?id=".$tour_id."\" style=\"color: #28A745 \"  data-toggle=\"modal\">
-								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Select\">&#xe87f;</i>
+							<a href=\"./tourDisplayComments.php?id=".$tour_id."\" style=\"color: #28A745 \" >
+								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Accept\">&#xe87f;</i>
 							</a>\n
 							
 							</td></tr>");
