@@ -48,7 +48,7 @@
         <tr>
             <td><input type='text' placeholder="Departure City" name='departureCity'></td>
             <td><input type='text' placeholder="Arrival City" name='arrivalCity'></td>
-            <td><input type='date' placeholder="Departure Date" name='departureDate'></td>
+            <td><input type='date' min="<?php $date = date("Y-m-d"); echo $date; ?>" placeholder="Departure Date" name='departureDate'></td>
             <button type='submit' name='Search' value='Search' class="fa fa-search"></button>
         </tr>
     </form>

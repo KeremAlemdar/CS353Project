@@ -47,11 +47,11 @@ if ($tours->num_rows == 0) {
 //FLIGHT
 $query = "SELECT * 
 FROM flight_ticket, 
-(SELECT dep.city as dep_city, arr.city as arr_city, departure_time, arrival_time 
+(SELECT dep.city as dep_city, arr.city as arr_city, departure_time, arrival_time, flight_id
 FROM airport AS dep, airport AS arr, flight 
-WHERE flight.departure_airport = dep.airport_id AND flight.arrival_airport = arr.airport_id AND flight.flight_id = 1
+WHERE flight.departure_airport = dep.airport_id AND flight.arrival_airport = arr.airport_id
 ) AS res 
-WHERE flight_ticket.customer_id = 1";
+WHERE flight_ticket.customer_id = 1 AND res.flight_id = flight_ticket.flight_id";
 $flight_result = $mysqli->query($query);
 
 $flight_empty = true;
@@ -240,6 +240,7 @@ if ($flight_result->num_rows > 0) {
             align-items: center;
             margin-right: 20%;
         }
+
         .activity .number_of_activity {
             display: flex;
         }
@@ -365,8 +366,8 @@ if ($flight_result->num_rows > 0) {
                                 while ($tuple = $tours->fetch_array(MYSQLI_NUM)) {
                                 ?>
                                     <form class="form" action='deleteTourFromReservation.php' method="post">
-                                    <input type="hidden" id="tour_id" name="tour_id" value=<?php echo $tuple[0] ?>>
-                                    <input type="hidden" id="reservation_id" name="reservation_id" value=<?php echo $tuple[1] ?>>
+                                        <input type="hidden" id="tour_id" name="tour_id" value=<?php echo $tuple[0] ?>>
+                                        <input type="hidden" id="reservation_id" name="reservation_id" value=<?php echo $tuple[1] ?>>
                                         <div class="tour">
                                             <div class="tour_all">
                                                 <div class="tour_information">
@@ -493,7 +494,7 @@ if ($flight_result->num_rows > 0) {
                 } else {
                     while ($tuple = $flight_result->fetch_array(MYSQLI_NUM)) {
                     ?>
-                        <form class="form" action='' method="post">
+                        <form class="form" action='cancelTicket.php' method="post">
                             <div>
                                 <input type="hidden" id="ticket_id" name="ticket_id" value=<?php echo $tuple[0] ?>>
                             </div>
@@ -518,9 +519,11 @@ if ($flight_result->num_rows > 0) {
                                     </div>
                                 </div>
                                 <div>
-                                    <div class="hotel_button">
-                                        <input class="input" type="submit" value="Cancel Reservation">
-                                    </div>
+                                    <?php if ($date < date_format(date_create($tuple[6]), 'Y/m/d')) { ?>
+                                        <div class="hotel_button">
+                                            <input class="input" type="submit" value="Cancel Reservation">
+                                        </div>
+                                    <?php } ?>
                                 </div>
 
                             </div>
