@@ -1,6 +1,10 @@
 <?php
 include("./connection/checkSession.php");
 
+$date = date("Y/m/d");
+$start_date = isset($_GET['start_date']) ? $_GET['start_date'] : $date;
+$end_date =  isset($_GET['end_date']) ? $_GET['end_date'] : $date;
+
 $previous = $_SESSION['previous'];
 $hotel_id = "";
 $numberOfGuest = "";
