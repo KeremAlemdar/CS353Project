@@ -238,7 +238,7 @@ if ($evaluation->num_rows == 0) {
                                                 } else {
                                                     ?>
                                                     <div>
-                                                        <h1>This hotel is not evaluated yet</h1>
+                                                        <h1>This tour is not evaluated yet</h1>
                                                     </div>
                                                 <?php
                                                 }
