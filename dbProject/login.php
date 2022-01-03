@@ -16,7 +16,7 @@ if (isset($_POST['logIn'])) {
 			$_SESSION['user_type'] = "employee";
 			header("Location: employee/employeeHome.php");
 		} else {
-			$query = "select * from Guide where guide_id='$user_id'";
+			$query = "select * from guide where guide_id='$user_id'";
 			$result = $mysqli->query($query);
 			if ($result->num_rows == 1) { // guide
 			$_SESSION['user_type'] = "guide";

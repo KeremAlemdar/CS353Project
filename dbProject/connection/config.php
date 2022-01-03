@@ -1,14 +1,28 @@
 <?php
+
 if(!defined('host')) 
-    define('host', 'localhost:3306/');
+    define('host', 'jdbc:mysql://dijkstra.ug.bcc.bilkent.edu.tr/');
 if(!defined('databaseName')) 
-    define('databaseName', 'dbproject');
+    define('databaseName', 'eylul_caglar');
 if(!defined('username')) 
-    define('username', 'root');
+    define('username', 'eylul.caglar');
 if(!defined('password')) 
-    define('password', '');
+    define('password', 'GwHo8l2b');
 $mysqli = new mysqli(host, username, password, databaseName);
 if ($mysqli->connect_errno) {
     echo "MYSQL connection failed";
 }
+
+// if(!defined('host')) 
+//     define('host', 'dijkstra.ug.bcc.bilkent.edu.tr');
+// if(!defined('databaseName')) 
+//     define('databaseName', 'eylul_caglar');
+// if(!defined('username')) 
+//     define('username', 'eylul.caglar');
+// if(!defined('password')) 
+//     define('password', 'GwHo8l2b');
+// $mysqli = new mysqli(host, username, password, databaseName);
+// if ($mysqli->connect_errno) {
+//     echo "MYSQL connection failed";
+// }
 ?>
