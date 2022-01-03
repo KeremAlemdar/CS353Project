@@ -103,6 +103,9 @@ $(document).ready(function(){
 							<a href=\"./tourDisplayComments.php?id=".$tour_id."\" style=\"color: #28A745 \" >
 								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Comments\">&#xe87f;</i>
 							</a>\n
+							<a href=\"./displayGuideTourEval.php?id=".$tour_id."\" style=\"color: #28A745 \" >
+								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Guide Comments\">&#xe8d2;</i>
+							</a>\n
 							
 							</td></tr>");
 						
