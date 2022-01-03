@@ -89,4 +89,6 @@ $_SESSION["employee_tour_select_amp"] = 0;
   <h1><a href="./Reservation/reservationAcceptHotel.php">Manage Hotel Reservations Acceptance</a></h1>
 
   <h1><a href="./Guides/guidesCrud.php">Assign Guides to Tours</a></h1>
+
+  <h1><a href="./Guides/guideToursStatus.php">Display Guide Assignment Status</a></h1>
   </html>
