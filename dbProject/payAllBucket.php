@@ -2,8 +2,8 @@
 include("./connection/checkSession.php");
 $user_id =  isset($_SESSION['user_id']) ? $_SESSION['user_id'] : "";
 $user_id = 1;
-// $query = "SELECT * FROM `tour_bucket` WHERE `user_id`= 1";
-// $date = date("Y/m/d");
+$query = "SELECT * FROM `tour_bucket` WHERE `user_id`= 1";
+$date = date("Y/m/d");
 
 // PAY TOURS
 $tours = $mysqli->query($query);
@@ -39,6 +39,8 @@ while ($tuple = $tours->fetch_array(MYSQLI_NUM)) {
     }
 }
 
+$query = "SELECT * FROM `hotel_bucket` WHERE `user_id`= 1";
+
 $date = date("Y/m/d");
 // PAY HOTELS
 $hotels = $mysqli->query($query);
@@ -64,41 +66,8 @@ while ($tuple = $hotels->fetch_array(MYSQLI_NUM)) {
 
     $query = "DELETE FROM `hotel_bucket` WHERE `hotel_bucket`.`user_id` = $user_id AND `hotel_bucket`.`hotel_id` = $hotel_id";
     if ($result = $mysqli->query($query)) {
-        header("Location: profilePage.php");
-        // header("Location: paymentPage.php?error=cannotDelete");
-    } else {
-        // header("Location: paymentPage.php?error=cannotDelete");
-    }
-}
-
-$query = "SELECT * FROM `flight_bucket` WHERE `user_id`= 1";
-
-$date = date("Y/m/d");
-// PAY flights
-$flights = $mysqli->query($query);
-$empty = false;
-if ($flights->num_rows == 0) {
-    $empty = true;
-}
-while ($tuple = $flights->fetch_array(MYSQLI_NUM)) {
-    echo "patates";
-    $flight_id = $tuple[1];
-    $count = $tuple[2];
-    $query = "INSERT INTO flight_ticket (ticket_id, customer_id, flight_id, count) VALUES (null, $user_id, $flight_id,$count)";
-    $mysqli->query($query);
-    $ticket_id = $mysqli->insert_id;
-    echo $query;
-    $query = "INSERT INTO customer_ticket (ticket_id, customer_id) VALUES ($ticket_id, $user_id)";
-    if ($mysqli->query($query)) {
-        echo "basarili1";
-    } else {
-        echo "basarisiz1";
-    }
-
-    $query = "DELETE FROM `flight_bucket` WHERE `flight_bucket`.`user_id` = $user_id AND `flight_bucket`.`flight_id` = $flight_id";
-    if ($result = $mysqli->query($query)) {
-        header("Location: profilePage.php");
-        // header("Location: paymentPage.php?error=cannotDelete");
+            header("Location: profilePage.php");
+            // header("Location: paymentPage.php?error=cannotDelete");
     } else {
         // header("Location: paymentPage.php?error=cannotDelete");
     }

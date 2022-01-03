@@ -156,6 +156,7 @@ if ($flights->num_rows == 0) {
         .tour .tour_button {
             display: flex;
         }
+        
 
         .activities {}
 
@@ -217,7 +218,7 @@ if ($flights->num_rows == 0) {
             align-items: center;
         }
 
-        price .number_of_tour .input {
+        .number_of_tour .input {
             margin-left: 5%;
         }
 
