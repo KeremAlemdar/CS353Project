@@ -474,6 +474,7 @@ public class App {
             "(reservation_id INT(12), " +
             " customer_id INT(12), " +
             " acceptance_status INT(12), " +
+            " reason VARCHAR(255), " +
             " PRIMARY KEY ( reservation_id, customer_id), " +
             " FOREIGN KEY (reservation_id) REFERENCES reservation(reservation_id), " +
             " FOREIGN KEY (customer_id) REFERENCES account(user_id))" +
