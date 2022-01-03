@@ -106,7 +106,6 @@ if ($flight_result->num_rows > 0) {
 
         .reservations .tours {
             border: 2px solid black;
-            width: 50%;
         }
 
         .reservations .flights {
@@ -136,8 +135,6 @@ if ($flight_result->num_rows > 0) {
             margin-right: 10%;
         }
 
-
-
         .input,
         .edit,
         .past_reservations {
@@ -148,6 +145,7 @@ if ($flight_result->num_rows > 0) {
             align-items: center;
             margin-right: 10%;
         }
+
         .tour_bucket {
             border: 1px solid black;
         }
@@ -180,8 +178,13 @@ if ($flight_result->num_rows > 0) {
         }
 
         .tour .tour_button {
+            width: 5%;
             display: flex;
+            align-items: center;
+            margin-right: 15%;
+            margin-left: 5%;
         }
+
         .number_of_tour {
             display: flex;
             flex-direction: column;
@@ -189,14 +192,54 @@ if ($flight_result->num_rows > 0) {
 
         .number_of_tour .numberOf {
             display: flex;
-            flex-direction: row;
-            align-items: center;
         }
 
         .number_of_tour .price {
             display: flex;
-            flex-direction: row;
+        }
+
+        .activities {}
+
+        .activity {
+            width: 80%;
+            margin: 2.5%;
+            display: flex;
+            justify-content: space-between;
+            border: 1.5px solid black;
+        }
+
+        .activity_all {
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            margin-right: 1%;
+        }
+
+        .activity_all .activity_img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .activity_all .activity_img img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .activity_all .activity_information {}
+
+        .activity_information .price {
+            display: flex;
+        }
+
+        .activity .activity_button {
+            display: flex;
+            width: 5%;
+            display: flex;
             align-items: center;
+            margin-right: 20%;
+        }
+        .activity .number_of_activity {
+            display: flex;
         }
 
         /* .number_of_tour .input {
@@ -319,8 +362,9 @@ if ($flight_result->num_rows > 0) {
                                 <?php
                                 while ($tuple = $tours->fetch_array(MYSQLI_NUM)) {
                                 ?>
-                                    <form class="form" action='deleteTourFromBucket.php' method="post">
-                                        <input type="hidden" id="tour_id" name="tour_id" value=<?php echo $tuple[0] ?>>
+                                    <form class="form" action='deleteTourFromReservation.php' method="post">
+                                    <input type="hidden" id="tour_id" name="tour_id" value=<?php echo $tuple[0] ?>>
+                                    <input type="hidden" id="reservation_id" name="reservation_id" value=<?php echo $tuple[1] ?>>
                                         <div class="tour">
                                             <div class="tour_all">
                                                 <div class="tour_information">
@@ -356,7 +400,7 @@ if ($flight_result->num_rows > 0) {
                                                 </div>
                                             </div>
                                             <div class="tour_button">
-                                                <input class="input" type="submit" value="Remove">
+                                                <input class="input" type="submit" value="Cancel Reservation">
                                             </div>
                                         </div>
 
@@ -364,7 +408,7 @@ if ($flight_result->num_rows > 0) {
                                     <div class="activities">
 
                                         <?php
-                                        $query = "SELECT `A`.*,`TB`.* FROM `activity` AS `A` , `tour` AS `T` ,`tour_activity_bucket` AS `TB` 
+                                        $query = "SELECT `A`.*,`TB`.* FROM `activity` AS `A` , `tour` AS `T` ,`reservation_tour_activity` AS `TB` 
                     WHERE `TB`.`tour_id` = `T`.`tour_id` AND `TB`.`activity_id` = `A`.`activity_id` AND user_id = 1";
                                         $activities = $mysqli->query($query);
                                         if ($activities->num_rows > 0) {
@@ -377,7 +421,7 @@ if ($flight_result->num_rows > 0) {
                                         }
                                         while ($activity_tuple = $activities->fetch_array(MYSQLI_NUM)) {
                                         ?>
-                                            <form class="form" action='deleteActivityFromBucket.php' method="post">
+                                            <form class="form" action='deleteActivityFromReservation.php' method="post">
                                                 <input type="hidden" id="activity_id" name="activity_id" value=<?php echo $activity_tuple[0] ?>>
                                                 <input type="hidden" id="tour_id" name="tour_id" value=<?php echo $tuple[0] ?>>
                                                 <div class="activity">
@@ -405,7 +449,7 @@ if ($flight_result->num_rows > 0) {
                                                         </div>
 
                                                     </div>
-                                                    <div class="number_of_tour">
+                                                    <div class="number_of_activity">
                                                         <div>
                                                             <p>Number of people:
                                                             <p>
@@ -415,7 +459,7 @@ if ($flight_result->num_rows > 0) {
                                                         </div>
                                                     </div>
                                                     <div class="activity_button">
-                                                        <input class="input" type="submit" value="Remove">
+                                                        <input class="input" type="submit" value="Cancel Reservation">
                                                     </div>
                                                 </div>
                                             </form>

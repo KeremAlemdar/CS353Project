@@ -79,6 +79,10 @@ public class App {
             sql = "DROP TABLE IF EXISTS tour_activity_bucket";
             stmt.executeUpdate(sql);
             System.out.println("tour_activity_bucket table is deleted!");
+            
+            sql = "DROP TABLE IF EXISTS reservation_tour_activity";
+            stmt.executeUpdate(sql);
+            System.out.println("reservation_tour_activity table is deleted!");
 
             sql = "DROP TABLE IF EXISTS hotel_bucket";
             stmt.executeUpdate(sql);
@@ -517,6 +521,20 @@ public class App {
             
             stmt.executeUpdate(sql);
             System.out.println("activity_bucket table created!");
+
+            sql = "CREATE TABLE reservation_tour_activity " +
+            "(user_id INT(12), " +
+            " tour_id INT(12), " +
+            " activity_id INT(12), " +
+            " count INT(12), " +
+            " PRIMARY KEY ( user_id, tour_id, activity_id ), " +
+            " FOREIGN KEY (user_id) REFERENCES account(user_id), " +
+            " FOREIGN KEY (activity_id) REFERENCES activity(activity_id), " +
+            " FOREIGN KEY (tour_id) REFERENCES tour(tour_id))" +
+            " ENGINE=innodb;";
+            
+            stmt.executeUpdate(sql);
+            System.out.println("reservation_tour_activity table created!");
 
             sql = "CREATE TABLE hotel_bucket " +
             "(user_id INT(12), " +

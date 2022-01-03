@@ -23,20 +23,20 @@ if ($activity_selected) {
         $query = "INSERT INTO `tour_activity_bucket` (`user_id`, `tour_id`, `activity_id`,`count`) VALUES (" . $user_id . "," . $tour_id . "," . $activities[$i] . "," . $numberOfActivity[$i] . ")";
         // echo $query;
         if ($result = $mysqli->query($query)) {
-            header("Location: paymentPage.php");
+            // header("Location: paymentPage.php");
             // echo "added";
         } else {
-            header("Location:" . $previous . "&error=cannotAdd");
+            // header("Location:" . $previous . "&error=cannotAdd");
             // echo "failed";
         }
     }
 } else {
     $query = "INSERT INTO `tour_bucket` (`user_id`, `tour_id`) VALUES (" . $user_id . "," . $tour_id . ")";
     if ($result = $mysqli->query($query)) {
-        header("Location: paymentPage.php");
+        // header("Location: paymentPage.php");
         // echo "added";
     } else {
-        header("Location:" . $previous . "&error=cannotAdd");
+        // header("Location:" . $previous . "&error=cannotAdd");
         // echo "failed";
     }
 }
