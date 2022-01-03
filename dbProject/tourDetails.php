@@ -23,6 +23,13 @@ $query = "select * from tour where tour_id=$tour_id";
 $result = $mysqli->query($query);
 $query = "select * from tour_activity natural join activity where tour_id=$tour_id";
 $activities = $mysqli->query($query);
+
+$query = "select * from evaluate_tour where tour_id=$tour_id";
+$evaluationExists = true;
+$evaluation = $mysqli->query($query);
+if ($evaluation->num_rows == 0) {
+    $evaluationExists = false;
+}
 #ACTIVITIES
 # activity_id, tour_id, date, content, name, location, price, categories
 ?>
@@ -120,6 +127,29 @@ $activities = $mysqli->query($query);
         .inner_page {
             width: 70%;
         }
+        .tour_comments {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            height: auto;
+        }
+
+        .tour_comments .comments {
+            margin: 3px;
+            border: solid;
+            border-color: black;
+            display: flex;
+
+        }
+
+        .star {
+            width: 100%;
+            display: flex;
+        }
+
+        .comment {
+            display: flex;
+        }
     </style>
     <title>Tour Name</title>
 </head>
@@ -172,6 +202,47 @@ $activities = $mysqli->query($query);
                                                     <input type="number" name="numberOfTour" value=1 />
                                                 </label>
                                                 <br />
+                                            </div>
+                                            <div class="tour_comments">
+                                                <div>
+                                                    <h1>Comments and Rates</h1>
+                                                </div>
+                                                <?php
+                                                if ($evaluationExists) {
+                                                    while ($tuple = $evaluation->fetch_array(MYSQLI_NUM)) {
+                                                ?>
+                                                        <div class="comments">
+                                                            <div>
+                                                                <div class="star">
+                                                                    <?php
+                                                                    $counter = 0;
+                                                                    while ($counter != $tuple[3]) {
+                                                                    ?>
+                                                                        <i class="fa fa-star fa-2x" data-index=$counter style="color: yellow;"></i>
+
+                                                                    <?php
+                                                                        $counter = $counter + 1;
+                                                                    }
+                                                                    ?>
+                                                                </div>
+                                                                <div class="comment">
+                                                                    <h3>
+                                                                        <?php echo $tuple[4] ?>
+                                                                    </h3>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    <?php
+                                                    }
+                                                } else {
+                                                    ?>
+                                                    <div>
+                                                        <h1>This hotel is not evaluated yet</h1>
+                                                    </div>
+                                                <?php
+                                                }
+                                                ?>
                                             </div>
                                         </div>
                                     </div>
