@@ -116,10 +116,6 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("guide table is deleted!");
 
-            sql = "DROP TABLE IF EXISTS customer";
-            stmt.executeUpdate(sql);
-            System.out.println("customer table is deleted!");
-
             sql = "DROP TABLE IF EXISTS Flight_Ticket";
             stmt.executeUpdate(sql);
             System.out.println("Flight_Ticket table is deleted!");
@@ -127,10 +123,6 @@ public class App {
             sql = "DROP TABLE IF EXISTS Flight";
             stmt.executeUpdate(sql);
             System.out.println("Flight table is deleted!");
-
-            sql = "DROP TABLE IF EXISTS reservation";
-            stmt.executeUpdate(sql);
-            System.out.println("reservation table is deleted!");
 
             sql = "DROP TABLE IF EXISTS Airport";
             stmt.executeUpdate(sql);
@@ -155,6 +147,14 @@ public class App {
             sql = "DROP TABLE IF EXISTS activity";
             stmt.executeUpdate(sql);
             System.out.println("activity table is deleted!");
+
+            sql = "DROP TABLE IF EXISTS customer";
+            stmt.executeUpdate(sql);
+            System.out.println("customer table is deleted!");
+
+            sql = "DROP TABLE IF EXISTS reservation";
+            stmt.executeUpdate(sql);
+            System.out.println("reservation table is deleted!");
 
             sql = "DROP TABLE IF EXISTS account";       
             stmt.executeUpdate(sql);

@@ -2,6 +2,7 @@
 include("./components/navbar.php");
 include("./connection/checkSession.php");
 
+
 $user_id =  isset($_SESSION['user_id']) ? $_SESSION['user_id'] : "";
 $error =  isset($_GET['error']) ? $_GET['error'] : "";
 if ($error == "cannotDelete") {
