@@ -95,4 +95,6 @@
   <h1><a href="./Guides/guideToursStatus.php">Display Guide Assignment Status</a></h1>
 
   <h1><a href="./Reservation/displayTourRes.php">Display All Tour Resevations</a></h1> 
+
+  <h1><a href="./Reservation/displayHotelRes.php">Display All Hotel Resevations</a></h1> 
   </html>

@@ -35,10 +35,7 @@ $(document).ready(function(){
 		var user_id = $(e.relatedTarget).data('reservation-id');
 		$(e.currentTarget).find('input[name="hidden_edit"]').val(user_id);
         
-
 	});
-
-
 });
 
 </script>
@@ -51,18 +48,19 @@ $(document).ready(function(){
 			<div class="table-title">
 				<div class="row">
 					<div class="col-sm-6">
-						<h2>Manage <b>Tour Reservations</b></h2>
+						<h2>Manage <b>Hotel Reservations</b></h2>
 					</div>
 				</div>
 			</div>
 			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
-						<th>Tour ID</th>
-						<th>Tour name</th>
+						<th>Hotel ID</th>
+						<th>Hotel name</th>
 						<th>User ID</th>
 						<th>Customer name</th>
 						<th>Amount of people</th>
+                        <th>Reservation Type</th>
 						<th>Start Date</th>
 						<th>End Date</th>
 						<th>Actions</th>
@@ -71,19 +69,20 @@ $(document).ready(function(){
 				<tbody>
 					
                         <?php 
-						$sql = "SELECT * FROM `reservation_tour` NATURAL JOIN `tour` NATURAL JOIN `customer`NATURAL JOIN`account` WHERE `account`.`user_id` = `customer`.`customer_id` ";
+						$sql = "SELECT * FROM `reservation_hotel` NATURAL JOIN `Hotel` NATURAL JOIN `customer` NATURAL JOIN `account` WHERE `account`.`user_id` = `customer`.`customer_id`";
 						$result = $mysqli->query($sql);
 					
 						while($row = $result->fetch_assoc()){
 
                             $reservation_id = $row["reservation_id"];
-							$tour_id = $row["tour_id"];
-							$name = $row["tour_name"];
+							$tour_id = $row["hotel_id"];
+							$name = $row["name"];
                             $user_id = $row["user_id"];
                             $customer_name = $row["fname"];
                             $amountOfPeople = $row["amount_of_people"];
 							$start_Date = $row["start_date"];
 							$end_date = $row["end_date"];
+                            $type = $row["reservation_type"];
 							echo("
 							<tr>
 							<td>$tour_id</td>\n
@@ -91,13 +90,14 @@ $(document).ready(function(){
 							<td>$user_id</td>\n
 							<td>$customer_name</td>\n
 							<td>$amountOfPeople</td>\n
+                            <td>$type</td>\n
 							<td>$start_Date</td>\n
 							<td>$end_date</td>\n
 							<td>\n
-							<a href=\"#editReservation\" data-delete-id=\"".$user_id."\"data-reservation-id=\"".$reservation_id."\" class=\"edit\" data-toggle=\"modal\">
-								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Edit\">&#xE254;</i>
-							</a>\n
-							<a href=\"#deleteReservation\" data-reservation-id=\"".$reservation_id."\" class=\"delete\" data-toggle=\"modal\">
+                            <a href=\"#editReservation\" data-reservation-id=\"".$reservation_id."\" class=\"edit\" data-toggle=\"modal\">
+                                <i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Edit\">&#xE254;</i>
+                            </a>\n
+							<a href=\"#deleteReservation\" data-delete-id=\"".$user_id."\"data-reservation-id=\"".$reservation_id."\" class=\"delete\" data-toggle=\"modal\">
 								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Decline\">&#xE872;</i>
 							</a>\n
 							
@@ -115,16 +115,28 @@ $(document).ready(function(){
 <div id="editReservation" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form action="./editTourRes.php" method="POST"> 
+			<form action="./editHotelRes.php" method="POST"> 
 				<div class="modal-header">						
-					<h4 class="modal-title">Edit Tour Reservation</h4>
+					<h4 class="modal-title">Edit Hotel Reservation</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">					
 					<div class="form-group">
 						<label>Amount of People</label>
 						<input id="amp" name="amp" type="text" class="form-control" required>
-					</div>				
+					</div>
+                    <div class="form-group">
+						<label>Reservation Type</label>
+						<input id="type" name="type" type="text" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Start Date</label>
+						<input id="sdate" name="sdate" type="date" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>End Date</label>
+						<input id="edate" name="edate" type="date" class="form-control" required></input>
+					</div>					
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -140,9 +152,9 @@ $(document).ready(function(){
 <div id="deleteReservation" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form action="./deleteTourRes.php" method="POST">
+			<form action="./deleteHotelRes.php" method="POST">
 				<div class="modal-header">						
-					<h4 class="modal-title">Delete Tour Reservation</h4>
+					<h4 class="modal-title">Delete Reservation</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">					
