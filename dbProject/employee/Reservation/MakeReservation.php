@@ -44,7 +44,7 @@ $(document).ready(function(){
 			<div class="table-title">
 				<div class="row">
 					<div class="col-sm-6">
-						<h2>Reservation List</h2>
+						<h2>Reservation List <br >(To reset list return to home page)</h2>
 					</div>
 					
 				</div>
@@ -77,7 +77,7 @@ $(document).ready(function(){
 				$roomID = $_SESSION["employee_room_select"];
 
 				if ($roomID != 0) {
-					$sql = "SELECT * FROM `hotel_room` NATURAL JOIN hotel WHERE hotel_room.room_id = $roomID";
+					$sql = "SELECT * FROM `hotel_room` JOIN hotel WHERE hotel.`hotel_id` = hotel_room.hotel_id AND hotel_room.hotel_id = $roomID;";
 					$result = $mysqli->query($sql);
 					$row = $result->fetch_assoc();
 					$hotelID = $row["hotel_id"];

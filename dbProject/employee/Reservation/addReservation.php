@@ -8,54 +8,76 @@ $user_id =  isset($_SESSION['user_id']) ? $_SESSION['user_id'] : "";
 $customerID = $_SESSION["employee_account_select"];
 $roomID = $_SESSION["employee_room_select"];
 $tourID = $_SESSION["employee_tour_select"];
+$tourAmp = $_SESSION["employee_tour_select_amp"];
 $activity_arr = $_SESSION["employee_activity_select_array"];
 
 
 if ($customerID == 0) {
     echo "Customer is not set <br></br>";
     echo "<a href=\"MakeReservation.php\"> Back </a> ";
-    exit();
-}
+}else {
 
-//Create New reservation
+    //Create New reservation
 
     $query = "INSERT INTO reservation (reservation_id) VALUES (null)";
     $mysqli->query($query);
     $reservation_id = $mysqli->insert_id;
-    $count = $tuple[2];
+
+    //Insert into employee's reservation table
+    
+    $query = "INSERT INTO `employee_reserve` (`reservation_id`, `employee_id`, `customer_id`) VALUES ('$reservation_id', '$user_id', '$customerID')";
+    if (!$mysqli->query($query)) {
+        $mysqli->error;
+    } 
 
 
-
-    $query = "INSERT INTO employee_reserve (reservation_id,customer_id) VALUES ($reservation_id,$user_id)";
-    if ($mysqli->query($query)) {
-        echo "basarili1";
-    } else {
-        echo "basarisiz1";
+    //Insert tour reservation
+    if ($tourID != 0) {
+    $query = "INSERT INTO reservation_tour (reservation_id,tour_id,amount_of_people) VALUES ($reservation_id,$tourID,$tourAmp)";
+    if (!$mysqli->query($query)) {
+        $mysqli->error;
+    } 
     }
 
 
+    //Insert hotel reservation
+    if ($roomID != 0) {
+        $sql = "SELECT * FROM `hotel_room` JOIN hotel WHERE hotel.`hotel_id` = hotel_room.hotel_id AND hotel_room.hotel_id = $roomID";
+        $result = $mysqli->query($sql);
+        $row = $result->fetch_assoc();
+        $hotelID = $row["hotel_id"];
 
-    $query = "INSERT INTO reservation_tour (reservation_id,tour_id,amount_of_people) VALUES ($reservation_id,$tour_id,$count)";
-    echo $query;
-    if($mysqli->query($query)){
-        echo "reservation_tour successs";
-    }
-    else {
-        echo "reservation_tour fail";
+        if ($tourID == 0) { //TODO dummy data
+            $end = "2022-01-01";
+            $start = "2022-01-01";
+        }
+        else{
+            $sql = "SELECT * FROM `tour` WHERE `tour_id` =  $tourID";
+            $result = $mysqli->query($sql);
+            $row = $result->fetch_assoc();
+            $end = $row["end_date"];
+            $start = $row["start_date"];
+        }
+
+        $query = "INSERT INTO reservation_hotel (reservation_id,hotel_id,amount_of_people,start_date,end_date) VALUES ($reservation_id,$hotelID,$tourAmp,$start,$end)";
+        $mysqli->query($query);
     }
 
-    $query = "SELECT * FROM `tour_activity_bucket` WHERE `tour_activity_bucket`.`user_id` = $user_id AND `tour_activity_bucket`.`tour_id` = $tour_id";
-    $result = $mysqli->query($query);
-    while ($activity = $result->fetch_array(MYSQLI_NUM)) {
-        $activity_id = $activity[2];
-        $count = $activity[3];
-        $query = "INSERT INTO reservation_tour_activity (user_id,tour_id,activity_id,count) VALUES ($user_id,$tour_id,$activity_id,$count)";
-        if ($mysqli->query($query)) {
-            echo "insertion success";
-        } else {
-            echo "insertion fail";
+
+    //Insert tour activities
+ 
+    if (count($activity_arr )!= 0 ) {
+        foreach ($activity_arr as $activityID) {
+            $query = "INSERT INTO reservation_tour_activity (user_id,tour_id,activity_id,count) VALUES ($user_id,$tourID,$activityID,$tourAmp)";
+            $mysqli->query($query);
         }
     }
+
+
+}
+
+
+header( "location: ../employeeHome.php");
 
 
 ?>

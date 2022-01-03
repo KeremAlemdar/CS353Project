@@ -65,11 +65,10 @@ $(document).ready(function(){
 					
                         <?php 
 						$id = $_GET["id"];
-						$sql = "SELECT * FROM `hotel_room` NATURAL JOIN `hotel` WHERE hotel.hotel_id = $id;";
+						$sql = "SELECT * FROM `hotel_room` JOIN hotel WHERE hotel.`hotel_id` = $id;";
 						$result = $mysqli->query($sql);
-					
 						while($row = $result->fetch_assoc()){
-
+							
 							$hotelID = $row["room_id"];
 							$name = $row["amount_of_people"];
 							$city = $row["price"];

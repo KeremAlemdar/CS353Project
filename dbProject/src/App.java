@@ -120,9 +120,9 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("Employee table is deleted!"); 
 
-            sql = "DROP TABLE IF EXISTS Customer_Ticket";
-            stmt.executeUpdate(sql);
-            System.out.println("Customer_Ticket table is deleted!");
+            // sql = "DROP TABLE IF EXISTS Customer_Ticket";
+            // stmt.executeUpdate(sql);
+            // System.out.println("Customer_Ticket table is deleted!");
 
             sql = "DROP TABLE IF EXISTS Flight_Ticket";
             stmt.executeUpdate(sql);
@@ -135,10 +135,6 @@ public class App {
             sql = "DROP TABLE IF EXISTS customer";
             stmt.executeUpdate(sql);
             System.out.println("customer table is deleted!");
-
-            sql = "DROP TABLE IF EXISTS Flight_Ticket";
-            stmt.executeUpdate(sql);
-            System.out.println("Flight_Ticket table is deleted!");
 
             sql = "DROP TABLE IF EXISTS Flight";
             stmt.executeUpdate(sql);
@@ -378,16 +374,16 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("Flight_Ticket table created!");
 
-            sql = "CREATE TABLE Customer_Ticket " +
-            "(ticket_id INT(12), " +
-            " customer_id INT(12), " +
-            " PRIMARY KEY (ticket_id, customer_id), " +
-            " FOREIGN KEY (ticket_id) REFERENCES Flight_Ticket(ticket_id)," +
-            " FOREIGN KEY (customer_id) REFERENCES Customer(customer_id))" +
-            " ENGINE=innodb;";
+            // sql = "CREATE TABLE Customer_Ticket " +
+            // "(ticket_id INT(12), " +
+            // " customer_id INT(12), " +
+            // " PRIMARY KEY (ticket_id, customer_id), " +
+            // " FOREIGN KEY (ticket_id) REFERENCES Flight_Ticket(ticket_id)," +
+            // " FOREIGN KEY (customer_id) REFERENCES Customer(customer_id))" +
+            // " ENGINE=innodb;";
 
-            stmt.executeUpdate(sql);
-            System.out.println("Customer_Ticket table created!");
+            // stmt.executeUpdate(sql);
+            // System.out.println("Customer_Ticket table created!");
 
             sql = "CREATE TABLE Hotel " +
             "(hotel_id INT(12) AUTO_INCREMENT, " +
@@ -646,6 +642,9 @@ public class App {
             stmt.executeUpdate(sql);
             sql = "INSERT INTO Flight (departure_time, arrival_time, departure_airport, arrival_airport, cost) " +
             "VALUES ( '2021/12/25 13:30:00', '2021/12/25 15:30:00', '2', '1', '120')";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO Flight (departure_time, arrival_time, departure_airport, arrival_airport, cost) " +
+            "VALUES ( '2022/01/25 13:30:00', '2022/01/25 15:30:00', '2', '1', '120')";
             stmt.executeUpdate(sql);
 
             sql = "INSERT INTO account " +

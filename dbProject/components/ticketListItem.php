@@ -135,6 +135,8 @@ if (empty($_POST['departureCity']) && empty($_POST['departureDate']) && empty($_
         <?php
         if (empty($result)) {
             echo '<h1> Select Date and Cities </h1>';
+        } else if($result->num_rows == 0) {
+            echo '<h1> Flight Not Found </h1>';
         } else {
             while ($tuple = $result->fetch_array(MYSQLI_NUM)) {
         ?>
