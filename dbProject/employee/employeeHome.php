@@ -19,11 +19,11 @@
   <?php
   include("../connection/checkSession.php");
 
-  $_SESSION["employee_activity_select_array"] = array();
-  $_SESSION["employee_room_select"] = 0;
-  $_SESSION["employee_account_select"] = 0;
-  $_SESSION["employee_tour_select"] = 0;
-
+$_SESSION["employee_activity_select_array"] = array();
+$_SESSION["employee_room_select"] = 0;
+$_SESSION["employee_account_select"] = 0;
+$_SESSION["employee_tour_select"] = 0;
+$_SESSION["employee_tour_select_amp"] = 0;
 
 
   ?>

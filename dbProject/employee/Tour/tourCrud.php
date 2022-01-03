@@ -32,6 +32,11 @@ $(document).ready(function(){
 		var activiyID = $(e.relatedTarget).data('edit-id');
 		$(e.currentTarget).find('input[name="hidden_edit"]').val(activiyID);
 	});
+
+	$('#selectTourModal').on('show.bs.modal', function(e) {
+		var activiyID = $(e.relatedTarget).data('select-id');
+		$(e.currentTarget).find('input[name="hidden_select"]').val(activiyID);
+	});
 });
 
 </script>
@@ -92,10 +97,10 @@ $(document).ready(function(){
 							<a href=\"#deleteTourModal\" data-delete-id=\"".$tour_id."\" class=\"delete\" data-toggle=\"modal\">
 								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Delete\">&#xE872;</i>
 							</a>\n
-							<a href=\"./selectTour.php?id=".$tour_id."\" style=\"color: #28A745 \" >
-								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"List\">&#xe5ca;</i>
+							<a href=\"#selectTourModal\" data-select-id=\"".$tour_id."\" style=\"color: #28A745 \"  data-toggle=\"modal\">
+								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Select\">&#xe5ca;</i>
 							</a>\n
-							
+
 							</td></tr>");
 						
 						}
@@ -206,5 +211,31 @@ $(document).ready(function(){
 		</div>
 	</div>
 </div>
+
+<!-- Select Modal HTML -->
+<div id="selectTourModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form action="./selectTour.php" method="POST"> 
+				<div class="modal-header">						
+					<h4 class="modal-title">Amount of People</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">					
+					<div class="form-group">
+						<label>Amount of People</label>
+						<input id="amp" name="amp" type="number" class="form-control" required>
+					</div>			
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+					<input type="hidden" name="hidden_select" id="hidden_select" value="0">
+					<input type="submit" class="btn btn-info" value="Save">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
 </body>
 </html>

@@ -96,20 +96,23 @@ $(document).ready(function(){
 					echo "<tr> <td>Hotel is not set </td> </tr>";
 				}
 
-
 				//Get tour info 
+				
 				$tourID = $_SESSION["employee_tour_select"];
+
 				if ($tourID != 0) {
 					$sql = "SELECT * FROM `tour` WHERE tour.tour_id = $tourID";
 					$result = $mysqli->query($sql);
 					$row = $result->fetch_assoc();
 					$tourName = $row["tour_name"];
 					$tourPrice = $row["cost"];
+					$amp = $_SESSION["employee_tour_select_amp"];
 
 					echo "	<tr> 
 								<td> Tour ID:  $tourID   </td>  
 								<td> Tour Name: $tourName   </td>  
 								<td> Price :  $tourPrice  </td>
+								<td> Amount of people: $amp </td>
 							</tr>";
 				}else {
 					echo "<tr> <td>Tour is not set </td> </tr>";

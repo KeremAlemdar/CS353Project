@@ -56,6 +56,7 @@ $(document).ready(function(){
 						<th>Email</th>
 						<th>Phone</th>
 						<th>Full Name</th>
+						<th>Status</th>
 						<th>Actions</th>
 					</tr>
 				</thead>
@@ -73,8 +74,33 @@ $(document).ready(function(){
 							$email = $row["email"];
 							$phone_num = $row["phone_num"];
 							$fname = $row["fname"];
+							$status = "Not Assigned";
+							//Find status
 
+							$sql = "SELECT * FROM `customer` WHERE `customer`.`customer_id` = $accountID;";
+							$result2 = $mysqli->query($sql);
 							
+							if ( mysqli_num_rows($result2) != 0 ) {
+								$status = "Customer";
+							}
+							else{
+
+								$sql = "SELECT * FROM `employee` WHERE `employee`.`employee_id` = $accountID;";
+								$result2 = $mysqli->query($sql);
+
+								if (mysqli_num_rows($result2) != 0) {
+									$status = "Employee";
+								}else{
+
+									$sql = "SELECT * FROM `guide` WHERE `guide`.`guide_id` = $accountID;";
+									$result2 = $mysqli->query($sql);
+
+									if (mysqli_num_rows($result2) != 0) {
+										$status = "Guide";
+									}
+								}
+							}
+
 							echo("
 							<tr>
 							<td>$accountID</td>\n
@@ -82,6 +108,7 @@ $(document).ready(function(){
 							<td>$email</td>\n
 							<td>$phone_num</td>\n
 							<td>$fname</td>\n
+							<td>$status</td>\n
 							<td>\n
 							<a href=\"#editAccountModal\" data-edit-id=\"".$accountID."\" class=\"edit\" data-toggle=\"modal\">
 								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Edit\">&#xE254;</i>
@@ -92,7 +119,9 @@ $(document).ready(function(){
 							<a href=\"./selectAccount.php?id=".$accountID."\" style=\"color: #28A745 \" >
 								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Select\">&#xe5ca;</i>
 							</a>\n
-							
+							<a href=\"./promoteGuide.php?id=".$accountID."\" style=\"color: #28A745 \" >
+								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Promote Guide\">&#xe7f0;</i>
+							</a>\n
 							</td></tr>");
 							
 						}
@@ -117,23 +146,15 @@ $(document).ready(function(){
 				<div class="modal-body">					
 					<div class="form-group">
 						<label>Name</label>
-						<input id="account_name" name="account_name" type="text" class="form-control" required>
+						<input id="name" name="name" type="text" class="form-control" required>
 					</div>
 					<div class="form-group">
-						<label>Content</label>
-						<input id="account_con" name="account_con" type="text" class="form-control" required>
+						<label>email</label>
+						<input id="email" name="email" type="text" class="form-control" required>
 					</div>
 					<div class="form-group">
-						<label>Location</label>
-						<textarea id="account_loc" name="account_loc" class="form-control" required></textarea>
-					</div>
-					<div class="form-group">
-						<label>Price</label>
-						<textarea id="account_price" name="account_price" class="form-control" required></textarea>
-					</div>
-					<div class="form-group">
-						<label>Catagories</label>
-						<input id="account_cat" name="account_cat" type="text" class="form-control" required>
+						<label>Full Name</label>
+						<textarea id="fname" name="fname" class="form-control" required></textarea>
 					</div>					
 				</div>
 				<div class="modal-footer">
@@ -149,7 +170,7 @@ $(document).ready(function(){
 <div id="deleteAccountModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form action="./deleteHotel.php" method="POST">
+			<form action="./deleteAcc.php" method="POST">
 				<div class="modal-header">						
 					<h4 class="modal-title">Delete Account</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
