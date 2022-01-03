@@ -55,9 +55,6 @@ $(document).ready(function(){
 					<div class="col-sm-6">
 						<h2>Add Guide ID:<?php echo $guide_id?> <b>Tours</b></h2>
 					</div>
-					<div class="col-sm-6">
-						<a href="#addTourModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Tour</span></a>
-					</div>
 				</div>
 			</div>
 			<table class="table table-striped table-hover">
@@ -75,7 +72,7 @@ $(document).ready(function(){
 				<tbody>
 					
                         <?php 
-						$sql = "SELECT * FROM `tour` ORDER BY `tour`.`tour_id` ASC;";
+						$sql = "SELECT * FROM tour WHERE tour_id NOT IN (SELECT tour_guide.tour_id FROM tour_guide);;";
 						$result = $mysqli->query($sql);
 					
 						while($row = $result->fetch_assoc()){
