@@ -34,3 +34,34 @@ if ($result = $mysqli->query($query)) {
     // echo "basarisiz3";
     header("Location: profilePage.php?error=cannotDelete");
 }
+
+$query = "DELETE FROM `reservation_tour` WHERE `reservation_tour`.`reservation_id` = $reservation_id AND `reservation_tour`.`tour_id` = $tour_id";
+echo $query;
+if ($result = $mysqli->query($query)) {
+    $query = "DELETE FROM `reservation_tour_activity` WHERE `reservation_tour_activity`.`user_id` = $user_id AND `reservation_tour_activity`.`tour_id` = $tour_id";
+    echo $query;
+    if ($result = $mysqli->query($query)) {
+        $query = "DELETE FROM `employee_reserve` WHERE `employee_reserve`.`reservation_id` = $reservation_id";
+        echo $query;
+        if ($result = $mysqli->query($query)) {
+            $query = "DELETE FROM `reservation` WHERE `reservation`.`reservation_id` = $reservation_id";
+            echo $query;
+            if ($result = $mysqli->query($query)) {
+                // echo "basarili";
+                header("Location: profilePage.php");
+            } else {
+                // echo "basarisiz1";
+                header("Location: profilePage.php?error=cannotDelete");
+            }
+        } else {
+            // echo "basarisiz1";
+            header("Location: profilePage.php?error=cannotDelete");
+        }
+    } else {
+        // echo "basarisiz2";
+        header("Location: profilePage.php?error=cannotDelete");
+    }
+} else {
+    // echo "basarisiz3";
+    header("Location: profilePage.php?error=cannotDelete");
+}
