@@ -68,6 +68,7 @@
     <a href="./Reservation/MakeReservation.php">Reservation List</a>
     <a href="./Reservation/reservationAccept.php"> Tour Reservations Acceptance</a>
     <a href="./Reservation/reservationAcceptHotel.php"> Hotel Reservations Acceptance</a>
+    <a href="../mainPage.php" >Go to customer page</a>
     <a href="../logout.php">Logout</a>
 
   </div>
@@ -95,6 +96,10 @@
   <h1><a href="./Guides/guideToursStatus.php">Display Guide Assignment Status</a></h1>
 
   <h1><a href="./Reservation/displayTourRes.php">Display All Tour Resevations</a></h1> 
-
+  
   <h1><a href="./Reservation/displayHotelRes.php">Display All Hotel Resevations</a></h1> 
+
+  <h1><a href="./Reservation/displayTourRes.php">Display Customer Tour Comments</a></h1> 
+
+  <h1><a href="./Reservation/displayTourRes.php">Display Guide Tour Comments</a></h1> 
   </html>

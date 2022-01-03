@@ -34,6 +34,7 @@
     <a href="./upcomingTours.php">Upcoming Tours</a>
     <a href="./tourInvitations.php">Tour Invitations</a>
     <a href="./previousTours.php">Previous Tours</a>
+    <a href="../mainPage.php">Go to customer page</a>
     <a href="../logout.php">Logout</a>
 
   </div>

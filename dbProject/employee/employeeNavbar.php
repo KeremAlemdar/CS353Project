@@ -1,3 +1,4 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <style>
     /* Add a black background color to the top navigation */
     .topnav {
@@ -37,6 +38,7 @@
   <a href="../Hotel/hotelCrud.php">Hotel</a>
   <a href="../Account/accountCrud.php">Account</a>
   <a href="../Reservation/MakeReservation.php" >Reservation List</a>
+  <a href="../../mainPage.php" >Go to customer page</a>
   <a href="../../logout.php" >Logout</a>
 
 </div>
