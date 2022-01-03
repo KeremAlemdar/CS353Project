@@ -859,6 +859,8 @@ public class App {
             stmt.executeUpdate(sql);
 
             
+
+            
             // System.out.println("------------------1----------------");
             // sql = "SELECT bdate,address,city " +
             // "FROM customer," +
