@@ -110,7 +110,7 @@ $evaluation = $mysqli->query($query);
                         echo  " NO HOTEL RATE ";
                     }
                     else{
-                        echo  "HOTEL RATE ", $hotel[8]/$hotel[7];
+                        echo  "HOTEL RATE ", $hotel[8]/$hotel[7], "STARS ";
                     } ?>
             </h1>
             <h1>

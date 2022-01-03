@@ -76,7 +76,7 @@ $result = $mysqli->query($query);
             ?>
                 <div class="tour">
                     <div class="img">
-                        <a href='./hotelDisplay.php?id=<?php echo $tuple[0] ?>&start_date=<?php echo $start_date?>&end_date=<?php echo $end_date?>'>
+                        <a href='./hotelDisplay.php?id=<?php echo $tuple[0] ?>&start_date=<?php echo $start_date ?>&end_date=<?php echo $end_date ?>'>
                             <img src='./img/<?php echo $tuple[5] ?>' />
                         </a>
                     </div>
@@ -84,9 +84,18 @@ $result = $mysqli->query($query);
                         <h1>
                             <?php echo $tuple[1] ?>
                         </h1>
+
                         <h1>
                             <?php echo $tuple[2] ?>
                         </h1>
+                        <h1>
+                            <?php if ($tuple[7] == 0) {
+                                echo  " NO HOTEL RATE ";
+                            } else {
+                                echo  "HOTEL RATE ", $tuple[8] / $tuple[7], "STARS ";
+                            } ?>
+                        </h1>
+
                         <h1>
                             <?php echo $tuple[6], " $ per person and per night" ?>
                         </h1>
