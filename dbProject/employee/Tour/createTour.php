@@ -12,7 +12,7 @@ $tend = $_POST["tour_end"];
 $end_date=date("Y-m-d H:i:s",strtotime($tsta));
 $cost = $_POST["cost"];
 
-$query =  "INSERT INTO `tour` (`tour_id`, `start_date`, `end_date`, `tour_information`, `image`, `tour_name`, `cost`) VALUES (NULL, '$std_date', '$end_date', '$tinf', NULL, '$tname', '$cost')";
+$query =  "INSERT INTO `tour` (`tour_id`, `start_date`, `end_date`, `tour_information`, `image`, `tour_name`, `cost`) VALUES (NULL, '$std_date', '$end_date', '$tinf', 'tour1.jpg', '$tname', '$cost')";
 $result = $mysqli->query($query);
 
 if ($result) {
