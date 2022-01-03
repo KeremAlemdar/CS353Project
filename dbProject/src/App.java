@@ -60,6 +60,10 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("tour_guide table is deleted!");
 
+            sql = "DROP TABLE IF EXISTS tour_guide_decline";
+            stmt.executeUpdate(sql);
+            System.out.println("tour_guide_decline table is deleted!");
+
             sql = "DROP TABLE IF EXISTS evaluate_guide";
             stmt.executeUpdate(sql);
             System.out.println("evaluate_guide table is deleted!");
@@ -250,6 +254,7 @@ public class App {
             "(tour_id INT(12), " +
             " guide_id INT(12), " +
             " acceptance_status INT(12), " +
+            " reason CHAR(255), " +
             " FOREIGN KEY (guide_id) REFERENCES guide(guide_id), " +
             " FOREIGN KEY (tour_id) REFERENCES tour(tour_id), " +
             " PRIMARY KEY ( tour_id, guide_id ))" +

@@ -111,8 +111,8 @@
                             <a href=\"./acceptTourInvitation.php?id=" . $tourID . "\" style=\"color: #28A745 \" >
 								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Accept\">&#xe5ca;</i>
 							</a>\n
-							<a href=\"#declineTourModal\" data-delete-id=\"" . $tourID . "\" class=\"delete\" data-toggle=\"modal\">
-								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Decline\">&#xE872;</i>
+							<a href=\"./declineTourInvitationPage.php?id=" . $tourID . "\" style=\"color: #red \" >
+								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Accept\">&#xE872;</i>
 							</a>\n
 							</td>
 							</tr>");
