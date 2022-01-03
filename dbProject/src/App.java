@@ -52,6 +52,10 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("tour_activity table is deleted!");
 
+            sql = "DROP TABLE IF EXISTS tour_guide";
+            stmt.executeUpdate(sql);
+            System.out.println("tour_guide table is deleted!");
+
             sql = "DROP TABLE IF EXISTS evaluate_guide";
             stmt.executeUpdate(sql);
             System.out.println("evaluate_guide table is deleted!");
@@ -239,7 +243,7 @@ public class App {
             " ENGINE=innodb;";
             
             stmt.executeUpdate(sql);
-            System.out.println("tour table created!");
+            System.out.println("tour_guide table created!");
 
             sql = "CREATE TABLE city " +
             "(city_id INT(12) AUTO_INCREMENT, " +
@@ -442,6 +446,7 @@ public class App {
             " hotel_id INT(12), " +
             " rate INT(12), " +
             " evaluation VARCHAR(255), " +
+            " acceptance_status INT(12), " +
             " PRIMARY KEY ( evalutaion_id ), " +
             " FOREIGN KEY (customer_id) REFERENCES customer(customer_id), " +
             " FOREIGN KEY (hotel_id) REFERENCES Hotel(hotel_id)) " +
