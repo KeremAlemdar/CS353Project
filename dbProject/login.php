@@ -14,16 +14,16 @@ if (isset($_POST['logIn'])) {
 		$result = $mysqli->query($query);
 		if ($result->num_rows == 1) { // if enployee
 			$_SESSION['user_type'] = "employee";
-			header("Location: login.php?msg=emp");
+			header("Location: employee/employeeHome.php");
 		} else {
 			$query = "select * from Guide where guide_id='$user_id'";
 			$result = $mysqli->query($query);
 			if ($result->num_rows == 1) { // guide
 			$_SESSION['user_type'] = "guide";
-				header("Location: login.php?msg=guide");
+				header("Location: guide/guideHome.php");
 			} else {
 			$_SESSION['user_type'] = "customer";
-				header("Location: login.php?msg=cust");
+				header("Location: mainPage.php");
 			}
 		}
 	} else {

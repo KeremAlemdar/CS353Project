@@ -10,8 +10,7 @@ if (isset($_POST['activities'])) {
     $numberOfActivity = $_POST['numberOfActivity'];
     $activity_selected = true;
 }
-// $user_id = $_SESSION['uid'];
-$user_id = 1;
+$user_id = $_SESSION['user_id'];
 $tour_id = $_GET['tour_id'];
 $date = date("Y/m/d");
 if ($activity_selected) {

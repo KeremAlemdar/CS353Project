@@ -11,10 +11,9 @@ if ($error == "cannotDelete") {
 }
 
 
-$user_id = 1; // FOR TEST PURPOSES
 // $query = "select * from ((tour natural join tour_bucket) natural join activity) where user_id =" . $user_id . "";
 
-$query = "SELECT DISTINCT `tour`.* FROM `tour` LEFT JOIN `tour_bucket` ON `tour_bucket`.`tour_id` = `tour`.`tour_id` WHERE `user_id`= 1";
+$query = "SELECT DISTINCT `tour`.* FROM `tour` LEFT JOIN `tour_bucket` ON `tour_bucket`.`tour_id` = `tour`.`tour_id` WHERE `user_id`= $user_id";
 $tours = $mysqli->query($query);
 $empty = false;
 if ($tours->num_rows == 0) {

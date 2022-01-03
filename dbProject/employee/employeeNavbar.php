@@ -37,4 +37,6 @@
   <a href="../Hotel/hotelCrud.php">Hotel</a>
   <a href="../Account/accountCrud.php">Account</a>
   <a href="../Reservation/MakeReservation.php" >Reservation List</a>
+  <a href="../../logout.php" >Logout</a>
+
 </div>

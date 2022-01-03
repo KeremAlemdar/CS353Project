@@ -87,8 +87,7 @@
 
             <?php
             $date = date("Y/m/d");
-            // $user_id = $_SESSION['uid'];
-            $user_id = 2; // FOR TEST PURPOSES
+            $user_id = $_SESSION['user_id'];
             $sql = "SELECT * FROM `tour` NATURAL JOIN  `tour_guide` WHERE `guide_id`= $user_id AND start_date > '$date' AND `acceptance_status` = 2";
             $result = $mysqli->query($sql);
 

@@ -1,7 +1,6 @@
 <?php
 include("./connection/checkSession.php");
 $user_id =  isset($_SESSION['user_id']) ? $_SESSION['user_id'] : "";
-$user_id = 1;
 $query = "SELECT * FROM `tour_bucket` WHERE `user_id`= 1";
 $date = date("Y/m/d");
 

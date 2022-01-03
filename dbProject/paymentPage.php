@@ -15,7 +15,6 @@ if ($error == "cannotDelete") {
 $total_tour_cost = 0;
 $total_flights_cost = 0;
 $total_hotel_cost = 0;
-$user_id = 1; // FOR TEST PURPOSES
 // $query = "select * from ((tour natural join tour_bucket) natural join activity) where user_id =" . $user_id . "";
 $query = "SELECT DISTINCT * FROM `hotel` LEFT JOIN `hotel_bucket` ON `hotel_bucket`.`hotel_id` = `hotel`.`hotel_id` WHERE `user_id`= $user_id";
 $hotels = $mysqli->query($query);
@@ -31,7 +30,7 @@ if ($tours->num_rows == 0) {
     $empty = true;
 }
 
-$query = "SELECT DISTINCT * FROM `flight` LEFT JOIN `flight_bucket` ON `flight_bucket`.`flight_id` = `flight`.`flight_id` WHERE `user_id`= 1";
+$query = "SELECT DISTINCT * FROM `flight` LEFT JOIN `flight_bucket` ON `flight_bucket`.`flight_id` = `flight`.`flight_id` WHERE `user_id`= $user_id";
 $flights = $mysqli->query($query);
 $flights_empty = false;
 if ($flights->num_rows == 0) {
@@ -461,7 +460,7 @@ if ($flights->num_rows == 0) {
 
                                         <?php
                                         $query = "SELECT `A`.*,`TB`.* FROM `activity` AS `A` , `tour` AS `T` ,`tour_activity_bucket` AS `TB` 
-                    WHERE `TB`.`tour_id` = `T`.`tour_id` AND `TB`.`activity_id` = `A`.`activity_id` AND user_id = 1";
+                    WHERE `TB`.`tour_id` = `T`.`tour_id` AND `TB`.`activity_id` = `A`.`activity_id` AND user_id = $user_id";
                                         $activities = $mysqli->query($query);
                                         if ($activities->num_rows > 0) {
                                         ?>

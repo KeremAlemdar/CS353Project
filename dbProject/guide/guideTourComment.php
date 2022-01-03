@@ -1,7 +1,6 @@
 <?php
 include("../connection/checkSession.php");
-// $user_id = $_SESSION['uid'];
-$guide_id = 2; // FOR TEST PURPOSES
+$guide_id = $_SESSION['user_id'];
 
 $tour_id = $_GET["id"];
 //$tour_id = 1;

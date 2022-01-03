@@ -1,20 +1,19 @@
 <?php
 include("./connection/checkSession.php");
-//$user_id = $_SESSION['user_id'];
-$user_id = 1;
+$user_id = $_SESSION['user_id'];
 
 $date = date("Y/m/d");
 //USER
-$query = "SELECT fname, email, phone_num FROM account WHERE user_id = " . 1 . "";
+$query = "SELECT fname, email, phone_num FROM account WHERE user_id = " . $user_id . "";
 $result = $mysqli->query($query);
 $user_info = $result->fetch_array(MYSQLI_NUM);
 
 //HOTEL
-$query = "SELECT * FROM customer_reserve NATURAL JOIN reservation_hotel NATURAL JOIN Hotel WHERE customer_id = 1 AND end_date > '$date' AND acceptance_status = 1";
+$query = "SELECT * FROM customer_reserve NATURAL JOIN reservation_hotel NATURAL JOIN Hotel WHERE customer_id = $user_id AND end_date > '$date' AND acceptance_status = 1";
 
 $hotel_id_result = $mysqli->query($query);
 
-$query = "SELECT * FROM employee_reserve NATURAL JOIN reservation_hotel NATURAL JOIN Hotel WHERE customer_id = 1 AND end_date > '$date'";
+$query = "SELECT * FROM employee_reserve NATURAL JOIN reservation_hotel NATURAL JOIN Hotel WHERE customer_id = $user_id AND end_date > '$date'";
 $hotel_id_result_employee = $mysqli->query($query);
 $hotel_empty_employee = false;
 if ($hotel_id_result_employee->num_rows > 0) {
@@ -26,7 +25,7 @@ if ($hotel_id_result->num_rows > 0) {
 }
 
 //TOUR
-$query = "SELECT * FROM customer_reserve NATURAL JOIN reservation_tour NATURAL JOIN tour WHERE customer_id = 1 AND end_date > '$date'";
+$query = "SELECT * FROM customer_reserve NATURAL JOIN reservation_tour NATURAL JOIN tour WHERE customer_id = $user_id AND end_date > '$date'";
 $tours = $mysqli->query($query);
 
 $tour_empty = false;
@@ -34,7 +33,7 @@ if ($tours->num_rows == 0) {
     $tour_empty = true;
 }
 
-$query = "SELECT * FROM employee_reserve NATURAL JOIN reservation_tour NATURAL JOIN tour WHERE customer_id = 1 AND end_date > '$date'";
+$query = "SELECT * FROM employee_reserve NATURAL JOIN reservation_tour NATURAL JOIN tour WHERE customer_id = $user_id AND end_date > '$date'";
 $tours_employee = $mysqli->query($query);
 $tour_empty_employee = false;
 if ($tours_employee->num_rows == 0) {
@@ -49,7 +48,7 @@ FROM flight_ticket,
 FROM airport AS dep, airport AS arr, flight 
 WHERE flight.departure_airport = dep.airport_id AND flight.arrival_airport = arr.airport_id
 ) AS res 
-WHERE flight_ticket.customer_id = 1 AND res.flight_id = flight_ticket.flight_id";
+WHERE flight_ticket.customer_id = $user_id AND res.flight_id = flight_ticket.flight_id";
 $flight_result = $mysqli->query($query);
 
 $flight_empty = true;

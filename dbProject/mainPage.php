@@ -1,5 +1,6 @@
 <?php
 // include("./components/categories.php");
+include("./components/navbar.php");
 ?>
 <!DOCTYPE html>
 <html>

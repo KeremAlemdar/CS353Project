@@ -19,11 +19,11 @@
   <?php
   include("../connection/checkSession.php");
 
-$_SESSION["employee_activity_select_array"] = array();
-$_SESSION["employee_room_select"] = 0;
-$_SESSION["employee_account_select"] = 0;
-$_SESSION["employee_tour_select"] = 0;
-$_SESSION["employee_tour_select_amp"] = 0;
+  $_SESSION["employee_activity_select_array"] = array();
+  $_SESSION["employee_room_select"] = 0;
+  $_SESSION["employee_account_select"] = 0;
+  $_SESSION["employee_tour_select"] = 0;
+  $_SESSION["employee_tour_select_amp"] = 0;
 
 
   ?>
@@ -68,6 +68,8 @@ $_SESSION["employee_tour_select_amp"] = 0;
     <a href="./Reservation/MakeReservation.php">Reservation List</a>
     <a href="./Reservation/reservationAccept.php"> Tour Reservations Acceptance</a>
     <a href="./Reservation/reservationAcceptHotel.php"> Hotel Reservations Acceptance</a>
+    <a href="../logout.php">Logout</a>
+
   </div>
 
 

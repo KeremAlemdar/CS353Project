@@ -1,12 +1,11 @@
 <?php
 include("./connection/checkSession.php");
-//$user_id = $_SESSION['user_id'];
-$user_id = 1;
+$user_id = $_SESSION['user_id'];
 
 $date = date("Y/m/d");
 
 //HOTEL
-$query = "SELECT * FROM customer_reserve NATURAL JOIN reservation_hotel NATURAL JOIN Hotel WHERE customer_id = 1 AND acceptance_status = 0";
+$query = "SELECT * FROM customer_reserve NATURAL JOIN reservation_hotel NATURAL JOIN Hotel WHERE customer_id = $user_id AND acceptance_status = 0";
 $hotel_id_result = $mysqli->query($query);
 $employee_reserve_hotel = false;
 
@@ -16,7 +15,7 @@ if ($hotel_id_result->num_rows > 0) {
 }
 
 //TOUR
-$query = "SELECT * FROM customer_reserve NATURAL JOIN reservation_tour NATURAL JOIN tour WHERE customer_id = 1 AND acceptance_status = 0";
+$query = "SELECT * FROM customer_reserve NATURAL JOIN reservation_tour NATURAL JOIN tour WHERE customer_id = $user_id AND acceptance_status = 0";
 
 $tours = $mysqli->query($query);
 $tour_empty = false;

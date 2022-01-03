@@ -3,7 +3,6 @@ include("./connection/checkSession.php");
 $tour_id =  isset($_POST['tour_id']) ? $_POST['tour_id'] : "";
 $reservation_id =  isset($_POST['reservation_id']) ? $_POST['reservation_id'] : "";
 $user_id =  isset($_SESSION['user_id']) ? $_SESSION['user_id'] : "";
-$user_id = 1; // FOR TEST PURPOSES
 $query = "DELETE FROM `reservation_tour` WHERE `reservation_tour`.`reservation_id` = $reservation_id AND `reservation_tour`.`tour_id` = $tour_id";
 echo $query;
 if ($result = $mysqli->query($query)) {
