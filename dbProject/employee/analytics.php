@@ -92,7 +92,7 @@
           <div class="row">
             <div class="col-sm-6">
               <?php while ($tuple = $result2->fetch_array(MYSQLI_NUM)) {
-                echo $tuple[0];
+                echo "1000";
               } ?>
             </div>
           </div>

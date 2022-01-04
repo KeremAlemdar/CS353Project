@@ -143,6 +143,17 @@ $result = $mysqli->query($query);
         .comment {
             display: flex;
         }
+        .activity_blank {
+            display: flex;
+            flex-direction: column;
+            width: 25%;
+        }
+        .obj {
+            width: 10%;
+        }
+        .objj {
+            width: 10%;
+        }
     </style>
     <title>Tour Name</title>
 </head>
@@ -277,17 +288,22 @@ $result = $mysqli->query($query);
                                             <?php echo $tuple[6] ?>
                                         </div>
                                     </div>
-                                    <div><?php echo $tuple[2] ?>
+                                    <div>
+                                        <?php echo $tuple[2] ?>
                                     </div>
                                 </div>
-                                <label>
-                                    <input type="hidden" name="activities[]" value=<?php echo $tuple[0] ?> />
-                                </label>
-                                <br />
-                                <label>Enter number of people &nbsp
-                                    <input type="number" name="numberOfActivity[]" value=0 />
-                                </label>
-                                <br />
+                                <div class="activity_blank">
+                                    <div class="obj">
+                                        <label>
+                                            <input type="hidden" name="activities[]" value=<?php echo $tuple[0] ?> />
+                                        </label>
+                                    </div>
+                                    <div class="objj">
+                                        <label>Enter number of people &nbsp
+                                            <input type="number" name="numberOfActivity[]" value=0 />
+                                        </label>
+                                    </div>
+                                </div>
                             <?php
                             }
                             ?>

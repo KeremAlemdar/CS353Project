@@ -47,7 +47,7 @@ $(document).ready(function(){
 			<div class="table-title">
 				<div class="row">
 					<div class="col-sm-6">
-						<h2>Manage <b>Hotels</b></h2>
+						<h2>Manage <b>Hotels Reservation Acceptance</b></h2>
 					</div>
 				</div>
 			</div>

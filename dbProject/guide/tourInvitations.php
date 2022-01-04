@@ -59,7 +59,7 @@
         <div class="table-title">
           <div class="row">
             <div class="col-sm-6">
-              <h2>Manage <b>Tours</b></h2>
+              <h2>Manage <b>Tour Invitations</b></h2>
             </div>
 
           </div>
