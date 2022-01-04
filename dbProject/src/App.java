@@ -207,7 +207,7 @@ public class App {
             stmt.executeUpdate(sql);
             System.out.println("customer table created!");
 
-            sql = "CREATE TABLE Employee " +
+            sql = "CREATE TABLE employee " +
             "(employee_id INT(12), " +
             " PRIMARY KEY ( employee_id ), " +
             " FOREIGN KEY (employee_id) REFERENCES account(user_id) ON DELETE CASCADE) " +

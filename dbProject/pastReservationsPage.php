@@ -270,21 +270,21 @@ if ($guide_result->num_rows > 0) {
                 <div class="hotel">
                     <div class="hotel_img">
                         <a href='./hotelDisplay.php?id=<?php echo $tuple[0] ?>'>
-                            <img src='./img/<?php echo $tuple[13] ?>' />
+                            <img src='./img/<?php echo $tuple[12] ?>' />
                         </a>
                     </div>
                     <div class="hotels">
                         <div>
                             <h2>
-                                <?php echo $tuple[9], ",  ",  $tuple[10] ?>
+                                <?php echo $tuple[8], ",  ",  $tuple[9] ?>
                             </h2>
                         </div>
                         <div>
                             <h3>
                                 <?php
-                                echo " First day: ", $tuple[7];
+                                echo " First day: ", $tuple[6];
                                 echo "<br></br>";
-                                echo " Last day: ", $tuple[8];
+                                echo " Last day: ", $tuple[7];
                                 echo "<br></br>";
                                 echo $tuple[6], " customers"; ?>
                             </h3>
@@ -365,23 +365,23 @@ if ($guide_result->num_rows > 0) {
                 <div class="tour">
                     <div class="tour_img">
                         <a href='./tourDetails.php?id=<?php echo $tuple[0] ?>'>
-                            <img src='./img/<?php echo $tuple[9] ?>' />
+                            <img src='./img/<?php echo $tuple[8] ?>' />
                         </a>
                     </div>
                     <div class="tours">
                         <div>
                             <h2>
-                                <?php echo $tuple[10]  ?>
+                                <?php echo $tuple[9]  ?>
                             </h2>
                         </div>
                         <div>
                             <h3>
                                 <?php
-                                echo " First day: ", $tuple[6];
+                                echo " First day: ", $tuple[5];
                                 echo "<br></br>";
-                                echo " Last day: ", $tuple[7];
+                                echo " Last day: ", $tuple[6];
                                 echo "<br></br>";
-                                echo $tuple[5], " customers"; ?>
+                                echo $tuple[4], " customers"; ?>
                             </h3>
                         </div>
                     </div>

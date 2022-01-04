@@ -49,8 +49,13 @@
   WHERE hotel_id IN (SELECT hotel_id FROM `reservation_hotel` WHERE `start_date` BETWEEN '2018-01-01' AND '2022-01-02' 
   AND MONTH(`start_date`) NOT BETWEEN 3 AND 11) AND city = 'Ankara'";
   $result = $mysqli->query($query);
-  ?>
 
+
+  $query = "SELECT sum(A.sumActi + B.sumtot) FROM (SELECT sum(price * count) as sumActi FROM reservation_tour_activity NATURAL JOIN activity NATURAL JOIN tour_activity WHERE `date`BETWEEN '2021-10-01' AND '2021-11-01') as A, (SELECT SUM(cost * amount_of_people) AS sumtot FROM tour NATURAL JOIN reservation_tour WHERE tour_id IN (SELECT tour_id FROM `reservation_tour` WHERE `start_date` BETWEEN '2021-10-01' AND '2021-11-01' )) as B;";
+  $result2 = $mysqli->query($query);
+
+  
+  ?>
 </head>
 
 <body>
@@ -77,6 +82,16 @@
           <div class="row">
             <div class="col-sm-6">
               <?php while ($tuple = $result->fetch_array(MYSQLI_NUM)) {
+                echo $tuple[0];
+              } ?>
+            </div>
+          </div>
+        </div>
+        <div class="table-title">
+          <h2> <b> 2021 October Revenue coming from activities tours and hotels</b></h2>
+          <div class="row">
+            <div class="col-sm-6">
+              <?php while ($tuple = $result2->fetch_array(MYSQLI_NUM)) {
                 echo $tuple[0];
               } ?>
             </div>

@@ -114,6 +114,9 @@ $(document).ready(function(){
 							<a href=\"./selectGuide.php?id=".$accountID."\" style=\"color: #28A745 \" >
 								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Select\">&#xe5ca;</i>
 							</a>\n
+							<a href=\"./displayGuideComments.php?id=".$accountID."\" style=\"color: #28A745 \" >
+								<i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Guide Comments\">&#xe8d2;</i>
+							</a>\n
 
 							</td></tr>");
 							
